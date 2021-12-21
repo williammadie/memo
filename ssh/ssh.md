@@ -1,0 +1,41 @@
+# SSH
+
+## Generate private/public key
+
+The keys are generated in `/home/<user>/.ssh`
+
+```bash
+ssh-keygen
+```
+View of the `/home/<user>/.ssh` folder:
+```
+.ssh
+├── id_rsa
+├── id_rsa.pub
+└── known_hosts
+```
+<center>
+
+| Files      |      Content  |
+|:-----------|:-------------:|
+| id_rsa     |  private key  | 
+| id_rsa.pub |  public key   |
+
+</center>
+
+## Public & Private keys mechanism
+
+- The public key is used by the server **to encrypt a message**
+- The private key is used the client **to decrypt the message**
+
+![img_1](/ssh/resources/public-private-keys.png)
+
+## SSH Client & Server connection
+
+1. At each and every connection, the client sends his public key to the server.
+2. The server matches the client's public key with all the public keys it knows.
+3. The server generates a random numbe and sends it in an encrypted message (with the correct public key).
+4. The client decrypts the message with the private key and calculates the MD5 hash value of the message. Then it returns the value to the server. The server checks that its value and the client's one are the same.
+5. If the values are the same, it means that the client has the corresponding private key. The authentication is complete.
+
+![img_2](/ssh/resources/ssh-client-server.png)
