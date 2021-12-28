@@ -1,6 +1,8 @@
 # SSH
 
-## Generate private/public key
+## Connection
+
+### Generate private/public key
 
 The keys are generated in `/home/<user>/.ssh`
 
@@ -23,14 +25,14 @@ View of the `/home/<user>/.ssh` folder:
 
 </center>
 
-## Public & Private keys mechanism
+### Public & Private keys mechanism
 
 - The public key is used by the server **to encrypt a message**
 - The private key is used the client **to decrypt the message**
 
 ![img_1](/ssh/resources/public-private-keys.png)
 
-## SSH Client & Server connection
+### SSH Client & Server connection
 
 1. At each and every connection, the client sends his public key to the server.
 2. The server matches the client's public key with all the public keys it knows.
@@ -39,3 +41,15 @@ View of the `/home/<user>/.ssh` folder:
 5. If the values are the same, it means that the client has the corresponding private key. The authentication is complete.
 
 ![img_2](/ssh/resources/ssh-client-server.png)
+
+## SSH useful commands
+
+### scp
+
+To copy a file `from the server to the client's machine`, we can use the **scp** command. It takes 2 arguments : 
+
+1. The path of the server's file we want to copy 
+2. The path of the local folder we want to paste the new file
+```bash
+scp infile outfolder
+```
