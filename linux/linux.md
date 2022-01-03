@@ -1,4 +1,6 @@
-# Linux commands
+# Linux
+
+[User](user)
 
 ## User
 
@@ -34,3 +36,17 @@ Options used here:
 |:-----------------------------------------------------------------:|:--------------------------------------------------------:|
 | runs the commands in **a new shell process** which is then closed | runs the commands in **the current shell process**       |
 | **does not change the environment** in the current running shell  | **changes the environment** in the current running shell |
+
+
+## Config of WSL
+
+### Java
+
+1. Install IntelliJ in Windows
+2. Install the SDK (Software Development Kit) in the WSL
+
+`sudo apt update && sudo apt update`
+
+`sudo apt install default-jdk`
+
+`java -version`
