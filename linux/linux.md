@@ -45,8 +45,33 @@ Options used here:
 1. Install IntelliJ in Windows
 2. Install the SDK (Software Development Kit) in the WSL
 
-`sudo apt update && sudo apt update`
+```bash
+sudo apt update && sudo apt update
+```
 
-`sudo apt install default-jdk`
+```bash
+sudo apt install default-jdk
+```
 
-`java -version`
+```bash
+java -version
+```
+
+### MySQL
+
+1. Install mysql-server
+```bash
+sudo apt install mysql-server
+```
+2. Launch the secure installation
+```bash
+sudo mysql_secure_installation
+```
+3. Start mysql
+```bash
+sudo service mysql start
+```
+4. If there is a problem, try :
+```bash
+sudo service mysql force-reload
+```
