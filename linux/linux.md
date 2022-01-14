@@ -40,6 +40,23 @@ Options used here:
 
 ## Config of WSL
 
+### General
+
+
+
+```bash
+sudo apt install man
+sudo apt install wget
+```
+### Gcc
+
+```bash
+sudo apt update && sudo apt update
+sudo apt autoremove
+sudo apt install gcc
+gcc --version
+```
+
 ### Java
 
 1. Install IntelliJ in Windows
@@ -47,13 +64,8 @@ Options used here:
 
 ```bash
 sudo apt update && sudo apt update
-```
-
-```bash
+sudo apt autoremove
 sudo apt install default-jdk
-```
-
-```bash
 java -version
 ```
 
