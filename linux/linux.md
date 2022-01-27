@@ -62,6 +62,23 @@ easy escape**. You start to think that your computer is evil and lured you into 
 
 ## Config of WSL
 
+### General
+
+
+
+```bash
+sudo apt install man
+sudo apt install wget
+```
+### Gcc
+
+```bash
+sudo apt update && sudo apt update
+sudo apt autoremove
+sudo apt install gcc
+gcc --version
+```
+
 ### Java
 
 1. Install IntelliJ in Windows
@@ -69,13 +86,8 @@ easy escape**. You start to think that your computer is evil and lured you into 
 
 ```bash
 sudo apt update && sudo apt update
-```
-
-```bash
+sudo apt autoremove
 sudo apt install default-jdk
-```
-
-```bash
 java -version
 ```
 
