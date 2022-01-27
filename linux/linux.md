@@ -1,7 +1,5 @@
 # Linux
 
-[User](user)
-
 ## User
 
 List of users and passwords
@@ -27,6 +25,30 @@ Options used here:
 - -n show the line number in the file
 - -w match the whole word
 - -e pattern use during the search
+
+## Shortcuts
+
+- Switch to another desktop: `CTRL` + `ALT` + `ARROW`
+- Pass a window on the second screen: `WINDOWS` + `SHIFT` + `ARROW`
+
+## The legendary VIM Editor
+
+```bash
+vim fileIwant2edit
+#or
+vi fileIwant2edit
+```
+
+Inside vim, you can easily get panicked once you've realised there is **no
+easy escape**. You start to think that your computer is evil and lured you into this trap. But don't worry, it is not the case ! Here are the commands that will save your life:
+
+ - Look for a word or several words in the file:
+`/` + `pattern`
+
+ - Switch to the edition mode: `i`
+ - Save and exit: `ESCP` + `:wq!`
+ - Exit without saving: `ESCP` + `:q!`
+
 
 ## Scripts
 

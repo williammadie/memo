@@ -44,6 +44,18 @@ View of the `/home/<user>/.ssh` folder:
 
 ## SSH useful commands
 
+### ssh connection
+
+In order to connect to the server through SSH, you'll need to register your **public key** in the set
+of keys known by the server. (*see part above*). After that, you'll be able to connect to the server by typing:
+
+```bash
+ssh username@hostname
+```
+
+- **username** is your username on the server.
+- **hostname** is the name of the server
+
 ### scp
 
 To copy a file `from the server to the client's machine`, we can use the **scp** command. It takes 2 arguments : 
