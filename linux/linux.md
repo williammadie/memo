@@ -13,8 +13,14 @@ List of users' hash passwords (**SHA512**)
 ```bash
 sudo cat /etc/shadow
 ```
+## Useful commands 
+### Query on a linux filesystem
 
-## Query on a linux filesystem
+Search for a file in a folder and all its subdirectories
+```bash
+find . -name 'nom_fichier_à_chercher'
+```
+(The . refers to the current locatiton/directory)
 
 Search a specific text in a file:
 ```bash
@@ -26,12 +32,24 @@ Options used here:
 - -w match the whole word
 - -e pattern use during the search
 
+See how many files are present in a directory
+```bash
+ls | wc -l
+```
+
+See how many files are present in a directory and in its subdirectories
+```bash
+find . -type f | wc -l
+```
+
 ## Shortcuts
 
 - Switch to another desktop: `CTRL` + `ALT` + `ARROW`
 - Pass a window on the second screen: `WINDOWS` + `SHIFT` + `ARROW`
 
 ## The legendary VIM Editor
+
+### Commands
 
 ```bash
 vim fileIwant2edit
@@ -46,9 +64,17 @@ easy escape**. You start to think that your computer is evil and lured you into 
 `/` + `pattern`
 
  - Switch to the edition mode: `i`
+ - Select the whole line: `V`
+ - Copy: `Y`
+ - Paste: `P`
  - Save and exit: `ESCP` + `:wq!`
  - Exit without saving: `ESCP` + `:q!`
 
+### Config
+
+It is possible to add functionalities to the Vim Editor by changing settings 
+inside the `.vimrc` file. (In most cases, it is not present by default and you
+have to create it in `~/.vimrc`)
 
 ## Scripts
 
