@@ -52,7 +52,18 @@ object1 = map(lambda x: os.path.exists(x), my_iterable)
 object2 = filter(lambda x: x is not None, object1)      #After this operation, the content of object1 will no longer exists
 ```
 
-## Scraping
+## Scraping & Parsing
+
+### Libraries
+
+```bash
+pip3 install html5lib
+pip3 install lxml
+pip3 install requests
+pip3 install bs4
+```
+
+### Scraping
 
 Send a HTTP request to a website and get the code response:
 ```python
@@ -60,6 +71,17 @@ from requests import get
 url = 'https://www.imdb.com/search/title?release_date=2017&sort=num_votes,desc&page=1'
 response = get(url)
 ```
+
+### Parsing
+
+Get the tables from a website:
+```python
+import pandas as pd
+import numpy as np
+
+pd.read_html(file_path) #file_path can be replaced by a URL
+```
+
 
 ## Knowledge
 
