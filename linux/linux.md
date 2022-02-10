@@ -1,5 +1,22 @@
 # Linux
 
+## Table of Contents
+
+- [User](#user)
+- [Useful commands](#useful-commands)
+    - [Query on a linux filesystem](#query-on-a-linux-filesystem)
+- [Shortcuts](#shortcuts)
+- [The Legendary VIM Editor](#the-legendary-vim-editor)
+    - [Differences between VIM and VI](#differences-between-vim-and-vi)
+    - [Commands](#commands)
+    - [Config](#config)
+- [Scripts](#scripts)
+    [Executing a script & Sourcing a script](#executing-a-script--sourcing-a-script)
+- [Config of WSL](#config-of-wsl)
+    - [General](#general)
+    - [GCC](#gcc)
+    - [Java](#java)
+    - [MySQL](#mysql)
 ## User
 
 List of users and passwords
@@ -49,6 +66,11 @@ find . -type f | wc -l
 
 ## The legendary VIM Editor
 
+### Differences between VIM and VI
+
+VIM is a text editor built on top of VI. It litteraly means **VI iMproved**. VIM offers a lot more features than VI. It is also more used than VI because it is a free text editor (free as a speech)
+
+
 ### Commands
 
 ```bash
@@ -60,15 +82,20 @@ vi fileIwant2edit
 Inside vim, you can easily get panicked once you've realised there is **no
 easy escape**. You start to think that your computer is evil and lured you into this trap. But don't worry, it is not the case ! Here are the commands that will save your life:
 
- - Look for a word or several words in the file:
+- Look for a word or several words in the file:
 `/` + `pattern`
 
- - Switch to the edition mode: `i`
- - Select the whole line: `V`
- - Copy: `Y`
- - Paste: `P`
- - Save and exit: `ESCP` + `:wq!`
- - Exit without saving: `ESCP` + `:q!`
+- Switch to the edition mode: `i`
+- Select the whole line: `V`
+- Copy: `Y`
+- Paste: `P`
+- Save and exit: `ESCP` + `:wq!`
+- Exit without saving: `ESCP` + `:q!`
+
+Only in VIM:
+
+- Open a new file: `:e`
+- Switch to another opened file: `:b`
 
 ### Config
 

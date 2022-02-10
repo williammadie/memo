@@ -1,5 +1,19 @@
 # Python
 
+## Table of Contents
+
+- [Basic File Manipulations](#basic-file-manipulations)
+- [Amazing Tools](#amazing-tools)
+    - [Zip](#zip)
+    - [Unzip](#unzip)
+    - [Any](#any)
+    - [All](#all)
+    - [Map Objects](#map-objects)
+- [Scraping & Parsing](#scraping--parsing)
+    - [Libraries](#libraries)
+    - [Scraping](#scraping)
+    - [Parsing](#parsing)
+
 ## Basic file manipulations
 
 Get the content of a directory and its subdirectories
@@ -15,8 +29,8 @@ for root, dirs, files in os.walk(target_dir):
 
 Get the path of a file located in the project directory
 ```python
-os.path.join(os.path.dirname(__file__), 'my_data_file.json')
->>> '.../my_project/my_data_file.json
+>>> os.path.join(os.path.dirname(__file__), 'my_data_file.json')
+'.../my_project/my_data_file.json
 ```
 
 ```
@@ -25,8 +39,81 @@ my_project
 ├── file2.py
 └── my_data_file.json
 ```
+## Amazing Tools
 
-## Map objects
+### Zip
+
+The **Zip** function is a built-in function that returns a iterator made from n iterables. The returned iterator is composed of tuples. Each ith tuple is composed of elements from the ith rank of each iterable.
+
+Example:
+```python
+>>>fruits = ['Bananas', 'Lemons', 'Strawberries']
+>>>numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>>list(zip(fruits, numbers))
+[('Bananas', 1), ('Lemons', 2), ('Strawberries', 3)]
+```
+
+We can also spot that the zip function stops at the end of the shortest iterable. If we want to stop at the end of the longest
+iterable, we can use the **zip_longest()** function from the *itertools* module.
+
+One of the most common use cases for the Zip function is to traverse lists in parallel.
+
+Example:
+```python
+>>>fruits = ['Bananas', 'Lemons', 'Strawberries']
+>>>numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+for f, n in zip(fruits, numbers):
+    print(f"{f} and {n}")
+Bananas and 1
+Lemons and 2
+Strawberries and 3
+```
+
+### Unzip
+
+The **Zip** function is also used for unzipping iterables of tuples. We simply need to add the *unpacking operator: \**.
+```python
+>>>it = [("French", 1), ("German", 2), ("Russian", 3)]
+>>>nationalities, numbers = zip(*it)
+>>>nationalities
+("French", "German", "Russian")
+>>>numbers
+(1, 2, 3)
+```
+
+### Any
+
+The **Any** function checks if **any elements** in an iterable is **true**. It is incredibely useful when you have to check if only a single element meets a requirement. 
+
+If only *one element* meets the requirement, the function will return True.
+
+```python
+>>> any([False, False, False])
+False
+>>> any([False, True, False])
+True
+```
+
+### All
+
+The **All** function checks if **all elements** in an iterable are **true**. It is incredibely useful when you have to check if a n elements meet a requirement. 
+
+If only *one element* doesn't meet the requirement, the function will return False.
+
+```python
+>>> all([True, True, True])
+True
+>>> all([True, True, False])
+False
+```
+
+For instance, the following block of code is building a list of dates from a dictionary. Then, it checks if each date is in a dataframe.
+
+```python
+dates = list(map(lambda x: x.split(' ')[0], exams.keys()))
+res = all([(id_random, d) in df.index for d in dates if pd.Timestamp(d) <= max_date])
+```
+### Map objects
 
 Beware of these objects. They have their very own behavior and can sometimes be
 difficult to understand. **Map objects** are created after a `map()` function
