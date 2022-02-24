@@ -30,7 +30,7 @@ View of the `/home/<user>/.ssh` folder:
 - The public key is used by the server **to encrypt a message**
 - The private key is used the client **to decrypt the message**
 
-![img_1](/ssh/resources/public-private-keys.png)
+![img_1](/networks/ssh/resources/public-private-keys.png)
 
 ### SSH Client & Server connection
 
@@ -40,7 +40,7 @@ View of the `/home/<user>/.ssh` folder:
 4. The client decrypts the message with the private key and calculates the MD5 hash value of the message. Then it returns the value to the server. The server checks that its value and the client's one are the same.
 5. If the values are the same, it means that the client has the corresponding private key. The authentication is complete.
 
-![img_2](/ssh/resources/ssh-client-server.png)
+![img_2](/networks/ssh/resources/ssh-client-server.png)
 
 ## SSH useful commands
 

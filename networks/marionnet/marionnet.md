@@ -19,7 +19,7 @@
 
 Pour passer d'un mode à l'autre, il faut nécessairement passer d'une bulle à l'autre. Il n'est pas possible de passer directement du mode **consultation** au mode **configuration interface**.
 
-![img_1](/marionnet/resources/routeur.jpg)
+![img_1](/networks/marionnet/resources/routeur.jpg)
 
 Le mode **consultation** est le mode par défaut.
 

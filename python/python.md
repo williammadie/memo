@@ -4,6 +4,8 @@
 - [Python Package Index PIP](#python-package-index-pip)
     - [What is PIP ?](#what-is-pip)
     - [PIP commands](#pip-commands)
+- [Python for Scripting](#python-for-scripting)
+    - [Call the script](#call-the-script)
 - [Basic Objects](#basic-objects)
     - [List](#list)
 - [Basic File Manipulations](#basic-file-manipulations)
@@ -61,6 +63,51 @@ Lists all versions available
 ```bash
 pip3 install package-name==
 ```
+## Python for Scripting
+
+### Call the script
+
+In order to call a python script and to be able to give it arguments, we use the **argparse** and the **sys** modules.
+
+```python
+import argparse
+import sys
+
+def main(argv):
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-i",
+        "--indir",
+        type=str,
+        help="Path of the input directory",
+        required=True)
+
+    parser.add_argument(
+        "-o",
+        "--outdir",
+        type=str,
+        help="Path of the output directory",
+        required=True)
+
+    parser.set_defaults(func=do_job)
+
+    # calling handlers
+    func = None
+    try:
+        args = parser.parse_args()
+        func = args.func
+    except AttributeError:
+        parser.print_help()
+    if func is not None:
+        args.func(args, parser)
+
+def do_job(args, *other):
+    job(indir=args.indir, outdir=args.outdir)
+
+if __name__ == '__main__':
+    main(sys.argv)
+```
+
 
 ## Basic Objects
 
