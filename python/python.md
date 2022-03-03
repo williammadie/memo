@@ -6,7 +6,10 @@
     - [PIP commands](#pip-commands)
 - [Python for Scripting](#python-for-scripting)
     - [Call the script](#call-the-script)
-- [Basic Objects](#basic-objects)
+    - [Get rid of python](#get-rid-of-python)
+    - [Keep running](#keep-running)
+- [Basic Objects and Functions](#basic-objects-and-functions)
+    - [Print](#print)
     - [List](#list)
 - [Basic File Manipulations](#basic-file-manipulations)
 - [Amazing Tools](#amazing-tools)
@@ -108,8 +111,88 @@ if __name__ == '__main__':
     main(sys.argv)
 ```
 
+### Get rid of python
 
-## Basic Objects
+It can be pretty heavy to have to specify the **python** keyword  everytime you want to launch your script. `python3 hello.py` I agree. 
+In fact, there is a way of getting rid of it.
+
+```python
+#!/usr/bin/env python3
+```
+```bash
+chmod +x hello.py
+```
+By adding this line - called a ***shebang line*** - at the very beginning of our file (before the import section) and by adding the **execution rights** to your executable, you can achieve that.
+
+Now you'll be able to call your script like the following:
+```bash
+/path/to/hello.py
+```
+
+The ***shebang line*** acts like a script doorkeeper. At launch, the OS will come and ask the doorkeeper how he can use the script. The doorkeeper will show him the path of the *proper excutable* (here the python executable) required to use the script. For instance, this is also used in **bash**.
+
+No more `python` !
+
+### Keep running
+
+When you program in Python, you'll always want to do things like run a script **in background** or make a script run **even when you're not connected**.
+
+Here is the command you're looking for. When the `&` is indicated, the script will run in the background. We say that it is **detached** from your terminal.
+```bash
+python3 coucou.py &
+```
+
+If you want that the script keeps running even if you close the terminal, you can use the linux `nohup` keyword. Of course, you can
+precise where the logs must be written:
+```bash
+nohup python3 coucou.py > /path/to/output.log
+```
+
+Keep in mind that everything can be used together:
+```bash
+nohup /path/to/hello.py > /path/to/output.log &
+```
+
+## Basic Objects and Functions
+
+### Print
+
+In Python, we use the **print** function to prompt information to the user.
+
+```python
+>>> print()     # returns '\n'
+
+
+>>> print('Hello world!')
+'Hello world!'
+
+>>> print('Hello', 'world', '!') # prints 'Hello world !\n'
+'Hello world !'
+```
+
+By default, the **print** function behaves like if it was called with the `sep`
+arguments:
+
+```python
+>>> print('Hello', 'world', '!')
+>>> print('Hello', 'world', '!', sep=' ')
+'Hello world !'
+```
+
+By default, the **print** function automatically adds a ***newline character***
+at the end of the last str:
+
+```python
+>>> print('Hello', 'world', '!') # returns 'Hello world !\n'
+'Hello world !'
+```
+
+To remove the ***newline character*** with can use the `end` argument:
+
+```python
+>>> print('Hello', 'world', '!', end='') # returns 'Hello world !' with no '\n'
+'Hello world !'
+```
 
 ### List
 
