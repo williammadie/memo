@@ -32,6 +32,11 @@ docker login --username=my_username
 
 ### Images
 
+Build a Docker image (need to be in the Dockerfile directory)
+```bash
+docker build . -t my_image_name
+```
+
 Show all downloaded/local images
 ```bash
 docker images
@@ -64,11 +69,6 @@ Show all (active and inactive) Docker containers
 docker ps -a
 ```
 
-Build a Docker container
-```bash
-docker build .
-```
-
 Run a Docker container
 ```bash
 docker run --name=container_name -it image_name cmd
@@ -77,6 +77,11 @@ docker run --name=container_name -it image_name cmd
 Run a detached Docker container
 ```bash
 docker run --name=container_name -d image_name
+```
+
+Rename a Docker container
+```bash
+docker rename old_container_name new_container_name
 ```
 
 Delete a specific Docker container
@@ -92,6 +97,11 @@ docker logs container_name -f
 See current settings of a Docker container
 ```bash
 docker inspect container_name
+```
+
+Get inside the container and specificly in a shell
+```bash
+docker exec -it container_magique /bin/bash
 ```
 
 ## Docker Compose
