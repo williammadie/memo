@@ -2,7 +2,21 @@
 
 ## Table of Contents
 
+- [Useful commands](#useful-commands)
 - [OSI Model](#osi-model)
+
+## Basics
+
+```bash
+route -n
+
+Table de routage IP du noyau
+Destination     Passerelle      Genmask         Indic Metric Ref    Use Iface
+0.0.0.0         192.168.7.254   0.0.0.0         UG    0      0        0 enp0s31f6
+192.168.0.0     0.0.0.0         255.255.248.0   U     0      0        0 enp0s31f6
+```
+
+Here, we can see that the **default gateway** (= 0.0.0.0) redirects to the IP address 192.168.7.254
 
 ## OSI Model
 
