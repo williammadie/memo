@@ -5,6 +5,9 @@
 - [What is Docker ?](#what-is-docker)
 - [Docker Hub](#docker-hub)
 - [Docker Commands](#docker-commands)
+    - [Auth](#auth)
+    - [Images](#images)
+    - [Containers](#containers)
 - [Docker Compose](#docker-compose)
     - [YAML Configuration Files](#yaml-configuration-files)
     - [Commands](#commands)
@@ -21,10 +24,35 @@ Docker Hub is the official repository that stores all publicly available Docker 
 
 ## Docker Commands
 
+### Auth
+
+```bash
+docker login --username=my_username
+```
+
+### Images
+
 Show all downloaded/local images
 ```bash
 docker images
 ```
+
+Delete all images
+```bash
+docker rmi -f $(docker images -a -q)
+```
+
+Tag an image (before pushing it to the Docker Hub)
+```bash
+docker tag 5bca1327c754 williammadie/cours-montreuil:num_version
+```
+
+Push an image (needs to be tagged before)
+```bash
+docker push williammadie/cours-montreuil:firsttry
+```
+
+### Containers
 
 Show active Docker containers
 ```bash
@@ -43,12 +71,17 @@ docker build .
 
 Run a Docker container
 ```bash
-docker run --name container_name -it image_name cmd
+docker run --name=container_name -it image_name cmd
 ```
 
 Run a detached Docker container
 ```bash
-docker run --name container_name -d image_name
+docker run --name=container_name -d image_name
+```
+
+Delete a specific Docker container
+```bash
+docker rm container_name
 ```
 
 See logs from a specific Docker container (-f for follow)
