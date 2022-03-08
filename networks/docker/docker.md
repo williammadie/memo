@@ -2,13 +2,15 @@
 
 ## Table of Contents
 
-- [What is Docker ?](#what-is-docker)
-- [Docker Hub](#docker-hub)
-- [Docker Commands](#docker-commands)
+- [Docker](#docker)
+  - [Table of Contents](#table-of-contents)
+  - [What is Docker ?](#what-is-docker-)
+  - [Docker Hub](#docker-hub)
+  - [Docker Commands](#docker-commands)
     - [Auth](#auth)
     - [Images](#images)
     - [Containers](#containers)
-- [Docker Compose](#docker-compose)
+  - [Docker Compose](#docker-compose)
     - [YAML Configuration Files](#yaml-configuration-files)
     - [Commands](#commands)
 
@@ -39,7 +41,7 @@ docker images
 
 Delete all images
 ```bash
-docker rmi -f $(docker images -a -q)
+docker rmi -f $(docker images -aq)
 ```
 
 Tag an image (before pushing it to the Docker Hub)
@@ -79,11 +81,22 @@ Run a detached Docker container
 docker run --name=container_name -d image_name
 ```
 
+Stop all Docker containter
+```bash
+docker stop $(docker ps -aq)
+```
+
 Delete a specific Docker container
 ```bash
 docker rm container_name
 ```
 
+Remove all Docker containter
+```bash
+docker rm $(docker ps -aq)
+```
+
+docker rm $(docker ps -aq)
 See logs from a specific Docker container (-f for follow)
 ```bash
 docker logs container_name -f
