@@ -9,6 +9,9 @@
     - [Get rid of python](#get-rid-of-python)
     - [Keep running](#keep-running)
 - [Basic Objects and Functions](#basic-objects-and-functions)
+    - [Builtin Tools](#builtin-tools)
+        - [Numbers](#numbers)
+        - [Strings](#strings)
     - [Print](#print)
     - [List](#list)
 - [Basic File Manipulations](#basic-file-manipulations)
@@ -154,6 +157,101 @@ nohup /path/to/hello.py > /path/to/output.log &
 ```
 
 ## Basic Objects and Functions
+
+### Builtin Tools
+
+#### Numbers
+
+Find the absolute value of a number.
+```python
+>>> abs(-56)
+56
+```
+
+Find the **highest number** between 2 numbers of in an iterable.
+```python
+>>> a = [0, 1, 2, 3, 4, 5]
+>>> max(a)
+5
+>>> max(1, 2)
+2
+```
+
+Find the **lowest number** between 2 numbers of in an iterable.
+```python
+>>> a = [0, 1, 2, 3, 4, 5]
+>>> min(a)
+0
+>>> min(1, 2)
+1
+```
+
+Calculate the power of a number.
+```python
+>>> pow(2, 5)
+32
+```
+
+Calculate the exponential of a number.
+```python
+>>> math.exp(3)
+20.085536923187668
+```
+
+But wait! You have imported a library in order to do this operation, this is not a builtin function!
+
+Yes, you're right: I have imported a library. However, the notion of builtin in Python is not limited to what exists without new imports. It depends on whether you need to install the library or not. If you haven't install the library, this is considered a builtin library.
+#### Strings
+
+Convert a string to uppercase.
+```python
+>>> 'What a nice car!'.upper()
+'WHAT A NICE CAR!'
+```
+
+Convert a string to lowercase.
+```python
+>>> 'WHAT A NICE CAR!'.lower()
+'What a nice car!'
+```
+
+Check if a string contains only letters (as well as special letters such as ç). Special characters and punctuation are not letters, so it will return False.
+```python
+>>> 'hey'.isalpha()
+True
+>>> 'hey1'.isalpha()
+False
+>>> 'hey, how you doin ?'.isalpha()
+False
+```
+
+Check if a string contains **positive integers** {0, 1, 2... n}
+```python
+>>> '0'.isdecimal()
+True
+>>> '0.123'.isdecimal()
+False
+>>> '-16'.isdecimal()
+False
+>>> '16'.isdecimal()
+True
+```
+
+Check if a string contains a whitespace character or a special identifier such as (`\t`, `\r`, `\n`)
+```python
+>>> "    ".isspace() # four spaces
+True
+>>> "   ".isspace() # a tab
+True
+>>> "\n".isspace() # newline
+True
+>>> "\t".isspace() # tab
+True
+>>> "\r".isspace() # carriage return
+True
+>>> "\f".isspace() # form feed
+True
+```
 
 ### Print
 
