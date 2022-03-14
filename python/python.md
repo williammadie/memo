@@ -201,6 +201,21 @@ Calculate the exponential of a number.
 But wait! You have imported a library in order to do this operation, this is not a builtin function!
 
 Yes, you're right: I have imported a library. However, the notion of builtin in Python is not limited to what exists without new imports. It depends on whether you need to install the library or not. If you haven't install the library, this is considered a builtin library.
+
+What is the difference between **math.floor()** VS **math.ceil()** VS **int()** VS **round()**?
+
+| initial value |                                 int()                                 |                      math.floor()                     |                 round()                 |                    math.ceil()                   |
+|:-------------:|:---------------------------------------------------------------------:|:-----------------------------------------------------:|:---------------------------------------:|:------------------------------------------------:|
+|       -       | rounds towards 0 (like floor for positive and like ceil for negative) | rounds towards minus infinity. Lowest possible answer | rounds to the closest possible solution | rounds towards infinity. Highest possible answer |
+|      1.0      |                                   1                                   |                          1.0                          |                   1.0                   |                        1.0                       |
+|      1.1      |                                   1                                   |                          1.0                          |                   1.0                   |                        2.0                       |
+|      1.5      |                                   1                                   |                          1.0                          |                   2.0                   |                        2.0                       |
+|      1.9      |                                   1                                   |                          1.0                          |                   2.0                   |                        2.0                       |
+|      -1.1     |                                   -1                                  |                          -2.0                         |                   -1.0                  |                       -1.0                       |
+|      -1.5     |                                   -1                                  |                          -2.0                         |                   -2.0                  |                       -1.0                       |
+|      -1.9     |                                   -1                                  |                          -2.0                         |                   -2.0                  |                       -1.0                       |
+
+
 #### Strings
 
 Convert a string to uppercase.
