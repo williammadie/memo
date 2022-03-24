@@ -15,6 +15,8 @@
     - [Print](#print)
     - [List](#list)
 - [Basic File Manipulations](#basic-file-manipulations)
+    - [Read & Write](#read-write)
+    - [Manipulate files](#manipulate-files)
 - [Amazing Tools](#amazing-tools)
     - [Zip](#zip)
     - [Unzip](#unzip)
@@ -400,6 +402,62 @@ Clears all items from a list
 []
 ```
 ## Basic file manipulations
+
+### Read & Write
+
+Read a file (Long version)
+```python
+fp = open('/path/to/mysuperfile.txt', 'r')
+lines = fp.readlines()
+fp.close()
+```
+
+Read a file (Short version)
+```python
+with open('/path/to/mysuperfile.txt', 'r') as fp:
+    lines = fp.readlines()
+```
+
+In the code block above, the **with** statement is used to automatically close the file when it finishes to use it. It is closed at the end of the block.
+
+What are the different **handling modes** for opening files?
+
+| Mode |                                                                                                                          Description                                                                                                                          |
+|:----:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|   r  |                                                                                                              Open the file in **read-only** mode.                                                                                                             |
+|  r+  |                                                                                     Open the file in **read-and-write** mode. The pointer is at the beginning of the file.                                                                                    |
+|  rb+ |                                                                  Open the file in **read-and-write** mode. The pointer is at the beginning of the file. This reads in the **binary format**.                                                                  |
+|   w  |                           Open the file in **write** mode. The pointer is at **the beginning of the file**. If the file doesn't exist, it will be created. If the file exists, its content will be overwritten with the new content.                          |
+|  w+  |                      Open the file in **read-and-write** mode. The pointer is at **the beginning of the file**. If the file doesn't exist, it will be created. If the file exists, its content will be overwritten with the new content.                      |
+|  wb+ |   Open the file in **read-and-write** mode. The pointer is at **the beginning of the file**. If the file doesn't exist, it will be created. If the file exists, its content will be overwritten with the new content. This reads in the  **binary format**.   |
+|   a  |                         Open the file in **write** mode. The pointer is at **the end of the file**. If the file doesn't exist, it will be created. If the file exists, the new content will be added at the end. (Does not overwrite).                        |
+|  a+  |                    Open the file in **read-and-write** mode. The pointer is at **the end of the file**. If the file doesn't exist, it will be created. If the file exists, the new content will be added at the end. (Does not overwrite).                    |
+|  ab+ | Open the file in **read-and-write** mode. The pointer is at **the end of the file**. If the file doesn't exist, it will be created. If the file exists, the new content will be added at the end. (Does not overwrite). This reads in the  **binary format**. |
+|   x  |                      (Introduced in Python3). Open the file in **exclusive-creation-write** mode. If the file doesn't exist, it will be created. If the file exists, it will do nothing. (Useful to avoid accidentally modifying files).                      |
+|  x+  |                  (Introduced in Python3). Open the file in **exclusive-creation-read-and-write** mode. If the file doesn't exist, it will be created. If the file exists, it will do nothing. (Useful to avoid accidentally modifying files).                 |
+|  xb+ |   (Introduced in Python3). Open the file in **exclusive-read-and-write** mode. If the file doesn't exist, it will be created. If the file exists, it will do nothing. (Useful to avoid accidentally modifying files). This reads in the  **binary format** .  |
+
+### Manipulate files
+
+Build a path relying in the operating system's separators directly
+```python
+>>> os.path.join('dev', 'bin', 'mylog.log')
+'/dev/bin/mylog.log'    # Linux
+```
+
+Get the name of the file at the end of a given filepath
+```python
+>>> f = '/dev/bin/mylog.log'
+>>> os.path.basename(f)
+'mylog.log'
+```
+
+Get the parent directory's path of a file
+```python
+>>> f = '/dev/bin/mylog.log'
+>>> os.path.dirname(f)
+'/dev/bin'
+```
 
 Get the content of a directory and its subdirectories
 ```python
