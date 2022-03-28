@@ -1,6 +1,17 @@
-# SSH
+# SSH (Secure Shell Protocol)
 
-## Connection
+## Table of Contents
+
+- [How does it work ?](#how-does-it-work)
+    - [Generate private/public keys](#generate-privatepublic-key)
+    - [Public & Private keys mechanism](#public--private-keys-mechanism)
+    - [SSH Client & Server connection](#ssh-client--server-connection)
+- [SSH useful commands](#ssh-useful-commands)
+    - [SSH connection](#ssh-connection)
+    - [scp](#scp)
+- [FTP & SFTP](#ftp--sftp)
+
+## How does it work ?
 
 ### Generate private/public key
 
@@ -44,7 +55,7 @@ View of the `/home/<user>/.ssh` folder:
 
 ## SSH useful commands
 
-### ssh connection
+### SSH connection
 
 In order to connect to the server through SSH, you'll need to register your **public key** in the set
 of keys known by the server. (*see part above*). After that, you'll be able to connect to the server by typing:
@@ -65,3 +76,20 @@ To copy a file `from the server to the client's machine`, we can use the **scp**
 ```bash
 scp infile outfolder
 ```
+
+## SFTP
+
+***SFTP*** stands for ***Secure shell File Transfer Protocol***. SFTP is a component of an SSH protocols which aims at transferring files over SSH.
+
+WARNING: It must not be confused with ***FTP*** wich is a proper protocol over *SSL* (*Secure Sockets Layer*). Unlike SFTP, FTP **is not** based on SSH. It uses its own port (Port 20/21)
+
+![img_3](/networks/ssh/resources/sftp-ftp.png)
+
+Here is a quick comparison between FPT and SFTP:
+
+|                         FTP                         |                                                        SFTP                                                        |   |   |   |
+|:---------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------:|---|---|---|
+|          Uploads data without any security          | Provides full security to the data by relying on the SSH protocol. It also uses SSH keys to provide authentication |   |   |   |
+|             Anyone can access the server            |             SFTP can be accessed by only server owner as port 22 is not open in case of shared hosting             |   |   |   |
+| Not encrypted because FTP is anonymously accessible |                          Before sending it to another host, SFTP encrypts the information                          |   |   |   |
+|                     Uses Port 21                    |                                                    Uses Port 22                                                    |   |   |   |

@@ -55,12 +55,19 @@ A **public-oriented VPN** encrypts the user's data between his device and the VP
 
 ![img_4](/networks/proxy/resources/common-vpn.jpg)
 
+## VPN vs Expressroute
+
+A `VPN` uses the Internet to transfer information between 2 points.
+An `Expressroute` uses its own fiber network to transfer information between 2 points.
+
+![img_5](/networks/proxy/resources/vpn-expressroute.png)
+
 ## Recap
 
 - A proxy can be used to **quickly and anonymously** retrieve data from the Internet.
 - A VPN can be used to **safely browse the Internet from public networks** or/and to stay hidden from **ISPs, hackers, governments..**.
 
-![img_5](/networks/proxy/resources/proxy_vpn_nothing.jpg)
+![img_6](/networks/proxy/resources/proxy_vpn_nothing.jpg)
 
 
 

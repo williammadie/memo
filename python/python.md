@@ -9,9 +9,14 @@
     - [Get rid of python](#get-rid-of-python)
     - [Keep running](#keep-running)
 - [Basic Objects and Functions](#basic-objects-and-functions)
+    - [Builtin Tools](#builtin-tools)
+        - [Numbers](#numbers)
+        - [Strings](#strings)
     - [Print](#print)
     - [List](#list)
 - [Basic File Manipulations](#basic-file-manipulations)
+    - [Read & Write](#read-write)
+    - [Manipulate files](#manipulate-files)
 - [Amazing Tools](#amazing-tools)
     - [Star operator](#star-operator)
     - [Zip](#zip)
@@ -156,6 +161,116 @@ nohup /path/to/hello.py > /path/to/output.log &
 
 ## Basic Objects and Functions
 
+### Builtin Tools
+
+#### Numbers
+
+Find the absolute value of a number.
+```python
+>>> abs(-56)
+56
+```
+
+Find the **highest number** between 2 numbers of in an iterable.
+```python
+>>> a = [0, 1, 2, 3, 4, 5]
+>>> max(a)
+5
+>>> max(1, 2)
+2
+```
+
+Find the **lowest number** between 2 numbers of in an iterable.
+```python
+>>> a = [0, 1, 2, 3, 4, 5]
+>>> min(a)
+0
+>>> min(1, 2)
+1
+```
+
+Calculate the power of a number.
+```python
+>>> pow(2, 5)
+32
+```
+
+Calculate the exponential of a number.
+```python
+>>> math.exp(3)
+20.085536923187668
+```
+
+But wait! You have imported a library in order to do this operation, this is not a builtin function!
+
+Yes, you're right: I have imported a library. However, the notion of builtin in Python is not limited to what exists without new imports. It depends on whether you need to install the library or not. If you haven't install the library, this is considered a builtin library.
+
+What is the difference between **math.floor()** VS **math.ceil()** VS **int()** VS **round()**?
+
+| initial value |                                 int()                                 |                      math.floor()                     |                 round()                 |                    math.ceil()                   |
+|:-------------:|:---------------------------------------------------------------------:|:-----------------------------------------------------:|:---------------------------------------:|:------------------------------------------------:|
+|       -       | rounds towards 0 (like floor for positive and like ceil for negative) | rounds towards minus infinity. Lowest possible answer | rounds to the closest possible solution | rounds towards infinity. Highest possible answer |
+|      1.0      |                                   1                                   |                          1.0                          |                   1.0                   |                        1.0                       |
+|      1.1      |                                   1                                   |                          1.0                          |                   1.0                   |                        2.0                       |
+|      1.5      |                                   1                                   |                          1.0                          |                   2.0                   |                        2.0                       |
+|      1.9      |                                   1                                   |                          1.0                          |                   2.0                   |                        2.0                       |
+|      -1.1     |                                   -1                                  |                          -2.0                         |                   -1.0                  |                       -1.0                       |
+|      -1.5     |                                   -1                                  |                          -2.0                         |                   -2.0                  |                       -1.0                       |
+|      -1.9     |                                   -1                                  |                          -2.0                         |                   -2.0                  |                       -1.0                       |
+
+
+#### Strings
+
+Convert a string to uppercase.
+```python
+>>> 'What a nice car!'.upper()
+'WHAT A NICE CAR!'
+```
+
+Convert a string to lowercase.
+```python
+>>> 'WHAT A NICE CAR!'.lower()
+'What a nice car!'
+```
+
+Check if a string contains only letters (as well as special letters such as ç). Special characters and punctuation are not letters, so it will return False.
+```python
+>>> 'hey'.isalpha()
+True
+>>> 'hey1'.isalpha()
+False
+>>> 'hey, how you doin ?'.isalpha()
+False
+```
+
+Check if a string contains **positive integers** {0, 1, 2... n}
+```python
+>>> '0'.isdecimal()
+True
+>>> '0.123'.isdecimal()
+False
+>>> '-16'.isdecimal()
+False
+>>> '16'.isdecimal()
+True
+```
+
+Check if a string contains a whitespace character or a special identifier such as (`\t`, `\r`, `\n`)
+```python
+>>> "    ".isspace() # four spaces
+True
+>>> "   ".isspace() # a tab
+True
+>>> "\n".isspace() # newline
+True
+>>> "\t".isspace() # tab
+True
+>>> "\r".isspace() # carriage return
+True
+>>> "\f".isspace() # form feed
+True
+```
+
 ### Print
 
 In Python, we use the **print** function to prompt information to the user.
@@ -288,6 +403,62 @@ Clears all items from a list
 []
 ```
 ## Basic file manipulations
+
+### Read & Write
+
+Read a file (Long version)
+```python
+fp = open('/path/to/mysuperfile.txt', 'r')
+lines = fp.readlines()
+fp.close()
+```
+
+Read a file (Short version)
+```python
+with open('/path/to/mysuperfile.txt', 'r') as fp:
+    lines = fp.readlines()
+```
+
+In the code block above, the **with** statement is used to automatically close the file when it finishes to use it. It is closed at the end of the block.
+
+What are the different **handling modes** for opening files?
+
+| Mode |                                                                                                                          Description                                                                                                                          |
+|:----:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|   r  |                                                                                                              Open the file in **read-only** mode.                                                                                                             |
+|  r+  |                                                                                     Open the file in **read-and-write** mode. The pointer is at the beginning of the file.                                                                                    |
+|  rb+ |                                                                  Open the file in **read-and-write** mode. The pointer is at the beginning of the file. This reads in the **binary format**.                                                                  |
+|   w  |                           Open the file in **write** mode. The pointer is at **the beginning of the file**. If the file doesn't exist, it will be created. If the file exists, its content will be overwritten with the new content.                          |
+|  w+  |                      Open the file in **read-and-write** mode. The pointer is at **the beginning of the file**. If the file doesn't exist, it will be created. If the file exists, its content will be overwritten with the new content.                      |
+|  wb+ |   Open the file in **read-and-write** mode. The pointer is at **the beginning of the file**. If the file doesn't exist, it will be created. If the file exists, its content will be overwritten with the new content. This reads in the  **binary format**.   |
+|   a  |                         Open the file in **write** mode. The pointer is at **the end of the file**. If the file doesn't exist, it will be created. If the file exists, the new content will be added at the end. (Does not overwrite).                        |
+|  a+  |                    Open the file in **read-and-write** mode. The pointer is at **the end of the file**. If the file doesn't exist, it will be created. If the file exists, the new content will be added at the end. (Does not overwrite).                    |
+|  ab+ | Open the file in **read-and-write** mode. The pointer is at **the end of the file**. If the file doesn't exist, it will be created. If the file exists, the new content will be added at the end. (Does not overwrite). This reads in the  **binary format**. |
+|   x  |                      (Introduced in Python3). Open the file in **exclusive-creation-write** mode. If the file doesn't exist, it will be created. If the file exists, it will do nothing. (Useful to avoid accidentally modifying files).                      |
+|  x+  |                  (Introduced in Python3). Open the file in **exclusive-creation-read-and-write** mode. If the file doesn't exist, it will be created. If the file exists, it will do nothing. (Useful to avoid accidentally modifying files).                 |
+|  xb+ |   (Introduced in Python3). Open the file in **exclusive-read-and-write** mode. If the file doesn't exist, it will be created. If the file exists, it will do nothing. (Useful to avoid accidentally modifying files). This reads in the  **binary format** .  |
+
+### Manipulate files
+
+Build a path relying in the operating system's separators directly
+```python
+>>> os.path.join('dev', 'bin', 'mylog.log')
+'/dev/bin/mylog.log'    # Linux
+```
+
+Get the name of the file at the end of a given filepath
+```python
+>>> f = '/dev/bin/mylog.log'
+>>> os.path.basename(f)
+'mylog.log'
+```
+
+Get the parent directory's path of a file
+```python
+>>> f = '/dev/bin/mylog.log'
+>>> os.path.dirname(f)
+'/dev/bin'
+```
 
 Get the content of a directory and its subdirectories
 ```python
