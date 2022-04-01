@@ -23,6 +23,7 @@
     - [Any](#any)
     - [All](#all)
     - [Map Objects](#map-objects)
+- [Python OOP](#python-oop)
 - [Python Nested Functions](#python-nested-functions)
 - [Scraping & Parsing](#scraping--parsing)
     - [Libraries](#libraries)
@@ -581,6 +582,48 @@ Another important thing to know is that **Map objects** modifications will modif
 object1 = map(lambda x: os.path.exists(x), my_iterable)
 object2 = filter(lambda x: x is not None, object1)      #After this operation, the content of object1 will no longer exists
 ```
+
+## Python OOP
+
+**OOP** stands for **Object Oriented Programming**. It is a popular programming paradigm used in C++, Java and many other languages. Python has its very own way to implement **OOP**. Let's dive in!
+
+### Class and Parent Class
+
+Creates a simple class
+```python
+class Dog(object):      #Python 2 & 3
+
+    is_hairy = True
+
+    def __init__(self, name, age, race=''):
+        self.name = name
+        self.age = age
+        self.race = race
+
+class Dog:      #Python 3 only
+
+    is_hairy = True
+
+    def __init__(self, name, age, race=''):
+        self.name = name
+        self.age = age
+        self.race = race
+
+d1 = Dog('Paterson', 9)
+print(f'Oh look! this is {d1.name}! He is {d1.age}!')
+```
+
+Creates a class that inherits from another class
+```python
+class AustralianSheperd(Dog):
+
+    def __init__(self, name, age):
+        super().__init__(name, age, race='Australian Sheperd')
+
+d1 = AustralianSheperd('Paterson', 9)
+print(f'Oh look at this {d1.race}! This is {d1.name}! He is {d1.age}!')
+```
+
 ## Python Nested Functions
 
 A ***nested function*** is a function defined inside a function (see example below). By default, nested functions can access variables from the enclosing function (here *print_msg()*) in **read-only mode**.
