@@ -18,6 +18,7 @@
     - [Read & Write](#read-write)
     - [Manipulate files](#manipulate-files)
 - [Amazing Tools](#amazing-tools)
+    - [Star operator](#star-operator)
     - [Zip](#zip)
     - [Unzip](#unzip)
     - [Any](#any)
@@ -485,6 +486,24 @@ my_project
 ```
 ## Amazing Tools
 
+### Star Operator
+
+In Python, the `*` operator can be used with integers in arithmetical operations but it is not its only use ! It can also be used with strings and collections ! How ? Let me tell you:
+
+Unpacking a list:
+```python
+>>> print(*[0, 1, 2, 3, 4, 5, 6, 7])
+0 1 2 3 4 5 6 7
+```
+
+Unpacking a string
+```python
+>>> print(*'Hello!')
+H e l l o ! 
+```
+
+The `*` operator returns each element of the collection
+
 ### Zip
 
 The **Zip** function is a built-in function that returns a iterator made from n iterables. The returned iterator is composed of tuples. Each ith tuple is composed of elements from the ith rank of each iterable.
@@ -701,3 +720,12 @@ When we focus on a specific column (or on specific columns), we obtain a **slice
 
 - It is possible to create temporary files or folders with the **tempfile** module
 - It is possible to write proper date with the **humanize** module
+
+## Coding Problem Solutions
+
+### string
+
+Count how many vowels are in a word (AEIOU)
+```python
+print(*map(s.count,'AEIOU'))
+```
