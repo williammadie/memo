@@ -1,0 +1,6 @@
+sudo apt install nodejs #Install
+node -v          #Check installation
+sudo apt install npm    #Install
+npm -v           #Check installationls
+sudo npm install -g @angular/cli@7.0 #Install Angular 7.0
+sudo npm install -g @angular/cli #Install the latest version of Angular

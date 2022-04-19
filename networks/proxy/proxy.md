@@ -4,7 +4,7 @@
 
 A `proxy server` is a server that **retrieves data from the Internet for a user**.
 
-![img_1](/proxy/resources/proxy_server.jpg)
+![img_1](/networks/proxy/resources/proxy_server.jpg)
 
 The proxy server use a an in-betweener/a middleman between the user and the Internet. It listens for user requests and then proceeds to retrieve the data from the Internet. 
 
@@ -19,7 +19,7 @@ Proxy servers **cache web pages recently visited** so they do not have to query 
 
 An `Intranet` is a private, secure network used by employees for internal communication and information sharing within a company or organization.
 
-![img_2](/proxy/resources/extranet-internet-intranet.jpg)
+![img_2](/networks/proxy/resources/extranet-internet-intranet.jpg)
 
 Companies often let their employees connect to their servers only when they are inside their buildings. So, it is part of the Intranet and it is not possible to access their servers remotely. In fact, it is not possible unless you use a **VPN**.
 
@@ -41,7 +41,7 @@ There are 2 types of VPN used by organizations:
 | perfect for companies that have several buildings and need to access servers in one of these buildings | perfect for employees who works remotely                        |
 
 
-![img_3](/proxy/resources/site2site&remote_acess.jpg)
+![img_3](/networks/proxy/resources/site2site&remote_acess.jpg)
 
 ### Public-oriented VPNs
 
@@ -53,14 +53,21 @@ It assures **privacy** and can be used to act as if we were in another country (
 
 A **public-oriented VPN** encrypts the user's data between his device and the VPN provider's server. Then, this server retrieves the desired web information with its own IP address.
 
-![img_4](/proxy/resources/common-vpn.jpg)
+![img_4](/networks/proxy/resources/common-vpn.jpg)
+
+## VPN vs Expressroute
+
+A `VPN` uses the Internet to transfer information between 2 points.
+An `Expressroute` uses its own fiber network to transfer information between 2 points.
+
+![img_5](/networks/proxy/resources/vpn-expressroute.png)
 
 ## Recap
 
 - A proxy can be used to **quickly and anonymously** retrieve data from the Internet.
 - A VPN can be used to **safely browse the Internet from public networks** or/and to stay hidden from **ISPs, hackers, governments..**.
 
-![img_5](/proxy/resources/proxy_vpn_nothing.jpg)
+![img_6](/networks/proxy/resources/proxy_vpn_nothing.jpg)
 
 
 
