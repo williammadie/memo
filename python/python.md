@@ -33,6 +33,10 @@
 - [Python for Data Science](#python-for-data-science)
     - [Pandas](#pandas)
         - [DataFrames](#dataframes)
+- [Debugging](#debugging)
+- [Knowledge](#knowledge)
+- [Coding Problem Solutions](#coding-problem-solutions)
+    - [String](#string)
 
 ## Python Package Index (PIP)
 
@@ -716,6 +720,16 @@ When we focus on a specific column (or on specific columns), we obtain a **slice
 >>> type(df['header_col2'])
 <class 'pandas.core.series.Series'>
 ```
+
+## Debugging
+
+One of the simplest way of debugging in Python is to use the `print()` function where we need to visualize information in order to understand the problem. However, there are more convenient ways of debugging in Python.
+
+The first way of debugging which is incredibely better than a print and not more difficult is the `breakpoint()` function. This function can be used anywhere we need in our code. It will stop the execution of the program and open a Python interpreter. In this Python interpreter, we will be able to visualize all the declared variables.
+We can find these variables with `dir()`
+
+It can also be useful to set a condition before calling `breakpoint()`. It is called a **conditional breakpoint**.
+
 ## Knowledge
 
 - It is possible to create temporary files or folders with the **tempfile** module
@@ -723,7 +737,7 @@ When we focus on a specific column (or on specific columns), we obtain a **slice
 
 ## Coding Problem Solutions
 
-### string
+### String
 
 Count how many vowels are in a word (AEIOU)
 ```python
