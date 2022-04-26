@@ -385,6 +385,19 @@ Sorts a list by descending order
 ['rabbit', 'horse', 'dog', 'dog', 'dog', 'cat']
 ```
 
+Sorts a list by applying a specific rule
+```python
+>>> l.sort(key = lambda v: v[0])
+```
+
+Here, this **key** argument can be used to sort a list made of tuples. A tuple contains n values. So we can tell Python to only consider one of these values for the sorting. In the following example, we will be sorting the tuples **by considering only their second value**:
+
+```python
+>>> l = [(3, 5, 8), (6, 2, 8), (2, 9, 4), (6, 8, 5)]
+>>> l.sort(key=lambda v: v[1])
+[(6, 2, 8), (3, 5, 8), (6, 8, 5), (2, 9, 4)]
+```
+
 Copies a list
 ```python
 >>> l2 = l.copy()   #M1: using the copy() method
