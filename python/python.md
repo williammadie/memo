@@ -420,6 +420,31 @@ Clears all items from a list
 >>> l.clear()
 []
 ```
+
+### Set
+
+A **set** is a bit like a list. It is a collection of objects **without any duplicates**. It is not possible to add an object which is already present in a given set. It is very useful when we want to use the **Set Theory**
+
+Instanciate a set
+```python
+s = set()   # For instanciation with known values, use the second form
+# OR
+s = {4}
+s = {'source'}
+```
+
+Add an object to a set
+```python
+s.add(31)
+```
+
+Remove an object from a set
+```python
+s.remove(31)
+```
+
+
+
 ## Basic file manipulations
 
 ### Read & Write
