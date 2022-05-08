@@ -13,6 +13,7 @@
     - [Config](#config)
 - [Scripts](#scripts)
     - [Bash basics](#bash-basics)
+        - [Basic commands](#basic-commands)
         - [Structure of a Bash script](#structure-of-a-bash-script)
         - [Conditions](#conditions)
         - [String operations](#string-operations)
@@ -127,6 +128,19 @@ have to create it in `~/.vimrc`)
 ## Scripts
 
 ### Bash basics
+
+#### Basic commands
+
+Identify which *type of Shell* you're using. Here you're using Bash
+```bash
+$ which $SHELL
+/bin/bash
+```
+
+Sleep for a given amount of time
+```bash
+$ sleep 4
+```
 
 #### Structure of a Bash script
 
