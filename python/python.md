@@ -37,6 +37,8 @@
 - [Knowledge](#knowledge)
 - [Coding Problem Solutions](#coding-problem-solutions)
     - [String](#string)
+- [Write better code](#write-better-code)
+    - [Python Enhancement Proposal (PEP)](#python-enhancement-proposal-pep)
 
 ## Python Package Index (PIP)
 
@@ -780,4 +782,39 @@ It can also be useful to set a condition before calling `breakpoint()`. It is ca
 Count how many vowels are in a word (AEIOU)
 ```python
 print(*map(s.count,'AEIOU'))
+```
+
+## Python Enhancement Proposal (PEP)
+
+The **Python Enhancement Proposal** also known as **PEP** is a bunch of documents which describes new functionalities, process and environments for Python.
+
+The **PEP 8** is the most used PEP. It is *a guide style* and also a reference of good practices for Python developers
+
+### Naming conventions
+
+```python
+# variables
+
+full_name = 'John Doe'
+fruits = ['banana', 'apple', 'peach']
+
+# constants
+
+DAYS_PER_WEEK = 7
+PASTORAL_INDEX = 'Z.T.67'
+
+# classes
+
+class BigElephant:
+    pass
+
+class StrangeHuman:
+    pass
+
+# modules (builtin example)
+
+import os
+import sys
+import shutil
+import pathlib
 ```
