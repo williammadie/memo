@@ -17,6 +17,6 @@ Colors are one of the most important elements on a slideshow. A bad combination 
 
 So what are the common mistakes and how can we avoid them?
 
-First, you must be aware that every individuals does not perceive colors in a same manner. You might be aware of conditions such as *Deuteranopia*, *Protanopia* or even *Tritanopia*.
+First, you must be aware that each individual does not perceive colors in a same manner. You might be aware of conditions such as *Deuteranopia*, *Protanopia* or even *Tritanopia* but there are a lot more specific 
 
 ![img_1](/presentations/resources/color-conditions.jpg)
