@@ -39,6 +39,14 @@
     - [String](#string)
 - [Write better code](#write-better-code)
     - [Python Enhancement Proposal (PEP)](#python-enhancement-proposal-pep)
+    - [Naming Conventions](#naming-conventions)
+    - [Comments & Docstrings](#comments-and-docstrings)
+    - [Spaces, Indentations & Line breaks](#spaces-indentations--line-breaks)
+    - [Good Practices](#good-practices)
+    - [Formatter & Linter](#formatter-&-linter)
+        - [Install a Linter on VSCode](#install-a-linter-on-vscode)
+        - [Disable the Linter on VSCode](#disable-the-linter-on-vscode)
+    
 
 ## Python Package Index (PIP)
 
@@ -784,7 +792,9 @@ Count how many vowels are in a word (AEIOU)
 print(*map(s.count,'AEIOU'))
 ```
 
-## Python Enhancement Proposal (PEP)
+## Write Better Code
+
+### Python Enhancement Proposal (PEP)
 
 The **Python Enhancement Proposal** also known as **PEP** is a bunch of documents which describes new functionalities, process and environments for Python.
 
@@ -818,3 +828,91 @@ import sys
 import shutil
 import pathlib
 ```
+
+### Comments and Docstrings
+
+Comments should be written on their own line separated from the code. They should also be on the same level of indentation than the following line of code.
+
+```python
+# this is a comment
+
+def my_function():
+    blabla
+    if blabla:
+        # this is a good comment
+        blabla
+```
+
+Docstrings refer to commented parts using `"""blabla"""`. According to PEP257, they should be used the most possible. It is a very good practice for quality and help on a project.
+
+Docstrings are a way of taking a step back on what we're doing. It can be used at the beginning of modules, classes and functions.
+
+Docstrings **do not describe the internal mechanisms of the function**. Instead, they indicate what is returned by the function.
+
+```python
+"""This function calculates and returns the mean of ..."""  # one-line docstring
+
+"""This function caculates and returns the mean of ...
+
+Attrs:
+- parameter n°1...
+- parameter n°2...
+
+Returns:
+- object returned...
+""" # multi-line docstring
+```
+
+### Spaces, Indentations & Line breaks
+
+In Python, we use spaces or indentations but we do not mix them together in the same project. Standard says the size of an indent should be *4 spaces*.
+
+- Before defining a class or a function there should be a break of *2 lines*. 
+
+- Before defining a method inside a class there should be a break of *1 line*
+
+- Lines should not be longer than 79 characters.
+
+For a long function declaration use:
+```python
+def my_very_long_function_name(
+    parameter1,
+    parameter2,
+    parameter3
+):
+    blabla
+    return blabla
+```
+
+### Good Practices
+
+For functions:
+- return types should always be identical (or None) for all the `return` inside the function.
+- Use `return None` instead of `return`
+
+For slicing str:
+- Use `str.startswith() or str.endswith()` instead of slicing. For more advanced problems, use *regex*.
+
+For try/except:
+- A try/except block should cover the less possible lines in order to avoid hiding other issues/bugs.
+- You should never use a bare except. It increases the risk of letting critical errors pass.
+
+### Formatter & Linter
+
+A formatter is a little program that will fix your code according to the standard of a programming langage. It is purely *focused on syntax (and can even break your code)*.
+
+A linter is another program charged to spot *standard non-compliant part of your code*. It is a very powerful tool that can also indicate depreciated practices in your code.
+
+#### Install a Linter on VSCode
+
+1. `CTRL + SHIFT + P` to show the command palette
+2. Type `python: select linter`
+3. Select *Flake8* (Auto-download starts)
+4. Enjoy
+
+#### Disable the Linter on VSCode
+
+1. `CTRL + SHIFT + P` to show the command palette
+2. Type `python: disable linter`
+
+(more at: https://code.visualstudio.com/docs/python/linting)
