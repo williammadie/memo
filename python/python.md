@@ -782,6 +782,7 @@ It can also be useful to set a condition before calling `breakpoint()`. It is ca
 
 - It is possible to create temporary files or folders with the **tempfile** module
 - It is possible to write proper date with the **humanize** module
+- Create APIs with **fastapi** or **Flask**
 
 ## Coding Problem Solutions
 
