@@ -33,6 +33,7 @@
 - [Python for Data Science](#python-for-data-science)
     - [Pandas](#pandas)
         - [DataFrames](#dataframes)
+    - [Hashlib](#hashlib)
 - [Debugging](#debugging)
 - [Knowledge](#knowledge)
 - [Coding Problem Solutions](#coding-problem-solutions)
@@ -768,6 +769,15 @@ When we focus on a specific column (or on specific columns), we obtain a **slice
 >>> type(df['header_col2'])
 <class 'pandas.core.series.Series'>
 ```
+
+### Hashlib
+
+Get the hash of a value:
+```python
+digest = int(hashlib.sha512(my_string.encode('utf-8')).hexdigest(), 16)
+```
+
+**WARNING : DO NOT USE THE hash() FUNCTION. It is depreciated: since Python 3.3, the hash() function use randomization and so the Determinism property is broken (only one and unique result for a input value)**
 
 ## Debugging
 

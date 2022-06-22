@@ -68,9 +68,9 @@ find . -type f | wc -l
 ### Storage related commands
 
 See the **size of a folder**:
-
+(the **max-depth** option is used to avoid recursive behaviors)
 ```bash
-du -h .
+du -h --max-depth=1.
 ```
 
 See the **storage capacity of the server**:
