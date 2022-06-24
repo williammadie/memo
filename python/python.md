@@ -35,6 +35,7 @@
         - [DataFrames](#dataframes)
     - [Hashlib](#hashlib)
 - [Debugging](#debugging)
+- [Python Settings and Environment](#python-settings-and-environment)
 - [Knowledge](#knowledge)
 - [Coding Problem Solutions](#coding-problem-solutions)
     - [String](#string)
@@ -787,6 +788,52 @@ The first way of debugging which is incredibely better than a print and not more
 We can find these variables with `dir()`
 
 It can also be useful to set a condition before calling `breakpoint()`. It is called a **conditional breakpoint**.
+
+## Python Settings and Environment
+
+### PATH
+
+If you have a custom installation of Python, you may be interested in knowing what is the Python **PATH**. For instance, you have Python 2.5.1 installed on your computer for a bunch of projects. A new project requires you to install Python 3.8.7. You cannot simply delete Python 2 and install Python 3. There is a gap between those 2 versions and no backward compatibility. So what can be done?
+
+It is possible to install another version of Python. You will simply need to show where it is to your computer. To do that, you can use the **PATH** environment variable. It is a string of concatenated paths separated with `:`. For instance, it can look like this:
+
+```bash
+PATH=/space/hadoop/lib/python-3.6.7-lib/bin:/space/hadoop/lib/python-3.6.7-lib/bin:/home/william2/.vscode-server/bin/30d9c6cd9483b2cc586687151bcbcd635f373630/bin/remote-cli:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+```
+
+If you need to locate your new version of Python, you can use the `whereis` command like `whereis python-3.x.x`
+
+To modify the Python **PATH** variable, you will use the command:
+
+```bash
+export PATH=”$PATH:/usr/local/bin/python”
+```
+
+In this command, you update the **PATH** by adding a new path (/usr/local/bin/python). You keep all old paths by specifying the `$PATH:` before your new one. The `:` is used to delimit each path.
+
+### Virtual Environment
+
+A **virtual environment** is an isolated environment where pythonic developers like to work. It allows them to easily manage Python dependencies on all their projects and prevents incompatibilities.
+
+For instance, a project can require to have `numpy==3.2.4`, `easyocr==16.0.1` and `pytorch==23.0.1` where another will require `numpy==5.6.1` and `pytorch==21.0.5`. In this case, if the developers did not use **virtual environments**, he is screwed. With virtual environments, each project has its own dependencies and each dependency has its own version. This significantly decreases the risk of conflicts between them.
+
+Create a virtual environment
+```bash
+python3 -m venv env
+```
+
+Activate the virtual environment
+```bash
+. env/bin/activate
+```
+
+Deactivate the virtual environment
+```bash
+deactivate
+```
+
+Virtual environments **MUST NOT** be added to version control. It is always heavy and can contain secrets.
+
 
 ## Knowledge
 
