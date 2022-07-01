@@ -748,7 +748,19 @@ pd.read_html(file_path) #file_path can be replaced by a URL
 
 #### DataFrames
 
+##### Introducing DataFrames
+
 A DataFrame is a **common data structure** in Data Science. It is shaped like a 2-dimensional array (rows and columns). It is much like a spreadsheet.
+
+When we focus on a specific column (or on specific columns), we obtain a **slice of the DataFrame**. It is no more a proper DataFrame. It is considered as a **Series**. It has its own properties. For instance, here, I get a slice of the DataFrame
+
+```python
+>>> df['header_col2']
+>>> type(df['header_col2'])
+<class 'pandas.core.series.Series'>
+```
+
+##### Working with DataFrames
 
 Initialize a DataFrame
 ```python
@@ -763,12 +775,65 @@ pd.DataFrame(
 )
 ```
 
-When we focus on a specific column (or on specific columns), we obtain a **slice of the DataFrame**. It is no more a proper DataFrame. It is considered as a **Series**. It has its own properties. For instance, here, I get a slice of the DataFrame
-
+Get a DataFrame from a CSV file
 ```python
->>> df['header_col2']
->>> type(df['header_col2'])
-<class 'pandas.core.series.Series'>
+import pandas as pd
+df = pd.read_csv('path/to/df.csv')
+```
+
+Save a DataFrame as a CSV file
+```python
+df.to_csv('path/to/df.csv')
+```
+
+Keep only given columns
+```python
+df = df[['country', 'date']]
+```
+
+Fill a column with a given value
+```python
+df['age_group'] = pd.NA
+```
+
+Delete given columns
+```python
+df.drop(columns=['country', 'date'])
+```
+
+Rename given columns
+```python
+df = df.rename(
+    columns={
+        'location': 'country',
+        'date': 'iso_week',
+        'excess_proj_all_ages': 'excess_death'
+    }
+)
+```
+
+Apply a function on a given column (here we convert the date into the iso_week)
+```python
+df['date'] = df['date'].apply(get_iso_week)
+```
+
+Replace a value if given condition is checked (Here we only keep the row containing the country, date and age_group of a given line in a referential)
+```python
+df.loc[
+    (df['country'] == ref['country'][i]) & (df['date'] == ref['date'][i]) & (df['age_group'] == age_df),
+    'excess_death'
+] = ref[f'p_scores_{age}'][i]
+
+# Simplified:
+
+df.loc[condition, column2modify] = new_value
+df.loc[(condition1) & (condition2) & (condition3), column2modify] = new_value
+```
+
+Get the Union of n DataFrames
+```python
+import pandas as pd
+concatenated_df = pd.concat([df1, df2, df3, dfn])
 ```
 
 ### Hashlib
