@@ -33,6 +33,8 @@
 - [Python for Data Science](#python-for-data-science)
     - [Pandas](#pandas)
         - [DataFrames](#dataframes)
+            - [Introducing DataFrames](#introducing-dataframes)
+            - [Working with DataFrames](#working-with-dataframes)
     - [Hashlib](#hashlib)
 - [Debugging](#debugging)
 - [Python Settings and Environment](#python-settings-and-environment)
@@ -748,7 +750,7 @@ pd.read_html(file_path) #file_path can be replaced by a URL
 
 #### DataFrames
 
-##### Introducing DataFrames
+##### Introducing DataFrames
 
 A DataFrame is a **common data structure** in Data Science. It is shaped like a 2-dimensional array (rows and columns). It is much like a spreadsheet.
 
