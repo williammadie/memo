@@ -838,6 +838,11 @@ import pandas as pd
 concatenated_df = pd.concat([df1, df2, df3, dfn])
 ```
 
+Keep rows where value for column X is in a list
+```python
+df = df[df['country'].str.lower().isin(EU_COUNTRIES)]
+```
+
 ### Hashlib
 
 Get the hash of a value:

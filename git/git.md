@@ -7,6 +7,7 @@
   - [Lookin for my branch](#lookin-for-my-branch)
   - [List commits not pushed](#list-commits-not-pushed)
   - [How to merge](#how-to-merge)
+  - [Check for differences between branches](#check-for-differences-between-branches)
 
 ## First config
 
@@ -61,3 +62,10 @@ In this example, **main** has changes that **features** doesn't have. We need to
 1. Make sure that **main** and **features** are **up to date** by running `git pull` on both of them.
 2. Checkout to **features**
 3. Run `git merge main` from the **features** branch
+
+## Check for differences between branches
+
+Checks for differences of one file between two branches
+```bash
+git diff origin/branch1:path/to/file.csv origin/branch2:path/to/file.csv
+```
