@@ -8,6 +8,7 @@
     - [Call the script](#call-the-script)
     - [Get rid of python](#get-rid-of-python)
     - [Keep running](#keep-running)
+    - [Use OS commands](#use-os-commands)
 - [Basic Objects and Functions](#basic-objects-and-functions)
     - [Builtin Tools](#builtin-tools)
         - [Numbers](#numbers)
@@ -176,6 +177,32 @@ nohup python3 coucou.py > /path/to/output.log
 Keep in mind that everything can be used together:
 ```bash
 nohup /path/to/hello.py > /path/to/output.log &
+```
+
+### Use OS commands
+
+It is very useful to communicate with your Operating System and specifically to use your OS commands in a Python script. How can you do that? It is very simple, let me show you:
+
+Below is a function that use the command `echo df /path/to/folder | sftp -b - hostname | awk {print $3/1024/1024} | tail -n 1` to get the available size of a folder on a remote server. It uses 4 commands with pipes.
+```py
+def sftp_get_available_size() -> float:
+  """Get available size of the SFTP"""
+  echo = ['echo', 'df', 'path/to/folder']
+  sftp = ['sftp', '-b', '-', 'hostname']
+  awk = ['awk', '{print $3/1024/1024}']
+  tail = ['tail', '-n', '1']
+
+  p1 = subprocess.Popen(echo, stdout=subprocess.PIPE)
+  p2 = subprocess.Popen(sftp, stdin=p1.stdout, stdout=subprocess.PIPE)
+  p1.stdout.close()
+  p3 = subprocess.Popen(awk, stdin=p2.stdout, stdout=subprocess.PIPE)
+  p2.stdout.close()
+  p4 = subprocess.Popen(tail, stdin=p3.stdout, stdout=subprocess.PIPE)
+  p3.stdout.close()
+
+  output = p4.communicate()[0].decode('utf8')
+  output = output.replace('\n', '') if '\n' in output else output
+  return float(output) 
 ```
 
 ## Basic Objects and Functions
@@ -786,6 +813,26 @@ df = pd.read_csv('path/to/df.csv')
 Save a DataFrame as a CSV file
 ```python
 df.to_csv('path/to/df.csv')
+```
+
+See all columns name
+```python
+df.columns.values
+```
+
+See number of entries, number of columns, columns names, memory usage
+```python
+df.info()
+```
+
+See first entries of the DataFrame
+```python
+df.head()
+```
+
+See last entries of the DataFrame
+```
+df.tail()
 ```
 
 Keep only given columns
