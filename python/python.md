@@ -831,8 +831,13 @@ df.head()
 ```
 
 See last entries of the DataFrame
-```
+```py
 df.tail()
+```
+
+See most common values in a column
+```py
+df.values_count()
 ```
 
 Keep only given columns
