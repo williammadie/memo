@@ -16,6 +16,7 @@
     - [Print](#print)
     - [List](#list)
 - [Basic File Manipulations](#basic-file-manipulations)
+- [Basic Date and Time Handling](#basic-date-and-time-handling)
     - [Read & Write](#read-write)
     - [Manipulate files](#manipulate-files)
 - [Amazing Tools](#amazing-tools)
@@ -464,7 +465,7 @@ Clears all items from a list
 
 ### Set
 
-A **set** is a bit like a list. It is a collection of objects **without any duplicates**. It is not possible to add an object which is already present in a given set. It is very useful when we want to use the **Set Theory**
+A **set** is a bit like a list. It is a collection of objects **without any duplicates**. It is not possible to add an object which is already present in a given set. It is very useful when we want to use the **Set Theory** and all its operations.
 
 Instanciate a set
 ```python
@@ -484,7 +485,20 @@ Remove an object from a set
 s.remove(31)
 ```
 
+Get the intersection of two sets
+```python
+s1.intersection(s2)
+```
 
+Get the union of two sets
+```python
+s1.union(s2)
+```
+
+Get the difference between two sets
+```python
+s1.difference(s2)
+```
 
 ## Basic file manipulations
 
@@ -567,6 +581,34 @@ my_project
 ├── file2.py
 └── my_data_file.json
 ```
+
+## Basic Date and Time Handling
+
+In order to properly handle dates and time, you need to use the `datetime` package. It lets you work on dates very easily by identifying and modifying years, months, days, hours, minutes, seconds and even timezones.
+
+Import the builtin package dedicated to handling date and time
+```python
+from datetime import datetime
+```
+
+Convert a string to a datetime object
+```python
+date = datetime.strptime(str_date, '%Y-%m-%d %H:%M:%S')
+```
+
+Convert a datetime object to a string
+```python
+str_date = datetime.strftime(date, '%Y-%m-%d %H:%M:%S')
+```
+
+Replace an attribute of the datetime object
+```py
+'2016-03-16 09:45:32'
+>>> date = date.replace(hour=0, minute=0, second=0)
+'2016-03-16 00:00:00'
+```
+
+
 ## Amazing Tools
 
 ### Star Operator
