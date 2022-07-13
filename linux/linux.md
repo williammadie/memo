@@ -6,6 +6,7 @@
 - [Useful commands](#useful-commands)
     - [Query on a linux filesystem](#query-on-a-linux-filesystem)
     - [Storage related commands](#storage-related-commands)
+    - [Watch logs](#watch-logs)
 - [Shortcuts](#shortcuts)
 - [The Legendary VIM Editor](#the-legendary-vim-editor)
     - [Differences between VIM and VI](#differences-between-vim-and-vi)
@@ -78,6 +79,12 @@ See the **storage capacity of the server**:
 df -h
 ```
 
+### Watch logs
+
+See program logs in real time
+```bash
+tail -f path/to/file.log
+```
 
 ## Shortcuts
 
