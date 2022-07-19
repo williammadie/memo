@@ -7,6 +7,7 @@
     - [Query on a linux filesystem](#query-on-a-linux-filesystem)
     - [Storage related commands](#storage-related-commands)
     - [Watch logs](#watch-logs)
+- [Environment Variables](#environment-variables)
 - [Shortcuts](#shortcuts)
 - [The Legendary VIM Editor](#the-legendary-vim-editor)
     - [Differences between VIM and VI](#differences-between-vim-and-vi)
@@ -14,11 +15,17 @@
     - [Config](#config)
 - [Scripts](#scripts)
     - [Bash basics](#bash-basics)
+        - [Introduction](#introduction)
         - [Basic commands](#basic-commands)
         - [Structure of a Bash script](#structure-of-a-bash-script)
+        - [Variables](#variables)
         - [Conditions](#conditions)
+        - [Loops](#loops)
         - [String operations](#string-operations)
+        - [Arithmetic operations](#arithmetic-operations)
+        - [Functions](#functions)
     - [Executing a script & Sourcing a script](#executing-a-script--sourcing-a-script)
+- [Terminal Multiplexer](#terminal-multiplexer)
 - [Config of WSL](#config-of-wsl)
     - [General](#general)
     - [GCC](#gcc)
@@ -86,6 +93,27 @@ See program logs in real time
 tail -f path/to/file.log
 ```
 
+## Environment Variables
+
+An **Environment Variable** is a *variable whose value is set outside the program, typically through functionality built into the operating system*.
+
+Set an environment variable
+```bash
+export PASSWORD=123456789
+```
+
+Unset an environment variable
+```bash
+unset PASSWORD
+```
+
+Secretly set an environment variable
+(the command will not appear in ~/.bash_history)
+(only add one space before the command)
+```bash
+ export PASSWORD=123456789
+```
+
 ## Shortcuts
 
 - Switch to another desktop: `CTRL` + `ALT` + `ARROW`
@@ -136,6 +164,12 @@ have to create it in `~/.vimrc`)
 
 ### Bash basics
 
+#### Introduction
+
+**Bash** (AKA **Bourne Again Shell**) is a type of interpreter that processes shell commands. A *shell interpreter** takes commands in plain text format and calls Operating System services to do something.
+
+A shell script is a file or program that shell will execute.
+
 #### Basic commands
 
 Identify which *type of Shell* you're using. Here you're using Bash
@@ -164,6 +198,29 @@ then
 else
     # Do a job
 fi
+```
+#### Variables
+
+In Bash, we don't need to declare a variable by specifying its data type. 
+
+Declare a variable
+```bash
+CITY='New York'
+NAME='John Doe'
+AGE=26
+GRADE=8.43
+EMPLOYED=true
+```
+
+Get the value of a variable
+```bash
+echo $NAME $AGE $GRADE $EMPLOYED
+```
+
+Ask for an input and bind it to a variable
+```bash
+echo -n "Enter your name: " # -n for input on the same line
+read NAME
 ```
 
 #### Conditions
@@ -238,12 +295,123 @@ then
 fi
 ```
 
+#### Loops
+
+Traditional For loop
+```bash
+for (( i=0; i<5; i++))
+do
+    echo $i
+done
+```
+
+For loop for given elements
+```bash
+for i in 1 2 3 4 5
+do
+    echo $i
+done
+```
+
+For loop with range 
+```bash
+for i in {0..6..2}  # {start..end..step}
+do
+    echo $i
+done
+```
+
+Traditional While loop
+```bash
+while [ condition ]
+do
+    # do something
+done
+```
+
+Infinite While loop
+```bash
+while true  # the condition can also be empty
+do
+    # do something
+done
+```
+
+Until loop
+```bash
+# This loop is quite uncommon. It runs until the given condition is true. In a way, it can be considered as the opposite of the while loop which runs until the given condition is false.
+NUMBER=1
+
+until [ $NUMBER == 4 ]
+do
+    echo "Number is $((NUMBER++))"
+done
+```
+
+*Observation: Like other languages, it is possible to use a condition with `break` to get out of the loop early or `continue` to go to the next iteration*
+
 #### String operations
 
-**Lower a string**
+Lower a string
 ```bash
 lower_str=$(echo "$str2lower" | tr '[:upper:]' '[:lower:]')
 ```
+
+Concatenate variables
+```bash
+FIRST_NAME='John'
+LAST_NAME='Doe'
+FULL_NAME=$FIRST_NAME$LAST_NAME
+
+# 2° way
+
+NUMBER=1
+NUMBER+=2
+```
+
+String interpolation
+```bash
+FIRST_NAME='John'
+echo "Hello ${FIRST_NAME}"
+```
+
+*Observation: Bash supports both singlequotes and doublequotes. However, only doublequotes support string interpolation*
+
+#### Arithmetic operations
+
+Perform an arithmetic operation
+```bash
+NUM=5
+((NUM-=2))  # NUM is directly changed
+echo $NUM
+>>> 3
+```
+
+Get a random number
+```bash
+echo $RANDOM    # RANDOM is a special random value
+```
+
+Generate a list of numbers
+```bash
+echo {0..10..1} # start..end..step
+```
+
+#### Functions
+
+Write a function
+```bash
+function my_first_function() {
+    # statements
+}
+```
+
+Call a function
+```bash
+my_first_function
+```
+
+*Observation: In Bash, variables outside of the scope of the function are accessible inside the function*
 
 ### Executing a script & Sourcing a script
 
@@ -252,6 +420,38 @@ lower_str=$(echo "$str2lower" | tr '[:upper:]' '[:lower:]')
 | runs the commands in **a new shell process** which is then closed | runs the commands in **the current shell process**       |
 | **does not change the environment** in the current running shell  | **changes the environment** in the current running shell |
 
+## Terminal Multiplexer
+
+### Screen
+
+**screen** is a tool that **provides the ability to launch and use multiple shell sessions from a single ssh session**. The process can be detached from session and then can reattach the session at a later time. 
+
+By default, programs running in a screen session don't end when the user closes his SSH session. It is very useful for programs that needs to run whether someone is online or not.
+
+Launch a screen session
+```bash
+screen
+```
+
+Launch a screen session with a given name
+```bash
+screen -S session1
+```
+
+Detach from a screen session
+```bash
+CTRL + A + D (at the same time)
+```
+
+Attach to a given screen session or create a new session if no session exists
+```bash
+screen -RdS session1
+```
+
+End a screen session
+```bash
+exit
+```
 
 ## Config of WSL
 

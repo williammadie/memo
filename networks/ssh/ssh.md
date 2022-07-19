@@ -87,9 +87,9 @@ WARNING: It must not be confused with ***FTP*** wich is a proper protocol over *
 
 Here is a quick comparison between FPT and SFTP:
 
-|                         FTP                         |                                                        SFTP                                                        |   |   |   |
-|:---------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------:|---|---|---|
-|          Uploads data without any security          | Provides full security to the data by relying on the SSH protocol. It also uses SSH keys to provide authentication |   |   |   |
-|             Anyone can access the server            |             SFTP can be accessed by only server owner as port 22 is not open in case of shared hosting             |   |   |   |
-| Not encrypted because FTP is anonymously accessible |                          Before sending it to another host, SFTP encrypts the information                          |   |   |   |
-|                     Uses Port 21                    |                                                    Uses Port 22                                                    |   |   |   |
+|                         FTP                         |                                                        SFTP                                                        |
+|:---------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------:|
+|          Uploads data without any security          | Provides full security to the data by relying on the SSH protocol. It also uses SSH keys to provide authentication |
+|             Anyone can access the server            |             SFTP can be accessed by only server owner as port 22 is not open in case of shared hosting             |
+| Not encrypted because FTP is anonymously accessible |                          Before sending it to another host, SFTP encrypts the information                          |
+|                     Uses Port 21                    |                                                    Uses Port 22                                                    |

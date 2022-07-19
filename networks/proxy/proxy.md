@@ -49,7 +49,7 @@ Known VPNs companies (such as *Nord VPN, Express VPN...*) use other arguments to
 
 - It hides the user's IP address from the ISP (Internet Service Provider) and from the government. So, it can be used in countries where fondamental liberties are not granted.
 It assures **privacy** and can be used to act as if we were in another country (Netflix, Ticket reservation)
-- It is safer to browse the Internet with a VPN, especially if you are connected to a public access point. **As your data is encrypted from your computer until they arrived to the VPN provider's server, it cannot be intercepted by a potential hacker**.
+- It is safer to browse the Internet with a VPN, especially if you are connected to a public access point. **As your data is encrypted from your computer until it arrived to the VPN provider's server, it cannot be intercepted by a potential hacker**.
 
 A **public-oriented VPN** encrypts the user's data between his device and the VPN provider's server. Then, this server retrieves the desired web information with its own IP address.
 

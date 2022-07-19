@@ -86,7 +86,7 @@ Rename a Docker container
 docker rename old_container_name new_container_name
 ```
 
-Stop all Docker containter
+Stop all Docker container
 ```bash
 docker stop $(docker ps -aq)
 ```
@@ -96,12 +96,11 @@ Delete a specific Docker container
 docker rm container_name
 ```
 
-Remove all Docker containter
+Remove all Docker container
 ```bash
 docker rm $(docker ps -aq)
 ```
 
-docker rm $(docker ps -aq)
 See logs from a specific Docker container (-f for follow)
 ```bash
 docker logs container_name -f
