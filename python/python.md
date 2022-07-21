@@ -19,6 +19,7 @@
 - [Basic Date and Time Handling](#basic-date-and-time-handling)
     - [Read & Write](#read-write)
     - [Manipulate files](#manipulate-files)
+    - [Manipulate ZIP files](#manipulate-zip-files)
 - [Amazing Tools](#amazing-tools)
     - [Star operator](#star-operator)
     - [Zip](#zip)
@@ -558,6 +559,18 @@ Get the parent directory's path of a file
 '/dev/bin'
 ```
 
+Check if a file exists
+```python
+>>> os.path.exists(filename)
+True
+```
+
+Find the shortest common prefix of a string list
+```python
+>>> os.path.commonprexif(['DD101-0512', 'DD101-1203', 'DD101-1300'])
+'DD101'
+```
+
 Get the content of a directory and its subdirectories
 ```python
 import os
@@ -580,6 +593,27 @@ my_project
 ├── file1.py
 ├── file2.py
 └── my_data_file.json
+```
+
+### Manipulate ZIP files
+
+Add a file to a ZIP Archive
+```py
+with zipfile.ZipFile(zip_archive_name, 'w', compression =  zipfile.ZIP_DEFLATED) as zipf:
+      with zipf.write(file2add, arcname='filename-in-archive') as file:
+```
+
+List files in a ZIP Archive
+```py
+with zipfile.ZipFile(zip_archive_name) as zipf:
+    files = file.namelist()
+```
+
+Read a file in a ZIP Archive
+```py
+with zipfile.ZipFile(zip_archive_name) as zipf:
+      with zipf.open(internal_file_to_read) as file:
+        lines = file.readlines()
 ```
 
 ## Basic Date and Time Handling
@@ -844,6 +878,11 @@ pd.DataFrame(
     data, 
     columns=['header_col1', 'header_col2', 'header_col3']
 )
+
+# Second way (cleaner in my opinion)
+
+data = {'col1': list_of_values, 'col2': list_of_values...}
+pd.DataFrame(data)
 ```
 
 Get a DataFrame from a CSV file

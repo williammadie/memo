@@ -438,14 +438,18 @@ Launch a screen session with a given name
 screen -S session1
 ```
 
+Create a new session (Watch out: delete session with same name if there is one)
+```bash
+screen -RdS session1
+```
+
 Detach from a screen session
 ```bash
 CTRL + A + D (at the same time)
 ```
 
-Attach to a given screen session or create a new session if no session exists
-```bash
-screen -RdS session1
+```Attach to a existing screen session
+screen -r session1
 ```
 
 End a screen session
@@ -456,8 +460,6 @@ exit
 ## Config of WSL
 
 ### General
-
-
 
 ```bash
 sudo apt install man
