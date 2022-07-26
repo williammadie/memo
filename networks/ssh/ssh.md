@@ -36,6 +36,12 @@ View of the `/home/<user>/.ssh` folder:
 
 </center>
 
+Add a password to an existing key
+(Then follow instructions)
+```bash
+ssh-keygen -p
+```
+
 ### Public & Private keys mechanism
 
 - The public key is used by the server **to encrypt a message**

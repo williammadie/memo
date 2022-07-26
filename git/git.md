@@ -3,11 +3,13 @@
 
 - [First config](#first-config)
 - [CLI](#cli)
+  - [Starting](#starting)
   - [Where am I?](#where-am-i)
   - [Lookin for my branch](#lookin-for-my-branch)
   - [List commits not pushed](#list-commits-not-pushed)
-  - [How to merge](#how-to-merge)
   - [Check for differences between branches](#check-for-differences-between-branches)
+  - [Oups I am in trouble](#oups-i-am-in-trouble)
+- [How to merge](#how-to-merge)
 
 ## First config
 
@@ -17,6 +19,13 @@ git confg --global user.email "william.madie@yahoo.fr"
 ```
 
 ## CLI
+
+### Starting
+
+Create a local branch from a remote branch
+```bash
+git checkout -b remote/branch
+```
 
 ### Where am I?
 
@@ -49,10 +58,27 @@ Change branch
 git checkout branch-name
 ```
 
-## List commits not pushed
+### List commits not pushed
 
+List commits not pushed
 ```
 git log branch-name
+```
+
+### Check for differences between branches
+
+Checks for differences of one file between two branches
+```bash
+git diff origin/branch1:path/to/file.csv origin/branch2:path/to/file.csv
+```
+
+### Oups I am in trouble
+
+Replace local branch with remote branch
+(Here I want to replace the local branch123 with the remote branch123)
+```bash
+git checkout branch123 # Don't forget to go on the local branch to replace before reset
+git reset --hard origin/branch123
 ```
 
 ## How to merge
@@ -63,9 +89,3 @@ In this example, **main** has changes that **features** doesn't have. We need to
 2. Checkout to **features**
 3. Run `git merge main` from the **features** branch
 
-## Check for differences between branches
-
-Checks for differences of one file between two branches
-```bash
-git diff origin/branch1:path/to/file.csv origin/branch2:path/to/file.csv
-```

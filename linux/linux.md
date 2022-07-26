@@ -446,6 +446,10 @@ screen -RdS session1
 Detach from a screen session
 ```bash
 CTRL + A + D (at the same time)
+
+# OR 
+
+screen -d session1 # safer
 ```
 
 ```Attach to a existing screen session
