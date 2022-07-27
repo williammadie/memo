@@ -318,7 +318,11 @@ try {
 
 Declare a simple function
 ```js
-function myFunction(p1, p2) {
-    // do something
+function mean(arr) {
+    let sum = 0;
+    for (let el of arr) {
+        sum += el;
+    }
+    return res / arr.length;
 }
 ```
