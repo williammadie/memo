@@ -23,7 +23,7 @@ JavaScript is a *weakly typed* programming language. There is no need to explici
 |   Number  |                let a = 42               |
 |  Boolean  |              let b = false              |
 |   String  |              let c = "John"             |
-|    Null   |                let d = 42               |
+|    Null   |               let d = null              |
 | Undefined |            let e = undefined            |
 |   BigInt  | let f = BigInt(Number.MAX_SAFE_INTEGER) |
 |   Object  |         let g = new Object1(...)        |
@@ -115,7 +115,7 @@ Utils.removeAllFiles();
 let server = Utils.connectToServer('127.0.0.1');
 ```
 
-*Observation: All static methods could be simple functions but it useful to create a static class because all these methods can be regrouped by type or usage*
+*Observation: All static methods could be simple functions but it is useful to create a static class because all these methods can be regrouped by type or usage*
 
 ## Array
 
@@ -208,7 +208,7 @@ if (5 === "5") {    // Checks if both values are equals AND does check if types 
 
 *Observation: The same specificity applies to `a != b` and `a !== b`*
 
-## Variable Scope
+## Variable Scope
 
 In JavaScript, there are 3 keywords to declare a variable: `let`, `const` and `var`.
 
