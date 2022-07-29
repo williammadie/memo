@@ -9,6 +9,11 @@
     - [APIs](#apis)
     - [RESTful APIs](#restful-apis)
     - [RESTless APIs](#restless-apis)
+- [Upload a Website to the Web](#upload-a-website-to-the-web)
+    - [Obtain a domain name](#obtain-a-domain-name)
+    - [Find a Web Hosting Service](#find-a-web-hosting-service)
+    - [Import your Website on the Server](#import-your-website-on-the-server)
+
 
 ## Browse the Web
 
@@ -49,3 +54,26 @@ A **RESTful** service is a service based on the REST (*REpresentational State Tr
 ### RESTless APIs
 
 A **RESTless** service is a service that does not conform to the REST architecture.
+
+## Upload a Website to the Web
+
+### Obtain a domain name
+
+A domain name is a name used to access your website. It looks like this `www.williammadie.fr`. It is not free to obtain, it can cost 7-12€/year. The price changes depending on the extension `.com`, `.fr`, `.info`.
+
+It is generally advised to buy a domain name with a *web host* (less issues). 
+
+### Find a Web Hosting Service
+
+In order to make your website accessible by anyone at anytime. It has to be online 24/24h. So you can use your computer (good luck), or you can rent a server that will host your website for you. It is the most costly step of the process. Cheaper offers can be found around 60€/year for a *VPS* (*Virtual Private Server* = a VM on a giant physical server).
+
+Most popular Web Hosting Services:
+
+- OVH
+- AWS
+
+### Import your Website on the Server
+
+You have two major options:
+- Use a FTP like FileZilla(simple but limited)
+- Directly work from a SSH access and use git
