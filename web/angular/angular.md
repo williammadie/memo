@@ -2,6 +2,7 @@
 
 ## Table of Content
 
+- [Install Angular](#install-angular)
 - [Create a new Project](#create-a-new-project)
     - [Main commands](#main-commands)
     - [Known errors](#known-errors)
@@ -10,6 +11,17 @@
 - [Pipes](#pipes)
 - [Services](#services)
 - [Project Structure](#project-structure)
+
+## Install Angular
+
+```bash
+sudo apt install nodejs #Install
+node -v          #Check installation
+sudo apt install npm    #Install
+npm -v           #Check installationls
+sudo npm install -g @angular/cli@7.0 #Install Angular 7.0
+sudo npm install -g @angular/cli #Install the latest version of Angular
+```
 
 ## Create a new Project
 
@@ -30,6 +42,10 @@ ng serve --open
 Create a new Component
 ```bash
 ng generate component my-component
+
+# OR
+
+ng g c my-component
 ```
 (Each hyphen will add a capital letter on the following letter)
 

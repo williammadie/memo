@@ -18,6 +18,16 @@ In comparison, the Linux and the MacOSX file system (which is also based on Linu
 - `Windows` + `I` => Access the settings
 - `Windows` + `ALT` + `DEL` => Open the Task Manager   
 
+## Disk Operating System commands (DOS commands)
+
+- `dir`: list files and folders in working directory
+- `cd`: change current directory
+- `md` or `mkdir`: create a new directory
+- `del`: remove a file or several files
+- `rmdir` or `rd`: remove one or several folder(s)
+- `copy`: copy a file
+- `cls`: clear the content of the terminal
+
 ## User
 
 ## Query on a windows filesystem

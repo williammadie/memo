@@ -4,6 +4,7 @@
 
 - [User](#user)
 - [Useful commands](#useful-commands)
+    - [Basic commands](#basic-commands)
     - [Query on a linux filesystem](#query-on-a-linux-filesystem)
     - [Storage related commands](#storage-related-commands)
     - [Watch logs](#watch-logs)
@@ -44,7 +45,43 @@ List of users' hash passwords (**SHA512**)
 ```bash
 sudo cat /etc/shadow
 ```
+
 ## Useful commands 
+### Basic commands
+
+- `man`: show a specific command documentation
+- `pwd`: print working directory (location in file structure)
+- `ls`: list files and folders in a given directory
+- `cd`: change directory
+- `mv`: move/rename a file
+- `cp`: copy a file
+- `scp`: copy a file from a machine to another through SSH
+- `rm`: remove file(s)
+- `mkdir`: create a directory
+- `rmdir`: delete a directory (empty only)
+- `top`: show current running processes
+- `htop`: same as top but with an enhanced user interface
+- `ln`: create a physical or symbolic link to a file or a repertory
+- `find`: search for a file recursively in the file structure
+- `grep`: search for a string in files (using REGEX)
+- `cat`: show the content of a file
+- `clear`: clear the content of the terminal
+- `echo`: print the given string
+- `date`: show the current date hour and timezone
+- `exit`: close the terminal
+
+### Manage dependencies
+
+- `sudo apt install`: install a given package
+- `sudo apt update`: update the packages index
+- `sudo apt upgrade`: update all the packages based on the packages index 
+- `sudo apt remove`: remove an installed package
+- `sudo apt purge`: remove all files of a given package
+- `sudo apt autoremove`: remove unused packages
+- `apt list`: list all installed/available/upgradeable packages
+- `sudo apt search`: search for a specific package
+- `sudo apt show`: show information about a given package
+
 ### Query on a linux filesystem
 
 Search for a file in a folder and all its subdirectories
