@@ -8,6 +8,9 @@
     - [Basic Libraries in Java](#basic-libraries-in-c)
     - [Structure of a Java Project](#structure-of-a-c-project)
         - [Simple file project](#simple-file-project)
+- [Operators](#operators)
+- [Control Structures](#control-structures)
+- [Arrays](#arrays)
     
 ## Introduction
 
@@ -103,6 +106,9 @@ Note that a *narrowing/explicit* conversion can be forced by using `(int)variabl
 
 ### Basic Libraries in Java
 
+- `Math`: (standard) it contains basic mathematical operations such as `abs(), pow(), log(), exp(), sin(), cos()`
+- `System`: (standard) it allows the program to interact with the O.S (`System.out.println(), System.exit()`)
+
 ### Structure of a Java Project
 
 #### Simple file Project
@@ -120,3 +126,197 @@ public class FirtProgram {
 ```
 
 The file will be **named after its class**: ``FirstProgram.java`.
+
+## Operators
+
+|            Operator Name            |            Nom de l'opérateur           |                Symbols               |               Example               |                                                                  Comments                                                                 |
+|:-----------------------------------:|:---------------------------------------:|:------------------------------------:|:-----------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------:|
+|         Affectation Operator        |         Opérateur d'Affectation         |                   =                  |                a = 5;               |                                                                                                                                           |
+|    Objects Construction Operator    |    Opérateur de Construction d'Objets   |                  new                 |        Car c1 = new Car(...);       |                                                                                                                                           |
+|         Arithmetic Operators        |         Opérateurs Arithmétiques        |               + - * / %              |              a = 4 + 5;             |                                        These operators have the same priorities than in Mathematics                                       |
+|      Unary Arithmetic Operators     |     Opérateurs Arithmétiques Unaires    |          ++a --a a++ a-- - +         |  for (int i = 0; i <= 6; i++) {...} |                                 These operators can be used as prefix or postfix (see full example below)                                 |
+|    String Concatenation Operators   |  Opérateurs de Concaténation de Chaînes |                   +                  |   str1 = "Hello" + " " + "World!";  | This can be used but can induce the creation of a lot of objects. For this reason, it is generally advised to use the StringBuilder class |
+|         Relational Operators        |         Opérateurs Relationnels         |            < > = != <= >=            |          if (a >= b) {...}          |  Beware while using these operators with objects : (a == b) for two objects will compare object's addresses and not the object on its own |
+|          Logical Operators          |           Opérateurs Logiques           |               ! && \|\|              |    if (a && b \|\| c >= 6) {...}    |            If there are several conditions with \|\| and the first one is true, Java will not look at the following conditions            |
+|           Ternary Operator          |            Opérateur Ternaire           |     expr ? trueValue : falseValue    |        a > b ? c = 1 : c = 0;       |                                          It can reduce a simple if/else to a one-line instruction                                         |
+|        Typecasting Operators        |        Opérateurs de Transtypage        |    (int) (char) (String) (List)...   |             (int) 45.42;            |                                                      It can be used with all objects                                                      |
+| Operation and Affectation Operators | Opérateurs d'Opération et d'Affectation | += -= *= /= %= &= ^= l= <<= >>= >>>= |               a += 4;               |                                             The last operators are used for binary operations                                             |
+|            Comma Operator           |            Opérateur Virgule            |                   ,                  |       int a = 0, b = 1, c = 2;      |                                It is rarely used to declare and initialize several variables of a same type                               |
+|          Bitwise Operators          |            Opérateurs Bitwise           |                ~ & ^ l               |                                     |                                                             Binary operations                                                             |
+|           Shift Operators           |         Opérateurs de Décallage         |             >> << >>> <<<            |                                     |                                                             Binary operations                                                             |
+|             Dot Operator            |             Opérateur Point             |                   .                  | c1.startEngine(); c1.remainingFuel; |                                    This operator is used to access methods and attributes of an object                                    |
+
+For Unary Arithmetic Operators: 
+
+Prefix Operators
+```java
+i = 0
+j = ++i;
+
+// equivalent to:
+
+i = i + 1;
+j = i;
+// i = 1
+// j = 1
+```
+
+Postfix Operators
+```java
+i = 0
+j = i++;
+
+// equivalent to:
+
+j = i;
+i = i + 1;
+// i = 1
+// j = 0
+```
+
+## Control Structures
+
+IF/ELSE
+```java
+if (i % 2 == 0) {
+  // Instructions
+} else if (i > 0) {
+  // Instructions
+} else {
+  // Instructions
+}
+```
+
+RETURN (exit a function)
+```java
+return 9;
+```
+
+WHILE LOOP (if condition false = not entering the loop)
+```java
+while (i > 10) {  // Keeps running while it is true
+  // Instructions
+}
+```
+
+DO WHILE LOOP (if condition false = entering the loop one time)
+```java
+do {
+  // Instructions
+} while (i > 10); // Keeps running while it is true
+```
+
+FOR LOOP
+```java
+for (int i = 0; i <= 10; i++) { // Keeps running while i <= 10
+  // Instructions
+}
+```
+
+- The `break` keyword allows to leave/end a loop.
+- The `continue` keyword allows to skip the end of the current iteration and to jump to the next iteration.
+
+LOOP LABELS (allows to exit the main loop from inside the encapsulated loop)
+```java
+matrix:for (int i = 0; i <= 10; i++) {
+  for (int j = 0; j <= 10; j++) {
+    // Instructions
+    break matrix;
+  }
+}
+```
+
+SWITCH CASE
+```java
+switch (value) {
+  case "Value1":
+    // Instructions
+    break;
+  case "Value2":
+    // Instructions
+    break;
+  default:
+    // Instructions
+}
+```
+
+SWITCH CASE (with differents values resulting in the same action)
+```java
+switch (value) {
+  case "Value1":
+  case "Value2":
+  case "Value3":
+    // Instructions
+    break;
+  case "Value4":
+    // Instructions
+    break;
+  default:
+    // Instructions
+}
+```
+
+## Arrays
+
+Declaration
+```java
+int[] table;
+
+//OR
+
+int table[];
+```
+
+Initialization
+```java
+int[] table = {0, 1, 2, 3};
+
+// OR
+
+int[] table = new int[size_n] // An array length cannot be changed after it was initally set
+```
+
+Modify an Array
+```java
+table[2] = 15;
+// {0, 1, 15, 3}
+```
+
+Access to elements of the array
+```java
+table[1];
+// 1
+```
+
+Get the length of the array
+```java
+table.length
+```
+
+Loop on the array
+```java
+for (int value : table) {
+  System.out.println(value);
+}
+```
+
+Declare a multi-dimensional array
+```java
+int[][] table2D = new int[n][m];
+```
+
+Show the Memory Address of the Array
+```java
+System.out.println(table);
+```
+
+Show the values stored in the Array
+```java
+System.out.println(table.toString());
+```
+
+Check if two arrays are equals
+```java
+java.utils.Arrays.equals(arr1, arr2);
+```
+
