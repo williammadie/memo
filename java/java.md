@@ -8,20 +8,51 @@
     - [Basic Libraries in Java](#basic-libraries-in-c)
     - [Structure of a Java Project](#structure-of-a-c-project)
         - [Simple file project](#simple-file-project)
+- [Java Code Blocks](#java-code-blocks)
+- [Comments and Java Conventions](#java-conventions-and-comments)
 - [Operators](#operators)
+- [String operations](#string-operations)
 - [Control Structures](#control-structures)
 - [Arrays](#arrays)
     
 ## Introduction
 
+Java was created in 1996 by Sun Microsystems. The company was then acquired by Oracle in 2010.
+
+In 1996, the main goals of Java were:
+
+- Allow developers to build software which would be independent from the hardware.
+- Build an Object Oriented Programming language with wide standard libraries.
+
 
 ## Advantages and Disadvantages of the Java language
+
+Java was primarily designed to support imperative programming (statements (=instructions) describe what the machine has to do step-by-step). So it is not a purely **Object-Oriented Language** because it is based on primitive types that aren't pure objects. However it supports major concepts of **Object Oriented Programming** (OOP).
+
+A quick view of the different programming paradigms:
+
+| Paradigm Name                  | Nom du Paradigme                   | Description                                                                                                                       | Other paradigm engulfed |
+|--------------------------------|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| Imperative Programming         | Programmation Impérative           | The entire program is a single algorithm which complete a functionality written step by step. (No function, No module, No object) |                         |
+| Structured/Modular Programming | Programmation Structurée/Modulaire | Most often these two terms can refer to a same paradigm: program is divided into units of work which can be functions or modules. | Procedural Programming  |
+| Object-Oriented Programming    | Programmation Orientée Objets      | The program is divided in classes, object and links between objects.                                                              |                         |
+
+A quick recap on why OOP is the world most popular programming paradigm:
+
+![structured-programming-vs-oop](/java/resources/structured-programming-vs-oop.jpg)
 
 ## Basics
 
 ### Compile and Run
 
+Java is independent from the computer it is running on. This is achieved with the **JVM (Java Virtual Machine)**: the code produced by the **JDK (Java Compiler)** is known as bytecode. This bytecode is a known language of the JVM.
+
+
 Basic steps to run a Java Program:
+
+1. Use the JDK to compile the source code into bytecode (file.java -> file.class)
+2. Use the JVM to run this bytecode file (file.class)
+
 
 ![java-compile-and-run](/java/resources/java-compiler-and-execution.png)
 
@@ -40,6 +71,48 @@ Compile and Run as a script
 ```bash
 java JavaFilename.java
 ```
+
+Note: the **JRE (Java Runtime Environment)** is different from the **JVM (Java Virtual Machine)**:
+
+- JRE = JVM (tools to run Java programs)
+- JDK = JSHELL + JVM + JRE + ... (tools to develop a Java program).
+
+Nowadays, we can find different version of the Java source code. The one maintained by Oracle is called **OpenJDK**.
+
+### Dynamic Link and Classpath
+
+A Java program is a group of .class files (compiled files). Even if our program is very basic we're still dependent from the System class which is contained in the Standard library (= a bunch of .class files).
+
+In a complex program, there can be libraries located at different places in the system. For this reason, we can use the argument `-classpath library-locatio` while running a java program.
+
+Specify a library location to a Java program
+```bash
+java -classpath /home/william/... myProgram
+
+// OR
+
+export CLASSPATH=/home/william/...
+java myProgram
+```
+
+### Distributing a Java Program
+
+As said previously, a Java program is a collection of .class files. It looks difficult to distribute a folder filled with thousands of .class files to our client. So how can we proceed ?
+
+To distribute our program at an important scale, we'll use **JAR files** (= **Java ARchive**) which are basically a ZIP file containing .class files. It looks like this: `myExecutable.jar`
+
+Create a JAR:
+```bash
+jar -cf Cycle.jar cycle.class 
+```
+
+Add a JAR to CLASSPATH to use all contained files
+```bash
+export CLASSPATH=/home/william/...
+java MyProgram
+```
+
+**All Java libraries are available under the JAR format.**
 
 ### Good Practices and Interest Points
 
@@ -127,6 +200,56 @@ public class FirtProgram {
 
 The file will be **named after its class**: ``FirstProgram.java`.
 
+## Java Code Blocks
+
+Java use `{...}` to delimit a code block. A *code block* is used to limit the scope of a variable.
+
+```java
+int a = 34;
+{
+  int b = 35;
+}
+System.out.println(a);
+// 34
+System.out.println(b);
+// Error: b is not defined
+```
+
+A code block can be used after a *if* to highlight a condition:
+
+```java
+if (a >= 10) {
+  // Instructions
+}
+```
+
+It can also be an *anonymous code block* which refers to a code block where it is not required. Please note that using such block can be a sign that our code needs to be refactored. In the case below, it helps to structure a declaration of UI elements in Swing
+
+```java
+JPanel mainPanel = new JPanel(new BorderLayout());
+{
+    JLabel centerLabel = new JLabel();
+    centerLabel.setText("Hello World");
+    mainPanel.add(centerLabel, BorderLayout.CENTER);
+}
+{
+    JPanel southPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0,0));
+    {
+        JLabel label1 = new JLabel();
+        label1.setText("Hello");
+        southPanel.add(label1);
+    }
+    {
+        JLabel label2 = new JLabel();
+        label2.setText("World");
+        southPanel.add(label2);
+    }
+    mainPanel.add(southPanel, BorderLayout.SOUTH);
+}
+```
+
+## Comments and Java Conventions
+
 ## Operators
 
 |            Operator Name            |            Nom de l'opérateur           |                Symbols               |               Example               |                                                                  Comments                                                                 |
@@ -172,6 +295,110 @@ j = i;
 i = i + 1;
 // i = 1
 // j = 0
+```
+
+## String operations
+
+Get String length
+```java
+String str = "Hello World!";
+str.length();
+```
+
+Check if a String is empty
+```java
+str.isEmpty();
+```
+
+Get the character at a given index
+```java
+str.charAt(4);
+// o
+```
+
+Get the first index of a character
+```java
+str.indexOf('o'); // returns -1 if not found
+// 4
+```
+
+Get the first index of a character after a given index
+```java
+str.indexOf('o', 5);
+// 7
+```
+
+Get the first position of a substring in the String
+```java
+str.indexOf("World"); // Case sensitive!
+// 6
+```
+
+Get the first position of a substring in the string after a given index
+```java
+str.indexOf("World", 4);
+// 6
+```
+
+**There is function that works in a similar way. It is called `lastIndexOf(...)`. It allows to find the last index of a character or a substring**
+
+Compare Two Strings - Case sensitive
+```java
+"alban".compareTo("boris");
+// -1 (lexicographic order)
+
+"alban".compareTo("alban");
+// 0 (Strictly equals)
+
+"boris".compareTo("boris");
+// 1  (lexicographic order)
+```
+
+Compare Two Strings - Cases insensitive
+```java
+"ALBAN".compareToIgnoreCase("boris");
+// -1
+```
+
+Changing Case
+```java
+str.toLowerCase();
+// hello world!
+
+str.toUpperCase();
+// HELLO WORLD!
+```
+
+Removing Trailing Whitespace
+```java
+String str2 = "     Hi guys, I'm Marc!     ";
+str.trim();
+// "Hi guys, I'm Marc!"
+```
+
+Format Strings
+```java
+String.format("I'm %d years old", 19);  // Useful for printing
+// I'm 19 years old
+```
+
+Flags for formating Strings:
+
+- `%d` for byte, short, int, long, BigInteger
+- `%s` for Strings
+- `%f` for float, double as a decimal number
+- `%e` for float, double as a decimal number in scientific notation
+- `%b` for boolean
+
+For floating numbers, it is also possible to specify a **precision** which is basically the number of digits we want to show after the comma.
+
+Format Strings with precision
+```java
+double ourDouble = 1123.9303;
+String.format("%f", ourDouble);
+// 1123.9303
+String.format("%.3f", ourDouble);
+// 1123.930
 ```
 
 ## Control Structures

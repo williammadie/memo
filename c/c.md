@@ -9,6 +9,8 @@
 - [Basic Libraries in C](#basic-libraries-in-c)
 - [Structure of a C Project](#structure-of-a-c-project)
     - [Simple file project](#simple-file-project)
+- [String Handling](#string-handling)
+- [Inbuilt Typecast](#inbuilt-typecast)
 
 ## Introduction
 
@@ -84,4 +86,33 @@ Author: Author_Name
 int main(void) {
     return EXIT_SUCCESS;
 }
+```
+
+## String handling
+
+Check if 2 strings are equals
+```c
+strcmp(str1, str2)  // Returns a nonzero value if the strings are different and 0 if they're the same
+```
+
+## Inbuilt Typecast
+
+Str -> int
+```c
+int a = atoi("9081222");
+printf("%d\n", a);
+// 9081222
+```
+
+Int -> Str
+```c
+int a = 90000;
+int convertedStrLength = countDigits(a);
+char* convertedStr = (char*)malloc((convertedStrLength+1)*sizeof(int));
+sprintf(convertedStr, "%d", a);
+convertedStr[convertedStrLength] = '\0';
+printf("%s\n", convertedStr);
+// 90000
+
+//There is also the function itoa() but it is not part of the standard
 ```
