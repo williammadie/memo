@@ -5,12 +5,20 @@
 - [CLI](#cli)
   - [Starting](#starting)
   - [Where am I?](#where-am-i)
+  - [Is my branch up-to-date with the origin?](#is-my-branch-up-to-date-with-the-origin)
   - [Lookin for my branch](#lookin-for-my-branch)
   - [List commits not pushed](#list-commits-not-pushed)
   - [Check for differences between branches](#check-for-differences-between-branches)
   - [Oups I am in trouble](#oups-i-am-in-trouble)
 - [How to merge](#how-to-merge)
 
+## Git in Theory
+
+![git-workflow-diagram](/git/resources/git-workflow.png)
+
+- The working tree : it is simply the set of files and folders a developer can add/edit/rename/delete during software development.
+- 
+- 
 ## First config
 
 ```bash
@@ -21,6 +29,11 @@ git confg --global user.email "william.madie@yahoo.fr"
 ## CLI
 
 ### Starting
+
+Initialize a new Git Repository
+```bash
+git init
+```
 
 Create a local branch from a remote branch
 ```bash
@@ -39,10 +52,18 @@ Output:
 * main
 ```
 
-
 Create a new branch from current branch
+(Please note that all uncommited changes will GET CARRIED OVER the new branch)
 ```bash
 git checkout -b new-branch-name
+```
+
+### Is my branch up-to-date with the origin?
+
+See if local branch is up-to-date with remote branch AND See current
+local modifications
+```bash
+git status
 ```
 
 ### Lookin for my branch
