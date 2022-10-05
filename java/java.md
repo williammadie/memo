@@ -14,6 +14,8 @@
 - [String operations](#string-operations)
 - [Control Structures](#control-structures)
 - [Arrays](#arrays)
+- [Classes](#classes)
+	- [Structure of a file](#structure-of-a-file)
     
 ## Introduction
 
@@ -552,5 +554,38 @@ System.out.println(table.toString());
 Check if two arrays are equals
 ```java
 java.utils.Arrays.equals(arr1, arr2);
+```
+
+## Classes
+
+### Structure of a class
+
+Note: public, private, protected and default are called access modifiers
+
+```java
+
+public class SeaPlane extends Plane {		// a sea plane is a plane so it inherits of its attributes (and methods)
+	
+	// Static Variable (= ALL sea planes are restricted to go higher than this speed limit)
+	// It is initialized on declaration
+	private static int maximalAuthorizedByLawSpeed = 500
+	// Instance Variable (= EACH sea plane has its own type of VIP services)
+	// It is initialized via the Constructor after declaration 
+	private ArrayList<VipService> vipServices;			
+	
+	// Constructor of a SeaPlane object/instance
+	public SeaPlane(Model model, Category category, ArrayList<VipServices> vipServices) {
+		super(model, category);
+		this.vipServices = vipServices;
+	}
+	
+	public getVipServices() {
+		return this.vipServices;
+	}
+	
+	public setVipServices(ArrayList<VipService> vipServices) {
+		this.vipServices = vipServices;
+	}
+}
 ```
 

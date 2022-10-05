@@ -885,6 +885,16 @@ data = {'col1': list_of_values, 'col2': list_of_values...}
 pd.DataFrame(data)
 ```
 
+Replace a value at a given row and column
+```python
+df.at[row, column_name] = new_value
+```
+
+Aggregate by columns and sum column n4
+```python
+df.groupby(['column1', 'c2', 'cn'])[['n4']].sum().reset_index()
+```
+
 Get a DataFrame from a CSV file
 ```python
 import pandas as pd
@@ -1000,7 +1010,9 @@ It can also be useful to set a condition before calling `breakpoint()`. It is ca
 
 If you have a custom installation of Python, you may be interested in knowing what is the Python **PATH**. For instance, you have Python 2.5.1 installed on your computer for a bunch of projects. A new project requires you to install Python 3.8.7. You cannot simply delete Python 2 and install Python 3. There is a gap between those 2 versions and no backward compatibility. So what can be done?
 
-It is possible to install another version of Python. You will simply need to show where it is to your computer. To do that, you can use the **PATH** environment variable. It is a string of concatenated paths separated with `:`. For instance, it can look like this:
+It is possible to install another version of Python. You will simply need to show where it is to your computer. To do that, you can use the **PATH** environment variable. It is a string of concatenated paths separated with `:`. **These paths are folders which contain binaries (=executable files). It allows the computer to locate/use all available binaries**. 
+
+For instance, it can look like this:
 
 ```bash
 PATH=/space/hadoop/lib/python-3.6.7-lib/bin:/space/hadoop/lib/python-3.6.7-lib/bin:/home/william2/.vscode-server/bin/30d9c6cd9483b2cc586687151bcbcd635f373630/bin/remote-cli:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
