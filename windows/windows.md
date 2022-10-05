@@ -1,3 +1,14 @@
+# Table of Content
+
+- [Windows File System](#windows-file-system)
+- [Windows Commands](#windows-commands)
+    - [Shortcuts](#shortcuts)
+    - [Disk Operation System Commands (DOS commands)](#disk-operating-system-commands-dos-commands)
+    - [User](#user)
+    - [Query on a Windows Filesystem](#query-on-a-windows-filesystem)
+    - [Scripts](#scripts)
+    - [WSL (Windows Subsystem for Linux)](#wsl-windows-subsystem-for-linux)
+
 # Windows File System
 
 The Windows file system is quite different compared to its fellows. There is **more than a single root** because disks are mounted on their own (= on different trees)
@@ -33,3 +44,15 @@ In comparison, the Linux and the MacOSX file system (which is also based on Linu
 ## Query on a windows filesystem
 
 ## Scripts
+
+## WSL (Windows Subsystem for Linux)
+
+List all distros installed
+```sh
+wsl --list
+```
+
+Terminate a specific instance of a distro
+```sh
+wsl --terminate DistroName
+```
