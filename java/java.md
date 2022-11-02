@@ -553,8 +553,6 @@ java.utils.Arrays.equals(arr1, arr2);
 
 ### Structure of a class
 
-Note: public, private, protected and default are called access modifiers
-
 ```java
 
 public class SeaPlane extends Plane {		// a sea plane is a plane so it inherits of its attributes (and methods)
@@ -572,13 +570,30 @@ public class SeaPlane extends Plane {		// a sea plane is a plane so it inherits 
 		this.vipServices = vipServices;
 	}
 	
-	public getVipServices() {
+	public ArrayList<VipService> getVipServices() {
 		return this.vipServices;
 	}
 	
-	public setVipServices(ArrayList<VipService> vipServices) {
+	public void setVipServices(ArrayList<VipService> vipServices) {
 		this.vipServices = vipServices;
 	}
+
+  // A public method which does something. It includes a call to a private function
+  // that only sea planes can use. 
+  public void doSomething(...) {
+    ...
+    doSomethingThatOnlyYourTypeCanDo();
+    ...
+  }
+
+  // A private method that can be used only in this class/file. Only sea planes objects can
+  // call this method (access modifier: private)
+  private void doSomethingThatOnlyYourTypeCanDo() {
+    ...
+    ...
+    ...
+  }
 }
 ```
 
+Note: public, private, protected and default are called access modifiers

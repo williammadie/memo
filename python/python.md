@@ -28,6 +28,8 @@
     - [All](#all)
     - [Map Objects](#map-objects)
 - [Python OOP](#python-oop)
+	- [Class and Parent Class](#class-and-parent-class)
+	- [Dataclasses](#dataclasses)
 - [Python Nested Functions](#python-nested-functions)
 - [Scraping & Parsing](#scraping--parsing)
     - [Libraries](#libraries)
@@ -800,6 +802,24 @@ class AustralianSheperd(Dog):
 
 d1 = AustralianSheperd('Paterson', 9)
 print(f'Oh look at this {d1.race}! This is {d1.name}! He is {d1.age}!')
+```
+### Dataclasses
+
+**Dataclasses** are a special kind of classes used primarily for **storing information**. They hold certain properties (= attributes) and methods to build a data representation.
+
+```python
+@dataclass
+class ConstantsNamespace():
+	self.JSON_EXT = ".json"
+	self.CSV_EXT = ".csv"
+	self.PYTHON_EXT = ".py"
+	self.JAVA_EXT = ".java"
+	self.COMPILED_JAVA_EXT = ".class"
+	
+# It can be used anywhere else with:
+constants = ConstantsNamespace()
+print(constants.COMPILED_JAVA_EXT)
+>>> ".class"
 ```
 
 ## Python Nested Functions
