@@ -59,6 +59,13 @@ Basic steps to run a Java Program:
 ![java-compile-and-run](/java/resources/java-compiler-and-execution.png)
 
 
+Java Architecture in a nutshell:
+
+![java-architecture](/java/resources/java-architecture.png)
+
+As we can see, the JDK contains a JRE that contains the JVM. Developers will use the JDK where users will only use the JRE containing the JVM.
+
+
 Compile a *Java Source Code* file into a *Java Byte Code file*
 ```bash
 javac JavaFilename.java
@@ -74,7 +81,7 @@ Compile and Run as a script
 java JavaFilename.java
 ```
 
-Note: the **JRE (Java Runtime Environment)** is different from the **JVM (Java Virtual Machine)**:
+Note: the **JRE (Java Runtime Environment)** is different from the **JVM (Java Virtual Machine)** (the JVM is contained in the JRE):
 
 - JRE = JVM (tools to run Java programs)
 - JDK = JSHELL + JVM + JRE + ... (tools to develop a Java program).
@@ -123,7 +130,7 @@ java MyProgram
 - 1 line should contain 1 instruction (instructions are separated by `;`).
 - one-line comment: `//`
 - multi-line comment: `/*`
-- javadoc: `/*`
+- javadoc: `/**`
 - classes should be named using *PascalCase*.
 - variables should be named using *camelCase*.
 - methods (= functions inside classes) should be named using *camelCase*.
