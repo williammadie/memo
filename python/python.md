@@ -15,6 +15,8 @@
         - [Strings](#strings)
     - [Print](#print)
     - [List](#list)
+    - [List Comprehension](#list-comprehension)
+    - [Set](#set)
 - [Basic File Manipulations](#basic-file-manipulations)
 - [Basic Date and Time Handling](#basic-date-and-time-handling)
     - [Read & Write](#read-write)
@@ -464,6 +466,18 @@ Clears all items from a list
 ```python
 >>> l.clear()
 []
+```
+
+### List Comprehension
+
+A Python list comprehension provides a very short syntax **for creating a new list based on the values of an existing list**. It is visually distinguishable because it is a one-liner syntax consisting of **square brackets containing the expression**:
+
+An exemple of list comprehension which creates a new list containing lengths of all city names
+```python
+# [output collection condition]
+>>> city_names = ["New York", "Paris", "London"]
+>>> length_of_names = [len(city_name) for city_name in city_names]
+[8, 5, 6]
 ```
 
 ### Set
