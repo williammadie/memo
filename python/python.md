@@ -919,6 +919,11 @@ data = {'col1': list_of_values, 'col2': list_of_values...}
 pd.DataFrame(data)
 ```
 
+See only specific columns
+```python
+df[['isco08', 'number_of_hospital_staff']]
+```
+
 Replace a value at a given row and column
 ```python
 df.at[row, column_name] = new_value
@@ -1010,6 +1015,7 @@ df.loc[(condition1) & (condition2) & (condition3), column2modify] = new_value
 ```
 
 Get the Union of n DataFrames
+(Please note: it is advised to use build a new DataFrame and the use pd.concat than use the df.append() method due to an important difference in time complexity of such operation if used in a loop)
 ```python
 import pandas as pd
 concatenated_df = pd.concat([df1, df2, df3, dfn])
@@ -1018,6 +1024,12 @@ concatenated_df = pd.concat([df1, df2, df3, dfn])
 Keep rows where value for column X is in a list
 ```python
 df = df[df['country'].str.lower().isin(EU_COUNTRIES)]
+```
+
+Keep rows where value for column X is NOT in a list
+(Tilde is the NOT operator in dataframe queries)
+```python
+df = df[~df['country'].str.lower().isin(EU_COUNTRIES)]
 ```
 
 ### Hashlib
