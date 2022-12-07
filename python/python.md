@@ -1045,8 +1045,23 @@ digest = int(hashlib.sha512(my_string.encode('utf-8')).hexdigest(), 16)
 
 One of the simplest way of debugging in Python is to use the `print()` function where we need to visualize information in order to understand the problem. However, there are more convenient ways of debugging in Python.
 
-The first way of debugging which is incredibely better than a print and not more difficult is the `breakpoint()` function. This function can be used anywhere we need in our code. It will stop the execution of the program and open a Python interpreter. In this Python interpreter, we will be able to visualize all the declared variables.
-We can find these variables with `dir()`
+The first way of debugging which is incredibely better than a print and not more difficult is the `breakpoint()` function. This function can be used anywhere we need in our code. It will stop the execution of the program and open a Python interpreter called `Pdb (Python Debugger)`. 
+
+In this Python interpreter, we will be able to visualize all the declared variables. We can find these variables with `dir()`.
+Here is a list of all useful commands in Pdb:
+
+- `dir()`: list all currently declared/available variables
+- `l`: (list) show surrounding lines
+- `w`: (where) display the file name and the line number of the current line
+- `n`: (next) execute the next line
+- `s`: (step) step into function
+- `r`: (return) execute until function's return
+- `b [line_number]`: create a breakpoint at given line
+- `clear [line_number]`: remove a breakpoint at given line
+- `b`: list breakpoints and theirs line number
+- `c`: (continue) continue execution until next breakpoint or end of program
+- `p <variable>`: print the value of a given variable
+- `q`: (quit) exit the debugger
 
 It can also be useful to set a condition before calling `breakpoint()`. It is called a **conditional breakpoint**.
 

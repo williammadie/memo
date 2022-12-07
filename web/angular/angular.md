@@ -2,7 +2,10 @@
 
 ## Table of Content
 
-- [Install Angular](#install-angular)
+- [Installation](#installation)
+    - [Prerequisites]
+    - [Install Angular](#install-angular)
+    - [Modify Environment](#modify-environment)
 - [Create a new Project](#create-a-new-project)
     - [Main commands](#main-commands)
     - [Known errors](#known-errors)
@@ -12,7 +15,15 @@
 - [Services](#services)
 - [Project Structure](#project-structure)
 
-## Install Angular
+## Installation
+
+### Prerequisites
+
+- **NodeJS**: open-source, cross-platform JavaScript runtime environment and library for running web applications outside the client's browser.
+
+Wait, this **NodeJS** sounds very unneeded. Do I really have to use it for my client-side web application? Well, Angular does not need NodeJS directly but it is required to use it for all the build and development tools. (**npm** comes with NodeJS by default and it allows easy dependency management. It also gives **ng cli** a very useful tool to quickly build an angular project. Finally, it allows you to spin up (= host) a local web server in order to develop your web application)
+
+### Install Angular
 
 ```bash
 sudo apt install nodejs #Install
@@ -21,6 +32,31 @@ sudo apt install npm    #Install
 npm -v           #Check installationls
 sudo npm install -g @angular/cli@7.0 #Install Angular 7.0
 sudo npm install -g @angular/cli #Install the latest version of Angular
+```
+
+### Modify Environment
+
+n is VCS tool for node. It allows to install given versions of Node and more.
+
+Install n
+```bash
+npm install -g n
+```
+
+Install Node
+```bash
+n 16.13.0   # Install a specific version of Node
+
+n --latest  # Show the latest Node version available
+n latest    # Install latest version of Node
+
+n --stable  # Show the latest stable Node version
+n stable    # Install latest stable version of Node
+```
+
+Remove Node
+```bash
+n rm <version>  # Remove the given Node version(s)
 ```
 
 ## Create a new Project
