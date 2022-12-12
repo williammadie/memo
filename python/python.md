@@ -1032,6 +1032,15 @@ Keep rows where value for column X is NOT in a list
 df = df[~df['country'].str.lower().isin(EU_COUNTRIES)]
 ```
 
+Build a new column based on values in other columns
+```python
+# This function is called for determining the value at each row of the new column
+def build_column(row: pd.Series, facility: str, base_column: str) -> pd.DataFrame:
+    return row[base_column] if row["facility"] == facility else None
+
+df["number_of_icu_beds"] = df.apply(lambda x: build_column(x, "HBEDT_CUR", "number_of_hospital_beds"), axis=1)
+```
+
 ### Hashlib
 
 Get the hash of a value:
