@@ -977,8 +977,17 @@ df = df[['country', 'date']]
 
 Fill a column with a given value
 ```python
-df['age_group'] = pd.NA
+df.loc[:, 'age_group'] = np.nan
+df.loc[:, 'city'] = 'New York'
 ```
+
+(Note)
+Should I use `np.nan` or `pd.NA`?
+
+=> If you really have to use NaN (Not a Number), **use the one from numpy**.
+It is said explicitely in the documentation of **pandas** that `pd.NA` is
+an experimental feature and that operations done with this value can behave
+unexpectedly (boolean operations) 
 
 Delete given columns
 ```python
@@ -1039,6 +1048,27 @@ def build_column(row: pd.Series, facility: str, base_column: str) -> pd.DataFram
     return row[base_column] if row["facility"] == facility else None
 
 df["number_of_icu_beds"] = df.apply(lambda x: build_column(x, "HBEDT_CUR", "number_of_hospital_beds"), axis=1)
+```
+
+Split the column X in two or more different columns based on values inside columns X
+```
+# 1.If we want to have two final columns then, create two dataframes.
+# Filter them from the original one so you have your values separated
+df_all = df[df["TargetGroup"] == "ALL"].reset_index()
+df_population = df[df["TargetGroup"].str.lower().isin(["hcw","ltcf"])].reset_index()
+
+# 2. Rename the columns
+df_all.rename(columns={"TargetGroup": "AgeGroup"}, inplace=True)
+df_population.rename(columns={"TargetGroup": "TargetPopulation"}, inplace=True)
+
+# (optional: do the modifications you want)
+# Here we'd like two have NaN on all rows with HCW or LTCF
+df_all.loc[:, "TargetPopulation"] = np.nan
+df_all.loc[:, "AgeGroup"] = np.nan
+
+
+# 3. Merge the two dataframes to retrieve the original dataframe format
+pd.concat([df_all, df_population])
 ```
 
 ### Hashlib
