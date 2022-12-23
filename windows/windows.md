@@ -38,6 +38,17 @@ In comparison, the Linux and the MacOSX file system (which is also based on Linu
 - `rmdir` or `rd`: remove one or several folder(s)
 - `copy`: copy a file
 - `cls`: clear the content of the terminal
+- `clip`: copy the output of a command to the clipboard (needs to be used with a pipe)
+
+## Networking
+
+- `ipconfig`: show IPv4 and IPv6 addresses
+- `ipconfig /all`: show DNS and MAC address
+- `ipconfig /all | findstr DNS`: show only DNS address
+- `ipconfig /release`: force to end DHCP lease
+- `ipconfig /renew`: ask for another IP address to the DHCP server
+- `ipconfig /displaydns`: list all websites (domain name) and their corresponding IP addresses
+- `ipconfig /flushdns`: Erase DNS cache (all known domain names and their corresponding IP addresses)
 
 ## User
 

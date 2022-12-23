@@ -4,7 +4,13 @@
 - [Advantages and Disadvantages of the Java language](#advantages-and-disadvantages-of-the-java-language)
 - [Basics](#basics)
     - [Compile and Run](#compile-and-run)
-    - [Basic Types in Java](#basic-types-in-c)
+    - [Dynamic Link and Classpath](#dynamic-link-and-classpath)
+    - [Distributing a Java Program](#distributing-a-java-program)
+    - [Good Practices and Interest Points](#good-practices-and-interest-points)
+    - [Primitive Types in Java](#primitive-types-in-java)
+    - [Object Type](#object-type)
+    - [Wrapper Classes](#wrapper-classes)
+    - [Implicit and Explicit Conversions](#implicit-and-explicit-conversions)
     - [Basic Libraries in Java](#basic-libraries-in-c)
     - [Structure of a Java Project](#structure-of-a-c-project)
         - [Simple file project](#simple-file-project)
@@ -172,6 +178,36 @@ The **Machine Epsilon** is a system constant that gives the precision of a CPU. 
 ### Object Type
 
 Objects are everything else in Java : it refers to types that aren't primitive. An object has **attributes/properties** and **methods** (=functions inside of a class).
+
+### Wrapper Classes
+
+In Java, everything is based on Object handling. Most of the methods only accepts Objects and not primitive types.
+
+For instance, if I want to create a set in Java I will use the Collections.Set which only handle Objects. So how can I do ?
+
+You have to wrap your primitive value in an Object by using **Wrapper Class**. They are different classes for all primitive values:
+
+![wrapper-classes](/java/resources/wrapper-classes-java.png)
+
+```java
+Set<int> mySet = new HashSet<>();   // Not valid because Set expects an Object not a primitive value
+
+Set<Integer> mySet = new HashSet<>();   // Valid because Integer is a Wrapper Class, so it is not primitive anymore
+```
+
+Note: Java also support **Autoboxing** which refers to the *implicit cast (see part below)* of a **primitive value** to a **Wrapper Class**.
+
+Autoboxing of a primitive value
+```java
+Integer i = 89;
+
+// We don't need to do:
+// (although it is possible)
+Integer i = Integer.valueOf(89);
+
+// In the other way we must explicit the cast:
+int k = i.intValue();
+```
 
 ### Implicit and Explicit Conversions
 
@@ -554,6 +590,13 @@ System.out.println(table.toString());
 Check if two arrays are equals
 ```java
 java.utils.Arrays.equals(arr1, arr2);
+```
+
+Copy an array
+```java
+int[] arr1 = {1, 2, 3, 4, 5};
+int[] arr2 = Arrays.copyOf(arr1, arr1.length);
+// arr2 = [1, 2, 3, 4, 5]
 ```
 
 ## Classes
