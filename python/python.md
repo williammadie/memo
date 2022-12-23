@@ -15,6 +15,8 @@
         - [Strings](#strings)
     - [Print](#print)
     - [List](#list)
+    - [List Comprehension](#list-comprehension)
+    - [Set](#set)
 - [Basic File Manipulations](#basic-file-manipulations)
 - [Basic Date and Time Handling](#basic-date-and-time-handling)
     - [Read & Write](#read-write)
@@ -28,6 +30,8 @@
     - [All](#all)
     - [Map Objects](#map-objects)
 - [Python OOP](#python-oop)
+	- [Class and Parent Class](#class-and-parent-class)
+	- [Dataclasses](#dataclasses)
 - [Python Nested Functions](#python-nested-functions)
 - [Scraping & Parsing](#scraping--parsing)
     - [Libraries](#libraries)
@@ -464,6 +468,18 @@ Clears all items from a list
 []
 ```
 
+### List Comprehension
+
+A Python list comprehension provides a very short syntax **for creating a new list based on the values of an existing list**. It is visually distinguishable because it is a one-liner syntax consisting of **square brackets containing the expression**:
+
+An exemple of list comprehension which creates a new list containing lengths of all city names
+```python
+# [output collection condition]
+>>> city_names = ["New York", "Paris", "London"]
+>>> length_of_names = [len(city_name) for city_name in city_names]
+[8, 5, 6]
+```
+
 ### Set
 
 A **set** is a bit like a list. It is a collection of objects **without any duplicates**. It is not possible to add an object which is already present in a given set. It is very useful when we want to use the **Set Theory** and all its operations.
@@ -801,6 +817,24 @@ class AustralianSheperd(Dog):
 d1 = AustralianSheperd('Paterson', 9)
 print(f'Oh look at this {d1.race}! This is {d1.name}! He is {d1.age}!')
 ```
+### Dataclasses
+
+**Dataclasses** are a special kind of classes used primarily for **storing information**. They hold certain properties (= attributes) and methods to build a data representation.
+
+```python
+@dataclass
+class ConstantsNamespace():
+	self.JSON_EXT = ".json"
+	self.CSV_EXT = ".csv"
+	self.PYTHON_EXT = ".py"
+	self.JAVA_EXT = ".java"
+	self.COMPILED_JAVA_EXT = ".class"
+	
+# It can be used anywhere else with:
+constants = ConstantsNamespace()
+print(constants.COMPILED_JAVA_EXT)
+>>> ".class"
+```
 
 ## Python Nested Functions
 
@@ -885,6 +919,11 @@ data = {'col1': list_of_values, 'col2': list_of_values...}
 pd.DataFrame(data)
 ```
 
+See only specific columns
+```python
+df[['isco08', 'number_of_hospital_staff']]
+```
+
 Replace a value at a given row and column
 ```python
 df.at[row, column_name] = new_value
@@ -938,8 +977,17 @@ df = df[['country', 'date']]
 
 Fill a column with a given value
 ```python
-df['age_group'] = pd.NA
+df.loc[:, 'age_group'] = np.nan
+df.loc[:, 'city'] = 'New York'
 ```
+
+(Note)
+Should I use `np.nan` or `pd.NA`?
+
+=> If you really have to use NaN (Not a Number), **use the one from numpy**.
+It is said explicitely in the documentation of **pandas** that `pd.NA` is
+an experimental feature and that operations done with this value can behave
+unexpectedly (boolean operations) 
 
 Delete given columns
 ```python
@@ -976,6 +1024,7 @@ df.loc[(condition1) & (condition2) & (condition3), column2modify] = new_value
 ```
 
 Get the Union of n DataFrames
+(Please note: it is advised to use build a new DataFrame and the use pd.concat than use the df.append() method due to an important difference in time complexity of such operation if used in a loop)
 ```python
 import pandas as pd
 concatenated_df = pd.concat([df1, df2, df3, dfn])
@@ -984,6 +1033,42 @@ concatenated_df = pd.concat([df1, df2, df3, dfn])
 Keep rows where value for column X is in a list
 ```python
 df = df[df['country'].str.lower().isin(EU_COUNTRIES)]
+```
+
+Keep rows where value for column X is NOT in a list
+(Tilde is the NOT operator in dataframe queries)
+```python
+df = df[~df['country'].str.lower().isin(EU_COUNTRIES)]
+```
+
+Build a new column based on values in other columns
+```python
+# This function is called for determining the value at each row of the new column
+def build_column(row: pd.Series, facility: str, base_column: str) -> pd.DataFrame:
+    return row[base_column] if row["facility"] == facility else None
+
+df["number_of_icu_beds"] = df.apply(lambda x: build_column(x, "HBEDT_CUR", "number_of_hospital_beds"), axis=1)
+```
+
+Split the column X in two or more different columns based on values inside columns X
+```
+# 1.If we want to have two final columns then, create two dataframes.
+# Filter them from the original one so you have your values separated
+df_all = df[df["TargetGroup"] == "ALL"].reset_index()
+df_population = df[df["TargetGroup"].str.lower().isin(["hcw","ltcf"])].reset_index()
+
+# 2. Rename the columns
+df_all.rename(columns={"TargetGroup": "AgeGroup"}, inplace=True)
+df_population.rename(columns={"TargetGroup": "TargetPopulation"}, inplace=True)
+
+# (optional: do the modifications you want)
+# Here we'd like two have NaN on all rows with HCW or LTCF
+df_all.loc[:, "TargetPopulation"] = np.nan
+df_all.loc[:, "AgeGroup"] = np.nan
+
+
+# 3. Merge the two dataframes to retrieve the original dataframe format
+pd.concat([df_all, df_population])
 ```
 
 ### Hashlib
@@ -999,8 +1084,23 @@ digest = int(hashlib.sha512(my_string.encode('utf-8')).hexdigest(), 16)
 
 One of the simplest way of debugging in Python is to use the `print()` function where we need to visualize information in order to understand the problem. However, there are more convenient ways of debugging in Python.
 
-The first way of debugging which is incredibely better than a print and not more difficult is the `breakpoint()` function. This function can be used anywhere we need in our code. It will stop the execution of the program and open a Python interpreter. In this Python interpreter, we will be able to visualize all the declared variables.
-We can find these variables with `dir()`
+The first way of debugging which is incredibely better than a print and not more difficult is the `breakpoint()` function. This function can be used anywhere we need in our code. It will stop the execution of the program and open a Python interpreter called `Pdb (Python Debugger)`. 
+
+In this Python interpreter, we will be able to visualize all the declared variables. We can find these variables with `dir()`.
+Here is a list of all useful commands in Pdb:
+
+- `dir()`: list all currently declared/available variables
+- `l`: (list) show surrounding lines
+- `w`: (where) display the file name and the line number of the current line
+- `n`: (next) execute the next line
+- `s`: (step) step into function
+- `r`: (return) execute until function's return
+- `b [line_number]`: create a breakpoint at given line
+- `clear [line_number]`: remove a breakpoint at given line
+- `b`: list breakpoints and theirs line number
+- `c`: (continue) continue execution until next breakpoint or end of program
+- `p <variable>`: print the value of a given variable
+- `q`: (quit) exit the debugger
 
 It can also be useful to set a condition before calling `breakpoint()`. It is called a **conditional breakpoint**.
 

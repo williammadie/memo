@@ -2,16 +2,18 @@
 
 ## Table of Contents
 
-- [What is React](#what-is-react)
-- [Principles of React](#principles-of-react)
-- [JSX](#jsx)
-- [React Basic Structure](#react-basic-structure)
-- [React Imports and Exports](#react-imports-and-exports)
-- [React Components](#react-components)
-    - [Functional Components](#functional-components)
-- [Modify CSS with React](#modify-css-with-react)
+- [Introduction](#introduction)
+- [Start a React Project](#start-a-react-project)
+    - [Prerequisite](#prerequisite)
+    - [Use a toolchain](#use-a-toolchain)
+- [React Basics](#react-basics)
+    - [JSX]
+    - [Components]
+    - [Virtual DOM and Rendering]
+    - [States and Hooks]
+    - [Modify CSS with React](#modify-css-with-react)
 
-## What is React?
+## Introduction
 
 React is one of the most famous **JavaScript library**. It was created in 2011 by a Facebook software engineer. It became open-sourced in 2013. 
 
@@ -19,11 +21,48 @@ In 2015, **React Native** is released. It is dedicated to Android and iOS operat
 
 Please note that React **is not a framework** like Angular because it only manages the rendering layer. It does not take care of routing, queries...). It needs some other libraries to work completely.
 
-## Principles of React
+## Start a React Project
 
-- React is `declarative`. The developer does not directly modify the **DOM** (**Document Object Model**). It is React which modify the Virtual DOM.
+### Prerequisite
 
-## JSX
+React SPAs use `npm` (=**Node Package Manager**). It is an online repository for the publishing of open-source Node.js projects.
+
+Install npm
+```bash
+sudo apt install npm
+```
+
+Check npm installation
+```bash
+npm -v
+```
+
+React SPAs also use `node`. Node is an open source development pltaform for executing JavaScript code server-side.
+
+Install node
+```bash
+sudo apt install nodejs
+```
+
+Check node installation
+```bash
+node -v
+```
+
+### Use a toolchain
+
+`Create React App` is a **toolchain** (=an environment for React). It is the best way to start building a new SPA in React:
+
+Create and start a basic React App with NPX (=**NPM Script Environment/Utility**)
+```bash
+npx create-react-app my-app
+cd my-app
+npm start
+```
+
+## React Basics
+
+### JSX
 
 React Components return a language which is similar to HTML but IT IS NOT HTML. So what can it be ??
 
@@ -31,11 +70,7 @@ It is the **JSX** language (**JavaScript XML**). It is JavaScript extension desi
 
 So in order to manipulate data, we use JavaScript expressions. Theses expressions are always between brackets: `{ 6 * 7 }`
 
-## React Basic Structure
-
-## React Imports and Exports
-
-## React Components
+### Components
 
 ### Functional Components
 
@@ -50,6 +85,10 @@ Call a component
 ```js
 <MyComponent />
 ```
+
+### Virtual DOM and Rendering
+
+### States and Hooks
 
 ## Modify CSS with React
 
