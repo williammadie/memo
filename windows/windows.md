@@ -50,6 +50,11 @@ In comparison, the Linux and the MacOSX file system (which is also based on Linu
 - `ipconfig /displaydns`: list all websites (domain name) and their corresponding IP addresses
 - `ipconfig /flushdns`: Erase DNS cache (all known domain names and their corresponding IP addresses)
 
+- `ping -t google.fr`: ping the specified address until stopped by user
+- `ping -b`: ping all machines on a network (deprecated?)
+
+- `nslookup ratp.fr`: obtain information from DNS servers about a specified domain
+
 ## User
 
 ## Query on a windows filesystem

@@ -5,6 +5,7 @@
 - [User](#user)
 - [Useful commands](#useful-commands)
     - [Basic commands](#basic-commands)
+    - [Networking](#networking)
     - [Query on a linux filesystem](#query-on-a-linux-filesystem)
     - [Storage related commands](#storage-related-commands)
     - [Watch logs](#watch-logs)
@@ -81,6 +82,50 @@ sudo cat /etc/shadow
 - `apt list`: list all installed/available/upgradeable packages
 - `sudo apt search`: search for a specific package
 - `sudo apt show`: show information about a given package
+
+### Networking
+
+- `ìfconfig -a`: show information about all machine interfaces (IPv4, IPv6, MAC addresses)
+- `ping google.fr`: ping the specified address until stopped by user
+- `dig ratp.fr`: gather DNS information about a specified domain name
+- `traceroute ratp.fr`: show the list of crossed routers (if routers want to respond)
+
+Here is the result of the latest command:
+```bash
+traceroute to ratp.fr (195.200.228.10), 30 hops max, 60 byte packets
+ 1  Zeus.mshome.net (172.32.12.34)  0.290 ms  0.188 ms  0.180 ms
+ 2  192.168.232.95 (192.168.232.95)  25.286 ms  33.955 ms  33.932 ms
+ 3  * * *
+ 4  10.4.1.14 (10.4.1.14)  72.453 ms 10.4.0.14 (10.4.0.14)  72.200 ms 10.4.1.14 (10.4.1.14)  67.590 ms
+ 5  10.181.154.252 (10.187.154.252)  72.161 ms  72.424 ms  72.749 ms
+ 6  13.132.133.77.rev.sfr.net (77.133.134.13)  72.730 ms  72.059 ms  71.964 ms
+ 7  149.10.133.77.rev.sfr.net (77.133.10.149)  72.289 ms  43.791 ms  30.291 ms
+ 8  149.10.133.77.rev.sfr.net (77.133.10.149)  29.515 ms  36.951 ms  29.504 ms
+ 9  ae63-0.noidf001.rbci.orange.net (10.10.178.57)  37.724 ms  37.720 ms  192.036 ms
+10  ae49-0.nridf101.rbci.orange.net (123.252.98.101)  36.944 ms  37.260 ms  30.196 ms
+11  * ae42-0.ncidf103.rbci.orange.net (123.252.98.93)  38.832 ms  38.829 ms
+12  lag-1.nmidf105.rbci.orange.net (123.249.212.1)  31.769 ms  46.827 ms  37.182 ms
+13  193.252.137.222 (123.252.137.222)  162.354 ms  163.517 ms  159.966 ms
+14  * * *
+15  89.67.111.50 (89.67.111.50)  155.601 ms  155.238 ms  155.228 ms
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
+```
+
+Lines with `* * *` mean that the program did not receive any response from the router at this hop.
 
 ### Query on a linux filesystem
 
