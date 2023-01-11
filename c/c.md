@@ -263,7 +263,7 @@ It will be printed 2^n times where n equals the number of written call to the fo
 A fork creates a new process. After the first fork, we have 2 processes 
 
 Here is the view of what happens in the computer:
-![fork-principle]('./resources/fork-principles.png')
+![fork-principle](./resources/fork-principle.png)
 
 Get the PID of the current process
 ```c
