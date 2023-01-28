@@ -13,7 +13,10 @@
 - [Inbuilt Typecast](#inbuilt-typecast)
 - [Operators](#operators)
 - [Pointers](#pointers)
+- [User Input](#user-input)
 - [File Operations](#file-operations)
+- [Errors](#errors)
+- [Processes](#processes)
 
 ## Introduction
 
@@ -109,6 +112,12 @@ int main(void) {
 
 ## String handling
 
+Turn a character to upper character
+```c
+char f = 'f';
+char F = toupper(f); 
+```
+
 Check if 2 strings are equals
 ```c
 strcmp(str1, str2)  // Returns a nonzero value if the strings are different and 0 if they're the same
@@ -150,7 +159,15 @@ Incrementation operator
 
 ## Pointers
 
-A **pointer** is a variable which **stores the memory address of another variable**. A pointer always has a **type**. For instance, in the following example, we declare a pointer of type *char\**. It stores the memory address of n variables of type **char**.
+In C there are **pointers** and **values**:
+
+- A **value** is stored in a variable.
+- A **pointer** is a variable which **stores the memory address of another variable**. A pointer always has a **type**. For instance, in the following example, we declare a pointer of type *char\**. It stores the memory address of n variables of type **char**.
+
+Declare and initialize an empty pointer:
+```c
+int* myIntArray = NULL;
+```
 
 In C, we use pointers for declaring and using arrays:
 
@@ -159,12 +176,43 @@ Declaration of a char array
 char* input = (char*)malloc(sizeof(char)*n);
 ```
 
-## Text Input
-
-After an input with scanf, don't forget to empty the buffer
+Values:
 ```c
-scanf(...);
+int age = 10;
+printf("%d\n", age);  // value of the variable (10)
+printf("%p\n", &age); // address of the variable (0x7ffcc194c56c)
+```
+
+Pointers:
+```c
+int* agePointer = &age;
+printf("%d\n", *agePointer);    // value of the pointer (10) 
+printf("%p\n", agePointer);     // address of the variable being pointed (0x7ffcc194c56c)
+printf("%p\n", &agePointer);    // address of the pointer itself (0x7ffcc194c570)
+```
+
+Turn a pointer into a value
+```c
+int value = *pointer;
+```
+
+Turn a value into a pointer
+```c
+int* pointer = &value;  //On a value, "&" returns the address of the value 
+```
+
+## User Input
+
+Empty the buffer
+```c
 while (getchar() != '\n');   // Empty the buffer (if there are still characters)
+```
+**Note**: After an input with scanf, don't forget to empty the buffer
+
+Integer Input
+```c
+int userInput = 0;
+scanf("%d", &userInput);
 ```
 
 ## File Operations
@@ -217,9 +265,26 @@ Close a file
 fclose()
 ```
 
+## Errors
+
+Write a message on stderr
+```c
+perror("An unexpected error has occured");
+```
+**Note:** `perror` will not exit the program
+
+Exit the program after an error
+```c
+exit(EXIT_FAILURE);
+```
+
 ## Processes
 
+### Fork
+
 In C, it is possible to use processes to **execute several task in parallel/simultaenously**. 
+
+To create a new process, we use the `fork()` function. It creates a **copy of the code** (including everything; variables, globals, file descriptors...) 
 
 Libraries used for creating processes
 ```c
@@ -232,7 +297,7 @@ Create a new child (do a fork)
 pid_t pid = fork(); // returns the PID of the child (Process IDentifier)
 
 // Error while forking
-if (pid == -1) {
+if (pid < 0) {
     perror("An error has occured while forking");
     exit(EXIT_FAILURE);
 } else if (pid == 0) {
@@ -273,4 +338,44 @@ getpid()
 Get the PID of the father of the current process
 ```c
 getppid()
+```
+
+### Execution Trace
+
+If our program uses child processes. Each process will be ordered by our **operating system's task scheduler**. Each process will execute its task when allowed by the computer.
+
+Let's say we have two processes
+
+There is basically **no way to know how these processes will be ordered** by the computer. For instance, in the following code, execution resulted in the following trace:
+
+```c
+void executionTrace(void) {
+    pid_t pid = fork();
+
+    if (pid < 0) {
+        perror("Error while doing fork");
+        exit(EXIT_FAILURE);
+    } else if (pid == 0) {
+        printf("X1\n");
+        sleep(2);
+        printf("X2\n");
+    } else {
+        printf("Y1\n");
+        sleep(2);
+        printf("Y2\n");
+        exit(EXIT_SUCCESS);
+    }
+
+    while(wait(NULL) > 0);
+    printf("All processes have ended!\n");
+}
+```
+
+Result
+```bash
+Y1
+X1
+Y2
+X2
+All processes have ended!
 ```
