@@ -9,6 +9,7 @@
 - [Operators](#operators)
 - [Collections](#collections)
 - [Control Flow Statements](#control-flow-statements)
+- [Functions](#functions)
 
 ## Introduction
 
@@ -385,3 +386,173 @@ Throw an exception
 // Assert throws an exception if a condition is false
 assert(conditionToEvaluate);
 ```
+
+## Functions
+
+```dart
+void myFunction(num x, String y) {
+  // Actions
+}
+```
+
+### Shorthand Function
+
+Write a shorthand function 
+```dart
+// The "num" at the left is the return type of the function
+num sum(num x, num y) => x + y;
+```
+
+Dart also handles optional parameters. We can use them like this:
+
+Optional Named Parameters
+```dart
+void doSomething(num p1, {String p2, num p3}) {
+  // If p2 or p3 is not given, it will simply print "null"
+  print(p1);
+  print(p2);
+  print(p3);
+}
+
+// Call
+doSomething(5, p2: "Hello!");
+```
+
+Optional Positional Parameters
+```dart
+void doSomething(num p1, [String p2, num p3]) {
+  // If p2 or p3 is not given, it will simply print "null"
+  print(p1);
+  print(p2);
+  print(p3);
+}
+
+// Call
+doSomething(5, "Hello!");
+```
+**Note**: With positional parameters we are forced to follow the parameters' declaration order. So we cannot give p3 if p2 is not given.
+
+### Higher-order Function
+
+In Dart, everything is an object. It even applies to functions. So it is completely possible to pass a function as a parameter or to return a function. A function that take other functions as parameters or that return functions as results is called **higher-order functions**.
+
+Higher-order function
+```dart
+// This function applies the f function to each element of a given list. Then, it adds the new element to a new list
+// and returns this new list
+List<int> myHighOrderFunction(Function f, List<int> myList) {
+  var newList = List<int>();
+  for (var i = 0; i < myList.length; i++) {
+    newList.add(f(myList[i]));
+  }
+  return newList;
+}
+```
+
+Dart has a similar builtin function:
+```dart
+// The function we pass to forEach must return nothing (void)
+var myList = [1, 2, 3, 4];
+myList.forEach(print);
+```
+
+### Anonymous Function
+
+Anonymous Function/Lambda/Closure refers to the same concept.
+
+Anonymous Function
+```dart
+// It looks like this
+(parameters) {
+  // Action
+}
+
+
+myList.forEach((item) {
+  print(item*item*item)
+})
+```
+
+### Nested Function
+
+This refers to a function defined inside another function.
+
+Nested Function
+```dart
+void outerFunction() {
+  void nestedFunction() {
+    // Do something
+  }
+}
+```
+
+An example
+```dart
+int max(int a, int b, int c) {
+  int max(int a, int b) {
+    return a > b ? a : b;
+  }
+}
+```
+
+## Scope
+
+In Dart, the scope of variables is limited to `{}` (as in Java)
+
+## Class
+
+Define a class
+```dart
+class Person{
+  String name;    // Unitialized: value = null
+  String gender;  // Unitialized: value = null
+  int age;
+
+  Person(String name, String gender, int age) {
+    this.name = name;
+    this.gender = gender;
+    this.age = age;
+  }
+
+  // It is possible to remove the body of the constructor if parameters have the same names as attributes
+  Person(String name, String gender, int age);
+
+  // It is also possible to write several constructors. In this case we can name them:
+  Person.newBorn() {
+    this.age = 0;
+  }
+
+  // Getter function
+  String get getName => name;
+
+  // Setter function
+  void set setName(String name) {
+    this.name = name;
+  }
+
+  walking() => print("$name is walking");   // Instance method
+}
+```
+
+Instantiate a class
+```dart
+var p1 = Person();
+```
+
+Use an instance variable (=attribute) or an instance method
+```dart
+p1.gender;
+p1.walking();
+```
+
+## Inheritance
+
+```dart
+class Car extends Vehicle {
+  String _model;
+  num _noSerial;
+
+  Car (String _model, num _noSerial) : super(name, price, kilometers);
+}
+```
+**Note**: A method or a variable starting with `_` is private. It cannot be used in daughter classes.
