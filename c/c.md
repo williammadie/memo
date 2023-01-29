@@ -17,6 +17,7 @@
 - [File Operations](#file-operations)
 - [Errors](#errors)
 - [Processes](#processes)
+- [Positional Parameters](#positional-parameters)
 
 ## Introduction
 
@@ -378,4 +379,11 @@ X1
 Y2
 X2
 All processes have ended!
+```
+
+## Positional Parameters
+
+It is possible to build scripts with the C langage and to pass parameters at launch:
+```c
+int main(int argc, char* argv[]) { ... }
 ```
