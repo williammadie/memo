@@ -341,6 +341,16 @@ Get the PID of the father of the current process
 getppid()
 ```
 
+Wait for any children
+```c
+wait(NULL);
+```
+
+Wait for a specific child
+```c
+waitpid(543);
+```
+
 ### Execution Trace
 
 If our program uses child processes. Each process will be ordered by our **operating system's task scheduler**. Each process will execute its task when allowed by the computer.
@@ -385,5 +395,50 @@ All processes have ended!
 
 It is possible to build scripts with the C langage and to pass parameters at launch:
 ```c
-int main(int argc, char* argv[]) { ... }
+int main(int argc, char *argv[]) {
+  int i;
+
+  printf("Number of arguments: %d\n", argc);
+  printf("Arguments:\n");
+  for (i = 0; i < argc; i++) {
+    printf("%d: %s\n", i, argv[i]);
+  }
+
+  return 0;
+}
+```
+
+## Call another program
+
+Call another c program
+```c
+int main(int argc, char* argv[]) {
+  char *args[] = {"./other_program", "arg1", "arg2", NULL};
+  execv("./other_program", args);
+  perror("execv failed");
+  return 1;
+}
+```
+
+Call a system command
+```c
+int main() {
+  printf("Running ls command...\n");
+  execl("/bin/ls", "ls", "-l", (char *)NULL);
+  printf("This line won't be executed if execl() is successful\n");
+  return 0;
+}
+
+// or
+
+int main() {
+  char *path = "/bin/ls";
+  char *argv[] = {"ls", "-l", NULL};
+
+  if (execlp(path, path, argv[0], argv[1], (char *) NULL) == -1) {
+    perror("execlp failed");
+  }
+
+  return 0;
+}
 ```

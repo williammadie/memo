@@ -39,5 +39,12 @@ They can be used completely or halfly.
 
 ## Main Instructions
 
+Move a value from a register to another
+```bash
+push
+```
 
-`
+Set a value in a given register
+```bash
+movl	$0, %eax
+```
