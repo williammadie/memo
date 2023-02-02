@@ -217,3 +217,198 @@ counter.setId("counterTitle");  // Set a #class for CSS identifying
     -fx-stroke-width: 1;
 }
 ```
+
+## Examples
+
+### Login Interface
+
+```java
+public class Main extends Application {
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			StackPane root = new StackPane();
+			
+			Label emailLabel = new Label("Email");
+			emailLabel.getStyleClass().add("label");
+			emailLabel.setMinWidth(70);
+			TextField emailInput = new TextField();
+			emailInput.setMaxSize(150, 20);
+			HBox emailContainer = new HBox();
+			emailContainer.setAlignment(Pos.CENTER);
+			emailContainer.getChildren().addAll(emailLabel, emailInput);
+			
+			Label pwdLabel = new Label("Password");
+			pwdLabel.getStyleClass().add("label");
+			pwdLabel.setMinWidth(70);
+			
+			PasswordField pwdInput = new PasswordField();
+			//pwdInput.setMaxSize(150, 20);
+			pwdInput.setPromptText("Your password");
+			HBox pwdContainer = new HBox();
+			pwdContainer.setAlignment(Pos.CENTER);
+			pwdContainer.getChildren().addAll(pwdLabel, pwdInput);
+			
+			HBox formBtnContainer = new HBox();
+			Button submitBtn = new Button("Submit");
+			submitBtn.getStyleClass().add("btn");
+			submitBtn.setMinWidth(50);
+			Button clearBtn = new Button("Clear");
+			clearBtn.getStyleClass().add("btn");
+			clearBtn.setMinWidth(50);
+			formBtnContainer.getStyleClass().add("btn");
+			formBtnContainer.setAlignment(Pos.CENTER);
+			formBtnContainer.getChildren().addAll(submitBtn, clearBtn);
+			
+			VBox formContainer = new VBox();
+			formContainer.setAlignment(Pos.CENTER);
+			formContainer.getChildren().addAll(emailContainer, pwdContainer, formBtnContainer);
+			
+			root.getChildren().add(formContainer);
+			root.setId("body");
+			Scene scene = new Scene(root,400,400);
+			// CSS
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("Authenticaton");
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+}
+```
+
+### Lampbook
+
+```java
+public class Main extends Application {
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			BorderPane root = new BorderPane();
+			
+			// Header
+			Image logo = new Image(getClass().getResource("lampbook.png").toExternalForm());
+			ImageView logoView = new ImageView();
+			logoView.setImage(logo);
+			logoView.setFitWidth(50);
+			logoView.setPreserveRatio(true);
+			logoView.setSmooth(true);
+			logoView.setCache(true);
+			logoView.getStyleClass().add("header-logo");
+			
+			TextField searchBar = new TextField();
+			searchBar.setPromptText("Rechercher un article sur les lampadaires");
+			searchBar.setPrefWidth(300);
+			searchBar.setStyle("-fx-background-radius: 20;");
+			searchBar.getStyleClass().add("searchbar");
+			
+			HBox header = new HBox(logoView, searchBar);
+			header.setAlignment(Pos.CENTER);
+			header.setSpacing(20);
+			header.setPrefHeight(100);
+			header.setStyle("-fx-background-color: #949BEE;");
+			root.setTop(header);
+			
+			// Center
+			Text article = new Text("Les lampadaires sont des éléments importants dans notre environnement quotidien. Ils nous fournissent de la lumière la nuit, améliorant ainsi notre sécurité et facilitant les déplacements. Les lampadaires modernes sont de plus en plus efficaces en matière d'éclairage et de consommation d'énergie, grâce à l'utilisation de technologies LED avancées.\r\n"
+					+ "\r\n"
+					+ "Cependant, les lampadaires classiques peuvent consommer beaucoup d'énergie et contribuer à l'empreinte carbone de notre société. Heureusement, les gouvernements et les entreprises sont de plus en plus conscients de l'importance de la transition vers des solutions durables en matière d'éclairage public.\r\n"
+					+ "\r\n"
+					+ "De nouveaux types de lampadaires, tels que les lampadaires solaires, sont maintenant disponibles sur le marché. Ceux-ci utilisent l'énergie solaire pour produire de la lumière la nuit, réduisant ainsi considérablement les coûts énergétiques et environnementaux.\r\n"
+					+ "\r\n"
+					+ "En conclusion, les lampadaires jouent un rôle crucial dans notre vie quotidienne et le développement de solutions plus durables est essentiel pour un avenir plus soutenable.");
+			article.setWrappingWidth(500);
+			
+			Image articleImg = new Image(getClass().getResource("lamp.jpg").toExternalForm());
+			ImageView articleView = new ImageView();
+			articleView.setImage(articleImg);
+			articleView.setFitWidth(700);
+			articleView.setPreserveRatio(true);
+			articleView.setSmooth(true);
+			articleView.setCache(true);
+			
+			SplitPane feed = new SplitPane(article, articleView);
+			feed.setMaxWidth(30);
+			Label articleTitle = new Label("Les Lampadaires dominent-ils secrètement le monde ?");
+			articleTitle.setStyle("-fx-font: 30 roboto;");
+			
+			Label authorArticle = new Label("Auteur de l'article: William Madié - Lamp Specialist and CEO at RisingLamp&Co");
+			authorArticle.setStyle("-fx-font: 15 roboto;");
+			authorArticle.setAlignment(Pos.CENTER_RIGHT);
+			
+			Image likesArticle = new Image(getClass().getResource("love.png").toExternalForm());
+			ImageView likesView = new ImageView();
+			likesView.setImage(likesArticle);
+			likesView.setFitWidth(40);
+			likesView.setPreserveRatio(true);
+			likesView.setSmooth(true);
+			likesView.setCache(true);
+			
+			Label likeNumber = new Label("5213 personnes aiment cet article");
+			
+			HBox bottomArticle = new HBox(likesView, likeNumber, authorArticle);
+			bottomArticle.setAlignment(Pos.CENTER);
+			bottomArticle.setSpacing(30);
+			
+			VBox articleContainer = new VBox(articleTitle, feed, bottomArticle);
+			articleContainer.setAlignment(Pos.CENTER);
+			articleContainer.setSpacing(20);
+			root.setCenter(articleContainer);
+			
+			// Left
+			Label friendsPanelTitle = new Label("Mes amis");
+			friendsPanelTitle.setStyle("-fx-font: 20 roboto;");
+			ListView<String> friends = new ListView<String>();
+			ObservableList<String> items = FXCollections.observableArrayList("Emma", "Katia", "Simon", "Marius", "Yann", "Aurélie", "Chadi", "Kenz", "Linda", "Noah", "Fabien", "Adrien", "Bilele", "Yewon", "Joseph", "Kévin", "Pascal", "Tefy", "Ramzi", "Louis", "Adam", "Wassim");
+			friends.setItems(items);
+			
+			VBox friendsPanel = new VBox(friendsPanelTitle, friends);
+			friendsPanel.setAlignment(Pos.CENTER);
+			
+			root.setLeft(friendsPanel);
+			
+			// Right
+			Label btnPanelTitle = new Label("Navigation Menu");
+			btnPanelTitle.setStyle("-fx-font: 20 roboto;");
+			Button btn1 = new Button("Envoyer un message");
+			Button btn2 = new Button("Ecrire un article");
+			Button btn3 = new Button("Ecrire un article sur les lampadaires");
+			Button btn4 = new Button("S'offusquer des lampadaires illégaux");
+			btn1.setStyle("-fx-background-radius: 10;");
+			btn2.setStyle("-fx-background-radius: 10;");
+			btn3.setStyle("-fx-background-radius: 10;");
+			btn4.setStyle("-fx-background-radius: 10;");
+			VBox btnPanel = new VBox(btnPanelTitle, btn1, btn2, btn3, btn4);
+			btnPanel.setAlignment(Pos.CENTER);
+			btnPanel.setSpacing(20);
+
+			root.setRight(btnPanel);
+			
+			// Bottom
+			Label connectedAs = new Label("Connecté en tant que William Madié");
+			connectedAs.setStyle("-fx-font: 15 roboto;");
+			connectedAs.setAlignment(Pos.BOTTOM_RIGHT);
+			root.setBottom(connectedAs);
+			
+			Scene scene = new Scene(root,1700,800);
+			// CSS
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("Lampbook - Home");
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+}
+```
