@@ -12,6 +12,7 @@
     - [Widgets](#widgets)
     - [Stateless VS Stateful Widgets](#stateless-vs-stateful-widgets)
     - [Isolates](#isolates)
+- [Assets](#assets)
 
 ## Introduction
 
@@ -121,15 +122,30 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// The Home Page Class
+// The Home Page Configuration for the State
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  // Fields in a Widget subclass are always marked "final"
+  final String title;
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
+// State Object (Fields affect the way the widget looks)
 class _HomePageState extends State<HomePage> {
+  // A private attribute/field starts with "_"
+  int _counter = 0;
+
+  // A method which increments "_counter" and re-render the Widget
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  // Method used to re-render the Widget (for example when setState() is called)
   @override
   Widget build(BuildContext context) {
     return Scaffold();
@@ -145,7 +161,21 @@ class _HomePageState extends State<HomePage> {
 
 ### Widgets
 
-
+In Flutter, everything is a **Widget**. There are **14 different categories of Widgets**:
+1. **Layout**: Container used to display other Widgets such as `Column()`, `Center()`
+2. **Assets, Images, Icons**: Assets-related Widgets which handle **images** and **icons**.
+3. **Painting and Effects**: Set of Widgets that apply visual changes (=filters) to their child Widgets.
+4. **Text**: Widget which display a text
+5. **Styling**: Widget which handle the theme, responsiveness and sizing of the app.
+6. **Animation and Motion**: Widgets that add animation to other widgets.
+7. **Scrolling**: Widget that make another Widget scrollable even if it is not by default.
+8. **Material Component**: Set of Widgets following Android design guidelines by Google.
+9. **Cupertino**: iOS designed Widgets.
+10. **Async**: Async Functionality in the Flutter App.
+11. **Basics**: Necessary Widgets for the development of any Flutter App.
+12. **Input**: Input Functionality in the Flutter App.
+13. **Accessibility**: Set of Widgets that make a Flutter App more easily accessible.
+14. **Interaction Models**: Widgets that handle touch events
 
 ### Stateless VS Stateful Widgets
 
@@ -164,3 +194,26 @@ When a widget's state changes, the State object calls `setState()`. This functio
 
 ![appearance-state](/android/flutter/resources/appearance-state.png)
 
+### Scaffold
+
+It is the main container of a page. It has three main attributes:
+- appBar
+- body
+- navigationBar
+
+## Assets
+
+In order to use assets in our Flutter project, we need to tell Flutter where our assets are located. We do that by removing comments in the `pubspec.yml` file (see below):
+```yaml
+assets:
+    - images/
+```
+
+## Styles
+
+Make a Container take all available width:
+```dart
+width: double.infinity,
+```
+
+Center a Text (VSCode shortcut): `right click` on the `Text` element. Select **refactor** and then **Wrap with Center**.
