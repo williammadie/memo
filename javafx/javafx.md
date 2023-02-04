@@ -12,6 +12,9 @@
 - [Interface](#interface)
     - [Mandatory Methods](#mandatory-methods)
 - [Scene Graph](#scene-graph)
+- [Containers](#containers)
+- [Styles](styles)
+- [Example](#examples)
 
 ## Introduction
 
@@ -185,13 +188,111 @@ It always has:
 - **middle nodes** (generally invisible structural nodes)
 - **leaves** (generally visible components/nodes)
 
-This graph can be global (generic names) or detailed (specific class names)
+This graph can be **global** (components on the interface only) or **detailed** (show the inheritance and make mother classes appear)
+
+Here is a global scene graph:
+
+![scene-graph](/javafx/resources/scene-graph.png)
+
+**Additional Note**: JavaFX components are organized on a x,y axis. The default position for a composant is at (0,0).
+
+![javafx-axis](/javafx/resources/javafx-axis.png)
 
 ## Containers
 
 All containers inhrerits from the `Node` class. Look at the diagram below:
 
 ![javafx-hierarchy](/javafx/resources/javafx.png)
+
+- `VBox`: for grouping elements vertically
+- `HBox`: for grouping elements horizontally
+- `FlowPane`: for grouping elements horizontally + responsive (same behaviour as a flex container with wrap: true)
+- `Group`:
+- `TextFlow`: for grouping several `Text` components
+- `StackPane`: for reserving a space with a specific shape (cirlce, grid...)
+- `GridPane`: for organizing components into a grid (= a two dimensional array)
+- `BorderPane`: for setting components at **center**, **top**, **bottom**, **left** and **right** of the window
+
+## Controls
+
+A controlled component is a component which handle an event.
+
+event: action triggered by a user.
+
+Some examples:
+- `RadioButton`
+- `ImageView`
+- `Button`
+- `Checkbox`
+
+**Additional Note**: It is possible to add icons to controls:
+```java
+ImageView iconView = new ImageView(im);
+Button myBtn = new Buton("Click here!", iconView);
+```
+
+myBtn **is labeled** with the text "Click here"
+
+## Events
+
+Event: Interaction human-machine through a component.
+
+For each event, think of the following points:
+- Who will trigger the event?
+- How the event will be triggered?
+- What happens after the event is triggered?
+
+3 important properties:
+- Event Source (where does it come from?) [example: mouse]
+- Event Target (on which element of the interface the event happened?) [example: button]
+- Event Type (what kind of event happened?) [example: mouse clicked, mouse pressed, mousse released]
+
+(The example above refers to a click on a button)
+
+- `Event` class allows to **handle events**
+- `EventHandler` interface is used to  **handle a specific event** (Gestionnaire d'évènements)
+- `EventTarget` interface is used to **target a specific Node**
+- `EventType` class which represents the **kind of event** (mouse click, key released...)
+
+Events are triggered and then propagated through the `Event Dispatch Chain`. 
+
+In order to handle an event, we need an `Event Listener`. There are 2 options:
+- Through an `EventHandler`: 
+	- an `ActionEvent` is propagated from the mother class (Stage) to the child element (Button)
+- Through an `EventFilter`: 
+	- an `ActionEvent` event is propagated from the child element (Button) to the mother class (Stage)
+**Keep in mind that you should always use a filter because it is faster for bigger scene graph**
+
+```java
+// Creating the mouse event handler 
+EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() { 
+   @Override 
+   public void handle(MouseEvent e) { 
+      System.out.println("Hello World"); 
+      circle.setFill(Color.DARKSLATEBLUE);  
+   } 
+};   
+// Adding event Filter (faster than Handler)
+Circle.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+
+// You use a filter OR a handler (not both at the same time)
+
+// Adding event Handler (slower than Filter)
+Circle.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
+```
+
+Another method:
+Here we create and add the eventHandler at the same time
+```java
+circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    @Override
+    public void handle(MouseEvent event) {
+        circle.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+        //circle.setRadius((int)(Math.random() * 41 + 20));
+        title.setText("Ohh !!! my color has changed!!!");
+    }
+});
+```
 
 ## Styles
 
@@ -218,9 +319,43 @@ counter.setId("counterTitle");  // Set a #class for CSS identifying
 }
 ```
 
+## Design Patterns 
+
+### MVC (Model View Controller)
+
+The Architecture is **theorical**. The MVC Structure is **real**: it is a **design pattern** (=patron de conception [FR]). It relies on different files/servers for each role (Model, View, Controller).
+
+**It's a design pattern that separates application logic into three interconnected components: the Model (data), the View (user interface), and the Controller (intermediary).**
+
+It relies on the Three-Tier Architecture.
+
+- `Model`: Data Management
+- `Controller`: Link between Model and View / Event handling (en français: Partie Métier)
+- `View`: User Interface
+
+Partie Métier d'une Application: partie chargée d'appliquer les règles applicatives/ de gestion.
+
+![MVC](/javafx/resources/mvc.png)
+
+**Ruby on Rails, ASP.NET, Django** use this design pattern.
+
+### MVP (Model View Presenter)
+
+**MVP (Model-View-Presenter): It's similar to MVC, but the key difference is that the Presenter component acts as a bridge between the Model and View, handling all the presentation logic.**
+
+**Google Webkit Development, some framework in Android Development** use this design pattern.
+
+### MVVM (Model-View ViewModel)
+
+**MVVM (Model-View-ViewModel): It's similar to MVP, but with the added concept of data binding. The ViewModel component is responsible for exposing the data from the Model in a way that can be easily bound to the View, reducing the need for manual coding to update the UI.**
+
+**Angular** uses this architecture in order to use **data binding**.
+
 ## Examples
 
 ### Login Interface
+
+![Login](/javafx/resources/login.png)
 
 ```java
 public class Main extends Application {
@@ -284,6 +419,8 @@ public class Main extends Application {
 ```
 
 ### Lampbook
+
+![Lampbook](/javafx/resources/lampbook.png)
 
 ```java
 public class Main extends Application {
