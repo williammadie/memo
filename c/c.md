@@ -946,6 +946,8 @@ int main() {
 
 ## Semaphore
 
+### Principles
+
 A **semaphore** is a data structure used for**synchronizing access to shared resources** in a concurrent system. It is commonly used in multi-threaded programs.
 
 It ensures that several threads **do not simultaneously access the same shared resource**.
@@ -1034,3 +1036,132 @@ int main() {
     return 0;
 }
 ```
+
+### The Producer-Consumer Problem
+
+This problem is also known as the **bounded-buffer problem**. It is a classic problem in Computer Science. It occurs when **several threads are trying to access a shared buffer which has a limited space**.
+
+In this problem, we have: 
+- a **Buffer** (= a memory location which can hold a limited number of items) 
+- a **Producer thread** (= writes in the Buffer)
+- a **Consumer** (= reads from the Buffer) 
+
+Thr problem occurs when:
+- the Producer tries to write in the Buffer which is already full
+- the Consumer tries to read from the Buffer which is empty
+
+In C, **semaphores** can be used to solve the problem. They keep track of: 
+- **the number of available spaces in the buffer**.
+- **the number of items in the buffer**
+It ensures that the buffer never becomes **full** or **empty**.
+
+the producer thread writes integer values to a buffer, while the consumer thread reads them. The buffer has a limited size, and we use semaphores full and empty to keep track of the number of full and empty slots in the buffer. The sem_init function initializes the semaphores, with full starting at 0 (no full slots)
+```c
+#include <stdio.h>
+#include <pthread.h>
+#include <semaphore.h>
+#include <unistd.h>
+
+#define BUFFER_SIZE 10
+#define PRODUCER_SLEEP_TIME 2
+#define CONSUMER_SLEEP_TIME 1
+
+int buffer[BUFFER_SIZE];
+int next_in = 0;
+int next_out = 0;
+
+// semaphore to keep track of the number of empty spaces in the buffer
+sem_t empty;
+
+// semaphore to keep track of the number of items in the buffer
+sem_t full;
+
+// mutex to protect critical section
+pthread_mutex_t mutex;
+
+// function to be executed by the producer thread
+void *producer(void *arg) {
+    for (int i = 0; i < 100; i++) {
+        // wait for an empty space in the buffer
+        sem_wait(&empty);
+
+        // lock the mutex to protect the critical section
+        pthread_mutex_lock(&mutex);
+
+        // write to the buffer
+        buffer[next_in] = i;
+        next_in = (next_in + 1) % BUFFER_SIZE;
+
+        // unlock the mutex
+        pthread_mutex_unlock(&mutex);
+
+        // increase the count of the full semaphore
+        sem_post(&full);
+
+        printf("Produced: %d\n", i);
+        sleep(PRODUCER_SLEEP_TIME);
+    }
+    return NULL;
+}
+
+// function to be executed by the consumer thread
+void *consumer(void *arg) {
+    int item;
+    for (int i = 0; i < 100; i++) {
+        // wait for an item in the buffer
+        sem_wait(&full);
+
+        // lock the mutex to protect the critical section
+        pthread_mutex_lock(&mutex);
+
+        // read from the buffer
+        item = buffer[next_out];
+        next_out = (next_out + 1) % BUFFER_SIZE;
+
+        // unlock the mutex
+        pthread_mutex_unlock(&mutex);
+
+        // increase the count of the empty semaphore
+        sem_post(&empty);
+
+        printf("Consumed: %d\n", item);
+        sleep(CONSUMER_SLEEP_TIME);
+    }
+    return NULL;
+}
+
+int main(void) {
+    pthread_t producer_thread, producer_thread;
+
+    // initialize the semaphores
+    sem_init(&empty, 0, BUFFER_SIZE);
+    sem_init(&full, 0, 0);
+
+    // initialize the mutex
+    pthread_mutex_init(&mutex, NULL);
+
+    // create the producer and consumer threads
+    pthread_create(&producer_thread, NULL, producer, NULL);
+    pthread_create(&consumer_thread, NULL, consumer, NULL);
+
+    // wait for the producer and consumer threads to finish
+    pthread_join(producer_thread, NULL);
+    pthread_join(consumer_thread, NULL);
+
+    return 0;
+}
+```
+
+The **dining pilosophers** problem is a famous example of the producer-consumer problem.
+
+Philosophers have 3 states:
+1. Think
+2. Eat
+3. Starvation
+
+Semaphores can be used to handle the **deadlock** problem. In order to manage the **starvation** problem, we'll have to use n semaphores (with n = number of philosopers).
+
+- When a philosopher cannot take 2 forks. He goes into his **think state**.
+- When a philosopher ends eating, he wakes up his neighbors in **think state**. The neighbors can then eat.
+
+![philosopher-problem](/c/resources/philosopher-problem.jpg)
