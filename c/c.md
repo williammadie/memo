@@ -20,6 +20,12 @@
 - [Positional Parameters](#positional-parameters)
 - [Call another Program](#call-another-program)
 - [Signal Handling](#signal-handling)
+- [Threads VS Processes](#threads-vs-processes)
+    - [Main differeces](#main-differences)
+    - [Usage](#usage)
+- [Threads](#threads)
+- [Mutex](#mutex)
+- [Semaphore](#semaphore)
 
 ## Introduction
 
@@ -615,7 +621,7 @@ int main(void) {
 
 ### Unnamed Pipe
 
-An **unnamded pipe** is a mechanism for communication between two processes that runs on the same system.
+An **unnamed pipe** is a mechanism for communication between two processes that runs on the same system.
 
 It provides a way to pass data from one process to another without the need of a permanent file.
 
@@ -789,5 +795,242 @@ int main(void) {
             printf("%d", receivedInt3);
     }
     return EXIT_SUCCESS;
+}
+```
+
+## Threads VS Processes
+
+### Main differences
+
+A **process** is a task which:
+- has its own isolated memory space
+- has its own state
+- is heavier than a thread
+- is slower than a thread
+If a process crashes, it **won't affect other processes**.
+
+A **thread** is a task which:
+- runs in the same memory space as the parent process
+- is lighter than a processes
+- is faster than a process
+If a thread crashes, it **will affect other threads in the same process or even the entire process**
+
+Thread can communicate and share data more easily with parents. Using thread is also much faster and less resource-intensive for the CPU because it don't have to handle a fully dedicated memory space.
+
+At the CPU level, both threads and processes are executed by the CPU as separate entities and can run simultaneously, allowing the CPU to perform multiple tasks at the same time. The choice between using threads or processes depends on the specific requirements of the task at hand and the trade-offs between speed, isolation, and resource usage.
+
+### Usage
+
+In general, processes are useful when you want to run independent and isolated tasks, while threads are useful when you want to perform multiple tasks within a single process that share data and resources.
+
+Sure! Here are some examples of when you might use threads or processes:
+
+**Processes**:
+
+- Running multiple independent applications, such as a web browser, a text editor, and a music player, all at the same time.
+- Running a heavy computational task, such as scientific simulations, that requires a large amount of memory and resources.
+- Running a security-sensitive task, such as a virus scanner, in a separate process to prevent any potential errors or security breaches from affecting the rest of the system.
+
+**Threads**:
+
+- Implementing a user interface for a desktop application that needs to be responsive to user interactions while performing background tasks, such as file I/O or network communication.
+- Implementing a server that needs to handle multiple clients simultaneously, such as a web server serving multiple clients or a chat server handling multiple users.
+- Parallelizing a computationally intensive task, such as image processing or matrix multiplication, by breaking it down into smaller tasks and executing each task on a separate thread.
+
+### In a Nutshell
+
+![thread-process-software-architecture](/c/resources/thread-process-software-architecture.png)
+
+## Threads
+
+A **thread** is a **small set of instructions designed to be scheduled and executed by the CPU independently of the parent process**.
+
+In order to use **threads**, we need to inform the compiler that we're using them:
+```bash
+gcc my-prog.c -o my-prog -lpthread
+```
+
+You'll also need to include the **threads library**:
+```c
+#include <pthread.h>
+```
+
+Create a thread
+```c
+pthread_create();
+```
+
+Exit a thread
+```c
+pthread_exit();
+```
+
+Wait a thread to finish
+```c
+pthread_join();
+```
+
+Get the Thread ID of the current thread
+```c
+pthread_self();
+```
+
+Make a thread runs independently
+```c
+pthread_detach();
+```
+
+## Mutex
+
+In a **multi-threaded environment**, a **Mutex** (= Mutual Exclusion) is a synchronization primitive (= a safety mechanism) used to ensure that **only one thread can access a given resource at a time**.
+
+Mutex prevents **race conditions** and **data corruption**.
+
+A **mutex** is a `Lock Mechanism`.
+
+Declare a Mutex object (it is always declared as a **global variable**)
+```c
+pthread_mutex_t lock;
+int shared_counter = 0; // Global variable used by n threads
+```
+
+Initialize a Mutex
+```c
+pthread_mutex_init();
+```
+
+Lock the Mutex before accessing the shared resource
+```c
+pthread_mutex_lock();
+```
+
+After accessing the shared resource, release the Mutex
+```c
+pthread_mutex_unlock();
+```
+
+Destroy the Mutex when it is no longer needed
+```c
+pthread_mutex_destroy();
+```
+
+
+Here is a small example of Mutex usage where each thread access a shared variable and increments it:
+```c
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+pthread_mutex_t lock;
+int shared_counter = 0;
+
+void *increment_counter(void *tid) {
+  pthread_mutex_lock(&lock);
+  shared_counter++;
+  printf("Thread ID: %ld, Shared Counter: %d\n", (long)tid, shared_counter);
+  pthread_mutex_unlock(&lock);
+  pthread_exit(NULL);
+}
+
+int main() {
+  pthread_t thread1, thread2;
+  pthread_mutex_init(&lock, NULL);
+  pthread_create(&thread1, NULL, increment_counter, (void *)1);
+  pthread_create(&thread2, NULL, increment_counter, (void *)2);
+  pthread_join(thread1, NULL);
+  pthread_join(thread2, NULL);
+  pthread_mutex_destroy(&lock);
+  return 0;
+}
+```
+
+## Semaphore
+
+A **semaphore** is a data structure used for**synchronizing access to shared resources** in a concurrent system. It is commonly used in multi-threaded programs.
+
+It ensures that several threads **do not simultaneously access the same shared resource**.
+
+A **semaphore** is a `Signal Mechanism`.
+
+There are two types of semaphores:
+- binary semaphore: `0` if **access is authorized** or `1` if **access is restricted**
+- counting semaphore: any `positive int`
+
+For a binary semaphore, the initial value is set to `1` when it is created with `sem_init()`. The first thread that calls `sem_wait()` is able to access the resource. Other threads that call `sem_wait()` have to wait until the resource is released by a call to `sem_post()`.
+
+Semaphore functions are located inside the below library:
+```c
+#include <semaphore.h>
+```
+
+Initialize a semaphore
+```c
+sem_init();
+```
+
+Decrement the value of a semaphore (1 -> 0)
+```c
+sem_wait();
+```
+
+Decrement the value of a semaphore only if the value is greater than 0
+```c
+sem_trywait();
+```
+
+Increment the value of a semaphore
+```c
+sem_post();
+```
+
+Retrieve the current value of a semaphore
+```c
+sem_getvalue();
+```
+
+Destroy a semaphore and free the associated resources
+```c
+sem_destroy();
+```
+
+A quick example of semaphore usage
+```c
+#include <semaphore.h>
+#include <pthread.h>
+#include <stdio.h>
+#include <unistd.h>
+
+sem_t semaphore;
+int shared_resource = 0;
+
+void *thread_function(void *arg) {
+    int i;
+
+    for (i = 0; i < 5; i++) {
+        sem_wait(&semaphore);  // Wait for access to the shared resource
+        shared_resource++;  // Use the shared resource
+        printf("Thread %d: %d\n", (int)arg, shared_resource);
+        sleep(1);
+        sem_post(&semaphore);  // Release access to the shared resource
+    }
+
+    return NULL;
+}
+
+int main() {
+    pthread_t thread1, thread2;
+    sem_init(&semaphore, 0, 1);  // Initialize the semaphore
+
+    // Create two threads
+    pthread_create(&thread1, NULL, thread_function, (void *)1);
+    pthread_create(&thread2, NULL, thread_function, (void *)2);
+
+    // Wait for both threads to finish
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
+
+    sem_destroy(&semaphore);  // Clean up the semaphore
+
+    return 0;
 }
 ```

@@ -65,7 +65,57 @@ We can use two methods to build a JavaFX application:
 
 More intuitive because we use SceneBuilder. It generates the FXML code for us.
 
+Important code snippets:
+
+**1. Inside the `start()` function**
+
+Declare the location of the view file
+```java
+BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("my-view1.fxml"));
+```
+
+**2. Inside the view file**
+
+Link a controller with a view (the link is done in the **root container**)
+```java
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="application.SampleController">
+```
+
+Building Steps:
+
+1. Create a view with SceneBuilder
+2. Create a Java class `MyController`
+3. Link the view with the controller (see code above)
+
+React to an event
+1. Create a Button with an FxID
+```xml
+<Button fx:id="btn1" text="Click Me"/>
+```
+
+2. In the Controller, declare an attribute for this button
+(with the same FxID as the one in the view)
+```java
+@FXML
+private Button btn1;
+```
+
+3. Declare an event handler
+```java
+@FXML
+  private void initialize() {
+    myButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        // Perform some action when the button is clicked
+      }
+    });
+  }
+```
+
 ### Procedural Method
+
+This method is based on **Java API**.
 
 A bit more complicative because we have to know how components work, how they can be set and what do they allow.
 
