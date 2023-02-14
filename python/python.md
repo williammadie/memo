@@ -69,6 +69,16 @@ PIP is a package manager written in Python. It is used to install **python packa
 
 ### PIP commands
 
+Upgrade PIP
+```bash
+pip install --upgrade pip
+```
+
+Show version of a specific package
+```bash
+pip3 list | grep package-name
+```
+
 Installs a package
 ```bash
 pip3 install package-name
