@@ -231,6 +231,20 @@ Open a file
 FILE* fp = fopen("./path/to/file", "r");
 ```
 
+Easiest way to write to a file/stream:
+Format and write an integer to a file
+```c
+fprintf(fp, "%d\n", 1460);
+```
+
+Easiest way to read from a file/stream:
+```c
+// The function returns 1 if an error occurs
+// The result is stored inside the variable number
+int number;
+fscanf(fp, "%d", &number);
+```
+
 Read a single character
 ```c
 getc(fp);
@@ -255,11 +269,6 @@ char* readLine(FILE* fp) {
 }
 ```
 Please note if we want to read a whole file and return it as a string (= an array of characters). We juste have to modify the previous code by removing the `if (readCharacter == '\n') {...}`. Don't forget to add the End of String marker (`\0`) after building the string.
-
-Format and write an integer to a file
-```c
-fprintf(fp, "%d\n", 1460);
-```
 
 Write an integer to a file (low-level functions)
 ```c
