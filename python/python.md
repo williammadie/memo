@@ -69,6 +69,16 @@ PIP is a package manager written in Python. It is used to install **python packa
 
 ### PIP commands
 
+Upgrade PIP
+```bash
+pip install --upgrade pip
+```
+
+Show version of a specific package
+```bash
+pip3 list | grep package-name
+```
+
 Installs a package
 ```bash
 pip3 install package-name
@@ -663,7 +673,17 @@ Replace an attribute of the datetime object
 
 ### Star Operator
 
-In Python, the `*` operator can be used with integers in arithmetical operations but it is not its only use ! It can also be used with strings and collections ! How ? Let me tell you:
+The `*` operator can be used for functions which takes an infinite number of parameters:
+
+```python
+def sum_all(*args):
+    result = 0
+    for num in args:
+        result += num
+    return result
+```
+
+It can also be used with integers in arithmetical operations but it is not its only use ! It can also be used with strings and collections :
 
 Unpacking a list:
 ```python
