@@ -490,6 +490,16 @@ An exemple of list comprehension which creates a new list containing lengths of 
 [8, 5, 6]
 ```
 
+List comprehension with an if statement
+```python
+[transform(value) for value in df["column1"] if condition]
+```
+
+List comprehension with an if-else statement
+```python
+[transform(value) if condition else value for value in df["column1"]]
+```
+
 ### Set
 
 A **set** is a bit like a list. It is a collection of objects **without any duplicates**. It is not possible to add an object which is already present in a given set. It is very useful when we want to use the **Set Theory** and all its operations.
@@ -698,6 +708,17 @@ H e l l o !
 ```
 
 The `*` operator returns each element of the collection
+
+### Star Star Operator
+
+Yeah, it isn't its real name. 
+
+`**` can be used to obtain all **named arguments** of a function (those passed like `my_arg = value`).
+
+Following the same principle, it can also be used to merge dictionaries:
+```python
+res_dic = {**dic1, **dic2, **dic3}
+```
 
 ### Zip
 
@@ -921,7 +942,12 @@ When we focus on a specific column (or on specific columns), we obtain a **slice
 
 ##### Working with DataFrames
 
-Initialize a DataFrame
+Creata an empty DataFrame
+```python
+df = pd.DataFrame()
+```
+
+Create a DataFrame and fill it with data
 ```python
 data = [
     ['value_r1c1', 'value_r1c2', 'value_r1c3'],
@@ -932,11 +958,16 @@ pd.DataFrame(
     data, 
     columns=['header_col1', 'header_col2', 'header_col3']
 )
+```
 
-# Second way (cleaner in my opinion)
-
+Create a DataFrame form a dictionary
+```python
 data = {'col1': list_of_values, 'col2': list_of_values...}
 pd.DataFrame(data)
+
+# or
+
+df = pd.DataFrame.from_dict(data)
 ```
 
 See only specific columns
@@ -988,6 +1019,11 @@ df.tail()
 See most common values in a column
 ```py
 df.values_count()
+```
+
+Search for rows where a given column contains a given value
+```python
+df[df['column1'] == value]
 ```
 
 Keep only given columns
@@ -1071,7 +1107,7 @@ df["number_of_icu_beds"] = df.apply(lambda x: build_column(x, "HBEDT_CUR", "numb
 ```
 
 Split the column X in two or more different columns based on values inside columns X
-```
+```python
 # 1.If we want to have two final columns then, create two dataframes.
 # Filter them from the original one so you have your values separated
 df_all = df[df["TargetGroup"] == "ALL"].reset_index()
@@ -1123,6 +1159,8 @@ Here is a list of all useful commands in Pdb:
 - `q`: (quit) exit the debugger
 
 It can also be useful to set a condition before calling `breakpoint()`. It is called a **conditional breakpoint**.
+
+*Note:* `dir()` can also be used to show all methods from an object at any time (debugguer or not)
 
 ## Python Settings and Environment
 
