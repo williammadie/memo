@@ -5,7 +5,7 @@
 - [Introduction](#introduction)
 - [Advantages and Disadvantages of the C language](#advantages-and-disadvantages-of-the-c-language)
 - [Compile and Run](#compile-and-run)
-- [Basic Types in C](#basic-types-in-c)
+- [Data Types in C](#data-types-in-c)
 - [Basic Libraries in C](#basic-libraries-in-c)
 - [Structure of a C Project](#structure-of-a-c-project)
     - [Simple file project](#simple-file-project)
@@ -20,6 +20,9 @@
 - [Positional Parameters](#positional-parameters)
 - [Call another Program](#call-another-program)
 - [Signal Handling](#signal-handling)
+- [Pipes](#pipes)
+    - [Named Pipe](#named-pipe)
+    - [Unnamed Pipe](#unnamed-pipe)
 - [Threads VS Processes](#threads-vs-processes)
     - [Main differeces](#main-differences)
     - [Usage](#usage)
@@ -69,7 +72,9 @@ Run a C program
 
 ![compilation](./resources/compilation.webp)
 
-## Basic Types in C
+## Data Types in C
+
+### Fundamental Data Types
 
 |  Type  |                               Description                              | Flag |
 |:------:|:----------------------------------------------------------------------:|:----:|
@@ -80,13 +85,38 @@ Run a C program
 |  float |                 Non-integer numbers (single precision)                 |  %f  |
 | double |                 Non-integer numbers (double precision)                 |  %lf |
 
-- *string* is not a basic type (it is a chain of *char*). However, it has its own flag: `%s`.
+Why are there no type size indicated in this array ?
+
+-> In C, the size of types depends on the platform of compilation (16, 32, 64 bits). The only size type which is fixed is `char`. It is guaranteed to be `1 byte`.
+
+- `string` is not a basic type (it is a chain of *char*). However, it has its own flag: `%s`.
+- `bool` exists in C but it *is not included* in the language as-is. It is possible to use booleans with `<stdbool.h>`
 
 Define a constant
 ```c
 #define MAX_VALUE 3
 ```
 Please note there is no `;` at the end of this line.
+
+### Derived Data Types
+
+- *array*
+- *pointer*
+- *function*
+
+Other notes:
+- It is possible to create functions with a variable amount of parameters with `<stdarg.h>`.
+- C *does not support function overloading*
+
+### User-Defined Data Types
+
+- *structure*
+- *union*
+- *enum*
+
+### Conversions
+
+- `atoi()` *ASCII to Integer*
 
 ## Basic libraries in C
 
@@ -96,6 +126,8 @@ Please note there is no `;` at the end of this line.
 
 (Other)
 - *string.h* -> strcmp, strlen
+- *stdbool.h* -> bool
+- *unistd.h* -> fork, exec, wait, exit, getpid, sleep, usleep, open, close, read, write, mkdir, rmdir
 
 ## Structure of a C project
 
@@ -306,13 +338,18 @@ A **process** is an instance of a program that is being executed by the operatin
 
 In C, it is possible to use processes to **execute several task in parallel/simultaenously**. 
 
-Be really careful with processes. Keep in mind that they **do not share a common memory space**. Each process has **its own memory space**. This means that if a child process modifies a global variable, its father WON'T BE ABLE to see the modifications. Here is an example:
+Be really careful with processes. Keep in mind that they **do not share a common memory space**. Each process has **its own memory space**. This means that if a child process modifies a global variable, its father WON'T BE ABLE to see the modifications. 
+
+A `fork()` makes a copy of the whole program but starts executing the code at the line just after the fork. So, for instance, if there is a signal handler defined before the call to `fork()`, the children will be able to see it.
+
+
+Here is an example:
 
 A global variable modified by a both a child process and a sigchld handler.
 ```c
-#include<stdio.h>
-#include<stdlib.h>
-#include<unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <sys/wait.h>
 
 int num = 18;
@@ -539,7 +576,7 @@ Signal | Signification | Description
 `SIGFPE` | Signal Floating-Point Exception | Generated when a process encounters an exceptional arithmetic condition, such as division by zero.
 `SIGBUS` | Signal Bus Error | Generated when a process encounters a bus error, typically due to an alignment error or invalid memory access.
 `SIGCHLD` | Signal Child Status Changed | Sent to a parent process when a child process terminates or stops. Used to notify the parent of changes in the status of its child processes.
-`SIGUSR1` & `SIGUSR2`| Signals Defined by User | A custom signal defined by the user
+`SIGUSR1` & `SIGUSR2`| Signals Defined by User | A custom signal defined by the user (default behavior: terminate the process)
 
 
 Send a signal to a given process (kill or custom signal)
@@ -605,11 +642,13 @@ if (sigprocmask(SIG_SETMASK, &original_mask, NULL) < 0) {
 
 Pipes are mechanismes used in **inter-process communication** in UNIX-like systems.
 
+Pipes are part of the `unistd.h` library.
+
 There are two types of pipes:
 - Named Pipe
 - Unnamed Pipe
 
-Pipes are part of the `unistd.h` library.
+Both types of pipes behave as a **FIFO** (First In First Out) structures.
 
 ### Named Pipe
 
@@ -671,7 +710,7 @@ An **unnamed pipe** is a mechanism for communication between two processes that 
 
 It provides a way to pass data from one process to another without the need of a permanent file.
 
-Additional Note: **Unlike named pipes**, these kind of pipes can only be accessed by the process that created them and they exist only for the duration of the communication. We tend to use them with `fork()`
+Additional Note: **Unlike named pipes**, these kind of pipes can only be accessed by the process that created them and they *exist only for the duration of the communication*. We tend to use them with `fork()`
 
 Important functions
 ```c
@@ -754,6 +793,8 @@ int main(void) {
     return EXIT_SUCCESS;
 }
 ```
+
+#### Pipes between 3 Processes
 
 What if I use 3 or more processes?
 
@@ -843,6 +884,23 @@ int main(void) {
     return EXIT_SUCCESS;
 }
 ```
+
+#### Special Case
+
+What happens, if there are 2 processes (a writer and a reader) and the writer writes several times before the reader starts reading ?
+
+For this example, let's say we write **numbers**
+
+Hypothesis:
+1. The numbers are overwritten and only the last number can be read, the others are lost.
+2. The numbers are stacked and then the last one is read in first. The first number written is at the bottom of the stack so it is read in last.
+
+The Hypothesis 2 is **the correct one**. A pipe never **overwrites** its content. It stacks the content until it is read. Let's see why with a diagram. In the following one, there are 2 processes using a single pipe:
+1. P1 is writing numbers such as (1, 2, 3, 4...) to the pipe
+2. P2 is reading from the pipe (1, 2, 3, 4...) in the same order as it was written
+
+![FIFO-Pipes](/c/resources/fifo-pipe.png)
+
 
 ## Threads VS Processes
 
