@@ -16,7 +16,9 @@ In a nutshell:
 
 Linux is nothing but a UNIX clone which is written Linus Torvalds from scratch with the help of some hackers across the globe.
 
-Unix and Unix-like operating systems are a family of computer operating systems that derive from the original Unix System from Bell Labs which can be traced back to 1965. 
+UNIX and UNIX-like operating systems are a family of computer operating systems that derive from the original UNIX System from Bell Labs which can be traced back to 1965.
+
+Most famous **UNIX-based/UNIX-like operating systems** are `Linux` and `macOS`.
 
 In details:
 
