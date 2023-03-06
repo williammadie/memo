@@ -9,6 +9,7 @@
     - [Cheat Sheet](#cheat-sheet)
 - [Sorting Algorithms](#sorting-algorithms)
     - [Insertion Sort](#insertion-sort)
+- [Recursion](#recursion)
 
 ## Algorithm Complexity
 
@@ -108,3 +109,15 @@ for (int i = 0; i < ARRAY_LENGTH; i++) {
         }
     }
 ```
+
+## Recursion
+
+### FIFO and LIFO
+
+- `FIFO` (First In First Out): Heap (Tas=File [FR]): In this structure, the first element inserted is the first element removed.
+
+![fifo](/algorithms/resources/fifo.png)
+
+- `LIFO` (Last In First Out): Stack (Pile [FR]): In this structure, the last element inserted is the first one removed.
+
+![lifo](/algorithms/resources/lifo.png)
