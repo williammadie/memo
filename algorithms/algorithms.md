@@ -10,6 +10,9 @@
 - [Sorting Algorithms](#sorting-algorithms)
     - [Insertion Sort](#insertion-sort)
 - [Recursion](#recursion)
+- [Memoization](#memoization)
+- [Bad Practices](#bad-practices)
+- [Glossary](#glossary)
 
 ## Algorithm Complexity
 
@@ -70,7 +73,7 @@ Here is a quick cheat sheet of the most popular algorithms and their complexity:
 
 On the following graph, you can see the **number of operations** evolution of each complexity depending on the **number of elements in the data structure**:
 
-![img2](/algorithm/resources/complexity-graph.png)
+![img2](/algorithms/resources/complexity-graph.png)
 
 ## Sorting Algorithms
 
@@ -110,14 +113,74 @@ for (int i = 0; i < ARRAY_LENGTH; i++) {
     }
 ```
 
-## Recursion
+## Data Structure
 
-### FIFO and LIFO
+### FIFO
 
 - `FIFO` (First In First Out): Heap (Tas=File [FR]): In this structure, the first element inserted is the first element removed.
 
 ![fifo](/algorithms/resources/fifo.png)
 
+### LIFO
+
 - `LIFO` (Last In First Out): Stack (Pile [FR]): In this structure, the last element inserted is the first one removed.
 
+In general, the following methods are used in a `stack`:
+- `push()`: (empiler [FR]) add an element at the top of the stack
+- `pop()`: (dépiler [FR]) remove and return the top element
+- `peek()`: return the top element withtout removing it from the stack
+- `isEmpty()`: return whether the stack is empty or not
+- `size()`: return the number of element in the stack
+- `clear()`: remove all elements in the stack
+
 ![lifo](/algorithms/resources/lifo.png)
+
+### Linked List
+
+A Linked List memorizes the **memory address** of each element/block/node. In general, it uses 3 pointers:
+- one at the head of the list (first element)
+- one at the current element in the list
+- one at the last element in the list
+
+Moreover, each node points towards the next (and the previous in the case of a `Double Linked List`) elements. 
+
+If there is no next element, it points towards `NULL`.
+
+![linked-list](/algorithms/resources/linked-list.png)
+
+## Memoization
+
+**Memoization** is the process of caching returned values of functions. This allows a program to lower its processing time.
+
+In the example below, the results of `f(0)`, `f(1)`, `f(2)` and `f(3)` are memoized:
+
+![memoization](/algorithms/resources/memoization.png)
+
+## Bad Practices
+
+1. Reallocating instead of emptying an already existent array
+
+While it might seems a good idea to do:
+
+```java
+t = new int[size];
+```
+
+instead of:
+
+```java
+Arrays.fill(t, 0);
+```
+
+in fact, it is a very poor choice because for very big arrays, it will change the array pointer from the initial array to the new one. 
+
+However, the old array will continue to exist until the Garbage Collector is woken up. So, for a humongous array, you'll take the risk of not having enough memory.
+
+Generally, you'll simply have two arrays in memory whereas you can have only one. You use two times the space for a single array and you don't have the hand on when it will return to the normal situation.
+
+![reallocating-instead-of-emptying](/algorithms/resources/reallocating-instead-of-emptying.png)
+
+## Glossary
+
+- `bulk operation`: refers to performing an operation on a large amount of data in a single request.
+- `bulk data`: refers to putting all the data into a file or a set of files so that all of the data can be acquired with a few simple downloads.

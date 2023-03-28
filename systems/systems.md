@@ -2,8 +2,38 @@
 
 ## Table of Contents
 
+- [Computer Architecture in a Nutshell](#computer-architecture-in-a-nutshell)
 - [Primary and Secondary Memory](#primary-and-secondary-memory)
 - [Buffering](#buffering)
+- [Synchronous and Asynchronous Operations](#synchronous-and-asynchronous-operations)
+
+## Computer Architecture in a Nutshell
+
+Today's computers use the **Von Neumann Architecture**. It was the idea of the Physician and Mathematician *John Von Neumann* to separate the ALU and the Control Unit that gave birth to this architecture.
+
+![von-neumann-architecture](/systems/resources/von-neumann-architecture.png)
+
+1. The CPU
+
+**CPU** (**Central Processing Unit**): It is the brain of the computer, the place where arithmetic and logic is handled. It can take an instruction in input and execute it to create an output.
+
+- **Control Unit**: CPU Unit charged of instructions sequencing. It accepts external instructions (= input) and turns them into a series of **control signals**.
+- **ALU** (**Arithmetic Logic Unit**): CPU Unit charged of arithmetic calculations and logic handling.
+- **Registers**: Data holding places part of the CPU. They are used for transfering data for immediate use by the CPU.
+- **MMU** (**Memory Management Unit**): CPU Unit charged of transferring data from the RAM to the CPU or to from the Cache Memory to the CPU (if it is present in the Cache). 
+- **Cache Memory**: CPU memory unit typically located on the CPU chip but separated from the CPU's processing units
+
+2. Data Bus
+
+**Data Bus**: Set of wires or electronic connectors that provide transportation for data between one component to another on a motherboard.
+
+It is typically very slow compared to CPU speed. This is the reason why there are registers and also a Cache memory unit inside the CPU (which are a lot faster than taking the bus) 
+
+3. RAM
+
+**Random Access Memory**: It is better to refer to it as **Direct Access Memory**, a memory space where data is organized by addresses and where CPU can access a specific information by asking a given memory address.
+
+It is considered as really fast compared to the secondary memory (HDD, SSD, USB Key...) but really slow compared to the CPU speed.
 
 ## Primary and Secondary Memory
 
@@ -15,6 +45,8 @@
 In a nutshell, the difference between primary and secondary lies on whether the CPU **has a direct access to the memory**, the **speed of the memory** and whether it is **volatile or not**.
 
 ![primary-secondary-storage](/systems/resources/primary-secondary-storage.png)
+
+The **MMU** is the CPU component that indicates to the CPU if the data is stored inside the Cache Memory or the Secondary Memory. The difference is important as in the second case, the data has to go through the **Data Bus** which is significantly slower than the **CPU speed**
 
 Below, you'll find a short summary of all types of available memories. I added a category **Off-line Memory** which is basically a subpart of **Secondary Memory**
 
@@ -66,3 +98,6 @@ Another example is when the program asks for a user input by using the `scanf()`
 This means that if we call `scanf()` another time after the user wrote `hello world\n` the first time. The `\n` will be stuck inside the buffer and on the second call of `scanf()`, the program will immediately read `\n` and will not let the user writes anything.
 
 So in this case, it is mandatory to use `fflush(stdin)` to empty the buffer before proceeding to another input.
+
+## Synchronous and Asynchronous Operations
+

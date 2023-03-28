@@ -16,6 +16,8 @@
 
 Here is a list of the most used DOS operating systems:
 
+[Single User and Single Task]
+
 - `MS-DOS` (Microsoft Disk Operating System)
 - `PC DOS` (IBM Personal Computer Disk Operating System)
 - `DR-DOS` (Digital Research Disk Operating System)
@@ -24,6 +26,8 @@ Here is a list of the most used DOS operating systems:
 **Windows NT** (**New Technology**) is the current family of Windows operating systems. The first version was **Windows NT 3.1** release in 1993.
 
 Here is a list of the most famous Windows NT operating systems: 
+
+[Multi-Users and Multi-Tasks]
 
 - `Windows NT 3.1`
 - `Windows NT 3.5`

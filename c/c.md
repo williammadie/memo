@@ -338,10 +338,11 @@ A **process** is an instance of a program that is being executed by the operatin
 
 In C, it is possible to use processes to **execute several task in parallel/simultaenously**. 
 
-Be really careful with processes. Keep in mind that they **do not share a common memory space**. Each process has **its own memory space**. This means that if a child process modifies a global variable, its father WON'T BE ABLE to see the modifications. 
+Be really careful with processes. Keep in mind that they **do not share a common memory space**. Each process has **its own memory space**. This means that if a child process modifies a global variable, its father WON'T BE ABLE to see the modifications.
 
-A `fork()` makes a copy of the whole program but starts executing the code at the line just after the fork. So, for instance, if there is a signal handler defined before the call to `fork()`, the children will be able to see it.
+A `fork()` makes a copy of the whole program but starts executing the code at the line just after the fork. So, for instance, if there is a signal handler, an opened file... defined before the call to `fork()`, the children will be able to see it.
 
+![fork-mechanism](/c/resources/fork.png)
 
 Here is an example:
 
@@ -432,9 +433,9 @@ Get the PID of the father of the current process
 getppid()
 ```
 
-Wait for any children
+Wait for any children (Blocking)
 ```c
-wait(NULL);
+int terminatedChildPid = wait(NULL);
 ```
 
 How does the `wait()` function works?
@@ -450,9 +451,19 @@ printf("The child process n°%d exited with the value: %d\n", childPid, exitStat
 The `wait()` function can be used to retrieve the signal send by the process. They are used to **control processes**.
 
 
-Wait for a specific child
+Wait for a specific child (Blocking)
 ```c
-waitpid(543);
+int terminatedChildPid = waitpid(543);
+```
+
+Terminate a child of the current proccess (and all its grand-children)
+```c
+kill(PID_TARGET_PROCESS, SIGINT)
+```
+
+Terminate the current process
+```c
+exit(STATUS)
 ```
 
 Execute another program
@@ -524,6 +535,12 @@ int main(int argc, char *argv[]) {
 
 ## Call another program
 
+It is possible to "call another program" from the process currently executing. In order to do that, we can use the functions of the `exec` family. They allow a process to replace its code (old code) by another code (new code) specified at a given path.
+
+**Important things to consider:**
+- If an `exec` call is successful, the old code is totaly replaced by the code of the new program. This means that anything after the `exec` call in the old program will not be executed.
+- If an `exec` call is unsuccessful, the old code will continue to be executed as normal. (The new code has not replaced the old one)
+
 Call another c program
 ```c
 int main(int argc, char* argv[]) {
@@ -542,8 +559,9 @@ int main() {
   printf("This line won't be executed if execl() is successful\n");
   return 0;
 }
+```
 
-Replace/Transform the current process with another process
+
 ```c
 int main() {
   char *path = "/bin/ls";
@@ -652,7 +670,7 @@ Both types of pipes behave as a **FIFO** (First In First Out) structures.
 
 ### Named Pipe
 
-A **named pipe** also known as a **FIFO** is a special type of file that acts as a communication channel between two or more processes.
+A **named pipe** is a special type of file that acts as a communication channel between two or more processes.
 
 It has a **name** and can **be opened/closed**.
 
@@ -706,11 +724,14 @@ int main(void) {
 
 ### Unnamed Pipe
 
-An **unnamed pipe** is a mechanism for communication between two processes that runs on the same system.
+An **unnamed pipe** is a mechanism for unidirectional communication between two processes that runs on the same system.
 
 It provides a way to pass data from one process to another without the need of a permanent file.
 
-Additional Note: **Unlike named pipes**, these kind of pipes can only be accessed by the process that created them and they *exist only for the duration of the communication*. We tend to use them with `fork()`
+Additional Note: **Unlike named pipes**, these kind of pipes can only be accessed by the process that created them and they *exist only for the duration of the communication*. Once each process has closed its side of the unnamed pipe, it is destroyed. 
+
+
+We tend to use them with `fork()`.
 
 Important functions
 ```c

@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+- [Processes](#processes)
 - [User](#user)
 - [Useful commands](#useful-commands)
     - [Basic commands](#basic-commands)
@@ -33,6 +34,28 @@
     - [GCC](#gcc)
     - [Java](#java)
     - [MySQL](#mysql)
+
+## Processes
+
+In Linux, there is a hierarchy of processes that doesn't exist in Microsoft Windows.
+
+In Linux distributions, all processes are ihnerited from the process with `PID 0`. This process is started by the Linux Kernel during the boot process. It is responsible for starting and managing all other processes on the system.
+
+PID 0 also do the following tasks:
+- set up the system environment
+- mount file systems
+- start system daemons
+- perform other initialization tasks
+
+PID 1 (the `init` process) is the one charged of starting and managing all other processes.
+
+This hierarchy of processes is inspired by UNIX systems which looks like a tree (tree structure):
+
+![unix-like-hierarchy](/linux/resources/unix-like-hierarchy.jpg)
+
+Things to consider:
+- If a process is killed, all its children are adopted by the `init` process (PID 1)
+
 ## User
 
 List of users and passwords
