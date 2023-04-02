@@ -9,6 +9,10 @@
     - [Cheat Sheet](#cheat-sheet)
 - [Sorting Algorithms](#sorting-algorithms)
     - [Insertion Sort](#insertion-sort)
+- [Data Structure](#data-structure)
+    - [Linked List](#linked-list)
+    - [FIFO](#fifo)
+    - [LIFO](#lifo)
 - [Recursion](#recursion)
 - [Memoization](#memoization)
 - [Bad Practices](#bad-practices)
@@ -48,7 +52,7 @@ In practice, the **Big Oh** notation (or **Big O**) is the most commonly used be
 
 Below you'll find a sum up of what is listed above:
 
-![img1](/algorithm/resources/complexity-explained.png)
+![img1](/algorithms/resources/complexity-explained.png)
 
 ### Cheat Sheet
 
@@ -115,11 +119,39 @@ for (int i = 0; i < ARRAY_LENGTH; i++) {
 
 ## Data Structure
 
+### Linked List
+
+A Linked List memorizes the **memory address** of each element/block/node. In general, it uses 3 pointers:
+- one at the head of the list (first element)
+- one at the current element in the list
+- one at the last element in the list
+
+Moreover, each node points towards the next (and the previous in the case of a `Double Linked List`) elements. 
+
+If there is no next element, it points towards `NULL`.
+
+In a Linked List, add and remove operations are done in `O(1)`. Accessing an element is done in `O(n)` as it might requires to traverse the list from beginning to end in the worst scenario.
+
+![linked-list](/algorithms/resources/linked-list.png)
+
+![double-linked-list](/algorithms/resources/double-linked-list.png)
+
 ### FIFO
 
-- `FIFO` (First In First Out): Heap (Tas=File [FR]): In this structure, the first element inserted is the first element removed.
+- `FIFO` (First In First Out): Queue (File [FR]): In this structure, the first element inserted is the first element removed.
+
+It is possible to implement a Queue with a `static circular array` or a `linked list`.
 
 ![fifo](/algorithms/resources/fifo.png)
+
+When a Queue is implemented with a `linked list`, it needs to maintain the following pointers:
+- start (head of the queue)
+- end (tail of the queue)
+
+When we add an element in the queue, the end pointer is updated to the last element added.
+When we remove an element from the queue, the start pointer is updated to the element that was pointed by the removed element.
+
+![fifo-linked-list](/algorithms/resources/linked-list-queue.png)
 
 ### LIFO
 
@@ -133,20 +165,17 @@ In general, the following methods are used in a `stack`:
 - `size()`: return the number of element in the stack
 - `clear()`: remove all elements in the stack
 
+It is possible to implement a Stack with a `static array`, a `dynamic array` or a `linked list`.
+
 ![lifo](/algorithms/resources/lifo.png)
 
-### Linked List
+When a Stack is implemented with a `linked list`, it needs to maintain the following pointers:
+- summit (latest element added)
 
-A Linked List memorizes the **memory address** of each element/block/node. In general, it uses 3 pointers:
-- one at the head of the list (first element)
-- one at the current element in the list
-- one at the last element in the list
+When we add an element in the stack, the summit pointer is updated to the last element added.
+When we remove an element from the queue, the summit pointer is updated to the element that was pointed by the removed element.
 
-Moreover, each node points towards the next (and the previous in the case of a `Double Linked List`) elements. 
-
-If there is no next element, it points towards `NULL`.
-
-![linked-list](/algorithms/resources/linked-list.png)
+![lifo](/algorithms/resources/linked-list-lifo.png)
 
 ## Memoization
 

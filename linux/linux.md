@@ -4,6 +4,7 @@
 
 - [Processes](#processes)
 - [User](#user)
+- [Managing Permissions](#managing-permissions)
 - [Useful commands](#useful-commands)
     - [Basic commands](#basic-commands)
     - [Networking](#networking)
@@ -68,6 +69,30 @@ List of users' hash passwords (**SHA512**)
 
 ```bash
 sudo cat /etc/shadow
+```
+
+## Managing Permissions
+
+### Groups
+
+Create a group (needs to be logged as root user with `su -`)
+```bash
+groupadd groupname
+```
+
+Add a user to a group
+```bash
+adduser username groupname
+```
+
+Add a folder to a group
+```bash
+chgrp groupname /path/to/folder
+```
+
+Add permissions to group on folder (folder needs to be added to group previously)
+```bash
+chmod g+rwx /path/to/folder
 ```
 
 ## Useful commands 
