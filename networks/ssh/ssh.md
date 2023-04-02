@@ -83,6 +83,33 @@ To copy a file `from the server to the client's machine`, we can use the **scp**
 scp infile outfolder
 ```
 
+### SSH tunneling
+
+**SSH tunneling** also called **SSH port forwarding** can be used to forwards traffic from a remote server's given port to a local machine's given port (and vice-versa) over an encrypted SSH connection.
+
+It is particularly useful when it comes to protecting services. It allows users to access a distant service **without having to expose associated ports** of the remote server. 
+
+Create a SSH tunnel
+```bash
+ssh -f -N user@hostname -L localport:hostname:distantport
+```
+
+- `-f`: runs ssh in the background (detached process)
+- `-N `: specifies that no command should be executed on the remote server
+- `-L`: sets up local port forwarding between the two machines
+
+![ssh-tunneling](/networks/ssh/resources/ssh-tunneling.png)
+
+In the diagram above, we can see that connections to a remote server requires to expose specific services ports. However, it is generally not a good practices in terms of security. 
+
+But why is it considered as dangerous to open my ports?
+
+It is because of the following principle: 
+
+- **The robustness of a chain depends on the weakest link**
+
+Each time we open a port for a service, it **allows traffic to flow through that port**. Moreover, if the service running on that port has vulnerabilities or is misconfigured, it could be exploited by hackers **to gain unauthorized access to your server**.
+
 ## SFTP
 
 ***SFTP*** stands for ***Secure shell File Transfer Protocol***. SFTP is a component of an SSH protocols which aims at transferring files over SSH.
