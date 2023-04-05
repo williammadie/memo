@@ -1,6 +1,7 @@
 # Python
 
 ## Table of Contents
+- [Python](#python)
 - [Python Package Index PIP](#python-package-index-pip)
     - [What is PIP ?](#what-is-pip)
     - [PIP commands](#pip-commands)
@@ -57,7 +58,38 @@
     - [Formatter & Linter](#formatter-&-linter)
         - [Install a Linter on VSCode](#install-a-linter-on-vscode)
         - [Disable the Linter on VSCode](#disable-the-linter-on-vscode)
-    
+
+## Python
+
+Python is a **Programming Language** (PL). It has several implementations. The default one which is also the most widely used is called `CPython` but there are also `PyPy`, `Jython` and more!
+
+Most of these different implementations use the same **Runtime Engine** which is called `Python Virtual Machine` (PVM). The PVM's role is to read Byte Code and make use of the Operating System's calls to complete tasks.
+
+Let's see in details two of these implementations.
+
+### CPython
+
+`CPython` is the **default implementation** of the Python Programming Language. It uses an **AoT compiler** for compiling `Python Source Code` to `Python Byte Code` which is a more efficient language for the PVM.
+
+Python is sometimes refered as an `interpreted language`. It is actually false as the most widely implementation uses an **AoT compiler**. But where does this idea comes from ? People say that because `CPython` uses **automatic compilation** which is done at runtime. So this compilation step is hidden from the final user.
+
+But wait, I should be able to see this compilation step: compilation always takes a long time, no?
+
+Yes and no, the `CPython` compiler does very little checks at compile time so it is actually very fast.
+
+![cpython-implementation](/python/resources/cpython-implementation.png)
+
+### PyPy
+
+`PyPy` is an alternative implementation of the Python PL. It uses an **AoT compiler** and a **JiT compiler** to improve the performance of some parts of the program.
+
+It also uses **automatic compilation**, so the process is hidden from the final user. The first step is the compilation from `Python Source Code` to `Python Byte Code` and the second one is the compilation from `Byte Code` to `Machine Code` (=binary).
+
+![pypy-implementation](/python/resources/pypy-implementation.png)
+
+### Cython
+
+`Cython` **is not a Python Implementation**. It is tool used to optimize specific parts of a Python program. It is used to compile `Python Source Code` to `C` or `C++` code and to make it a shared library then usable inside Python programs.
 
 ## Python Package Index (PIP)
 
