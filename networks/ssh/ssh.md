@@ -85,7 +85,7 @@ scp infile outfolder
 
 ### SSH tunneling
 
-**SSH tunneling** also called **SSH port forwarding** can be used to forwards traffic from a remote server's given port to a local machine's given port (and vice-versa) over an encrypted SSH connection.
+**SSH tunneling** also called **SSH port forwarding** can be used to forward traffic from a remote server's given port to a local machine's given port (and vice-versa) over an encrypted SSH connection.
 
 It is particularly useful when it comes to protecting services. It allows users to access a distant service **without having to expose associated ports** of the remote server. 
 
