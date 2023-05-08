@@ -4,13 +4,17 @@
 
 - [NestCLI](#nestcli)
 - [NestJS Principles](#nestjs-principles)
+  - [Modules](#modules)
   - [Controllers](#controllers)
   - [Providers](#providers)
   - [DTO](#dto)
   - [Interfaces](#interfaces)
 - [NestJS Architecture](#nestjs-architecture)
+- [Environment Variables](#environment-variables)
 
 ## NestCLI
+
+### Start Project
 
 Installation
 ```bash
@@ -41,6 +45,39 @@ Start server in development mode (watch files changes)
 npm run start:dev
 ```
 
+### Create Module, Controller and Service
+
+Change directory to `src/my-project` before proceeding:
+
+Create a Module
+```bash
+nest g module feature-name
+```
+
+Create a Controller
+```bash
+nest g controller feature-name
+```
+
+Create a Service
+```bash
+nest g service feature-name
+```
+
+You should obtain the following layout:
+```bash
+src/
+├── app.controller.spec.ts
+├── app.controller.ts
+├── app.module.ts
+├── app.service.ts
+├── my-feature/
+│   ├── my-feature.module.ts
+│   ├── my-feature.controller.ts
+│   └── my-feature.service.ts
+└── main.ts
+```
+
 ## NestJS Principles
 
 - NestJS is largely based on `decorators`. A lot of decorators are available inside the framework: `@Controller()`, `@Post()`, `@HttpCode()`... They add functionalities implicitely handled by the framework.
@@ -66,6 +103,39 @@ import { CatsService } from './cats/cats.service';
 })
 export class AppModule {}
 ```
+
+### Modules
+
+A class which contains a `@Module()` decorator. Modules are an effective way to organize components. It is used to avoid declaring all controllers and providers inside the `app.module.ts`.
+
+Typical applications will have a **root module** (`app.module.ts`) which contains all known modules such as the example below:
+
+Root Module
+```ts
+import { Module } from '@nestjs/common';
+import { CatsModule } from './cats/cats.module';
+
+@Module({
+  imports: [CatsModule],
+})
+export class AppModule {}
+```
+
+The applications will then have a lot of different components where each component has its own module called a **Feature Module**:
+
+```ts
+import { Module } from '@nestjs/common';
+import { CatsController } from './cats.controller';
+import { CatsService } from './cats.service';
+
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+})
+export class CatsModule {}
+```
+
+It is possible to make providers available everywhere inside the Nest application by using the `@Global()` decorator.
 
 ### Controllers
 
@@ -118,7 +188,23 @@ It is possible to redirect to another URL with the `@Redirect()` decorator.
 
 ### Providers
 
-Providers are a fundamental concept in NestJS. They refer to **services, repositories, factories, helpers and so on**. Providers are **injected as a dependency**.
+Providers are a fundamental concept in NestJS. They refer to **services, repositories, factories, helpers and so on**.
+
+Providers are **injected as a dependency**. It means that we can declare them inside the constructor of a class A. The class A will automatically instanciate the provider at creation.
+
+Providers need to be registered inside the `app.module.ts` so that NestJS knows they exist and consumer can use them:
+
+```ts
+import { Module } from '@nestjs/common';
+import { CatsController } from './cats/cats.controller';
+import { CatsService } from './cats/cats.service';
+
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+})
+export class AppModule {}
+```
 
 ### DTO
 
@@ -143,13 +229,24 @@ async create(@Body() createCatDto: CreateCatDto) {
 
 ### Interfaces
 
+An Interface is a class **describing an object with properties**. It is a bit different from Java. The Java equivalent would be a **Record**:
 
+An example of interface (describing a Cat Object)
+```ts
+export interface Cat {
+  name: string;
+  age: number;
+  breed: string;
+}
+
+```
 
 ## NestJS Architecture
 
 NestJS is organized by concepts. For instance, every information linked to the concept of `Cats` will be organized under the `src/cats/` folder.
 
 Inside the `cats/` folder, we'll find:
+- **Feature Module**
 - **Controllers**
 - **Providers**
 - **DTO Schemas** (**Data Transfer Object**) 
@@ -161,7 +258,8 @@ src/
 ├── app.controller.ts
 ├── app.module.ts
 ├── app.service.ts
-├── cats
+├── cats/
+│   ├── cats.module.ts
 │   ├── cats.controller.ts
 │   ├── cats.service.ts
 │   ├── dto
@@ -169,4 +267,52 @@ src/
 │   └── interfaces
 │       └── cat.interface.ts
 └── main.ts
+```
+
+## Environment Variables
+
+### Declare Variables
+
+In order to use environment variables in NestJS, we have to install the following dependency:
+
+```bash
+# Requires TS 4.1 or later
+npm i --save @nestjs/config
+```
+
+Then, we'll be able to import the `ConfigModule` in our application. This module will be used to get the content of a `.env` file:
+
+View of the `app.module.ts` file:
+```ts
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+
+@Module({
+  imports: [ConfigModule.forRoot()],
+})
+export class AppModule {}
+```
+
+Then, we need to fill up our `.env` file located at the root of our project:
+
+```bash
+DB_USER=test
+DB_PASSWORD=test
+```
+
+### Use Variables
+
+In order to access configuration values declared in our `.env` file, we need to **import** the `ConfigModule` into our Feature Module and after that **inject** `ConfigService`:
+
+View of our Feature Module
+```ts
+@Module({
+  imports: [ConfigModule],
+  // ...
+})
+```
+
+View of our Consumer class
+```ts
+constructor(private configService: ConfigService) {}
 ```

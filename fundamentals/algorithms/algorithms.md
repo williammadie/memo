@@ -13,6 +13,8 @@
     - [Linked List](#linked-list)
     - [FIFO](#fifo)
     - [LIFO](#lifo)
+    - [Dictionaries](#dictionaries)
+        - [Hash Tables](#hash-tables)
 - [Recursion](#recursion)
 - [Memoization](#memoization)
 - [Bad Practices](#bad-practices)
@@ -140,6 +142,15 @@ In a Linked List, add and remove operations are done in `O(1)`. Accessing an ele
 
 - `FIFO` (First In First Out): Queue (File [FR]): In this structure, the first element inserted is the first element removed.
 
+In general, the following methods are used in a queue:
+
+FIFO Methods:
+- `offer(E element)`: Insert the specified element inside the queue
+- `peek()`: Retrieve but does not remove the head of the queue
+- `poll()`: Retrieve and remove the head of the queue
+- `clear()`: Remove all elements from the queue
+- `isEmpty()`: Check if the given queue is empty or not
+
 It is possible to implement a Queue with a `static circular array` or a `linked list`.
 
 ![fifo](/fundamentals/algorithms/resources/fifo.png)
@@ -176,6 +187,19 @@ When we add an element in the stack, the summit pointer is updated to the last e
 When we remove an element from the queue, the summit pointer is updated to the element that was pointed by the removed element.
 
 ![lifo](/fundamentals/algorithms/resources/linked-list-lifo.png)
+
+### Dictionaries
+
+#### Hash Tables
+
+Hash Tables are a type of dictionary that uses key-value associations and buckets.
+
+Each key is hashed to match an index/bucket.
+Each bucket contains a Linked List of values.
+
+Search Operations are in `O(1)` in this type of structure compared to traditional dictionaries.
+
+![hash-tables](/fundamentals/algorithms/resources/hash-table.png)
 
 ## Memoization
 
