@@ -2,14 +2,31 @@
 
 ## Table of Contents
 
-- [Golden Rules](#golden-rules)
-- [Best Practices](#best-practices)
+- [Best Practices for Data Presentation](#best-practices-for-date-presentation)
+    - [Collect Data](#collect-data)
+    - [Present Data](#present-data)
+- [Best Practices for Supports](#best-practices-for-supports)
+    - [General Advices](#general-advices)
     - [The Use of Colors](#the-use-of-colors)
     - [The Use of Schemas](#the-use-of-schemas)
 
-## Golden Rules
+## Best Practices for Data Presentation
 
-## Best Practices
+### Collect Data
+
+- Always use **official sources**. Prefer **Google Scholar** and **recognized institutions** to traditional Wikipedia pages. As the research work is already done on Wikipedia, your data might be poorer and maybe opinion-oriented. 
+
+### Present Data
+
+- Don't hesitate to **take a step back** and **be argumentative** if your data is questionable (very big number but you think that this number might be smaller in reality).
+
+## Best Practices for Supports
+
+### General Advices
+
+- Always add **slide numbers**. It helps the audience to ask questions at the presenter. It is very useful to ask details about a specific slide back in the presentation.
+
+-  
 
 ### The Use of Colors
 
