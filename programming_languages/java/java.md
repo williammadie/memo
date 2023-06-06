@@ -24,6 +24,7 @@
   - [FIFO and LIFO Implementations](#fifo-and-lifo-implementations)
 - [Classes](#classes)
 	- [Structure of a file](#structure-of-a-file)
+- [Handle null values](#handle-null-values)
     
 ## Introduction
 
@@ -679,3 +680,9 @@ public class SeaPlane extends Plane {		// a sea plane is a plane so it inherits 
 ```
 
 Note: public, private, protected and default are called access modifiers
+
+## Handle null values
+
+In Java, there is a better way of handling null values especially when these values are returned by functions. It goes through the use of the `Optional` java feature.
+
+A function can return `an object` or an `Empty Optional`. 

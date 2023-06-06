@@ -4,6 +4,7 @@
 
 - [What is the WEB](#what-is-the-web)
 - [In the WEB classic](#in-the-web-classic)
+- [What is a framework](#what-is-a-framework)
 - [Introduction](#introduction)
 - [Structure](#structure)
 - [Variables](#variables)
@@ -30,11 +31,43 @@ It is based on the `client-server` model. The client is said to be "light" becau
 2. Server receives request and handles it by performing requested action
 3. Server responds to the initial request
 
+![client-server-architecture](/programming_languages/php/resources/client-server-architecture.png)
+
 ## In the WEB classic
 
 Each request triggers a reloading of the webpage.
 
 In modern websites, requests uses AJAX (Asynchronous JavaScript And XML) systems so this reloading is not needed. 
+
+- `Frontend`: Code executed on the client-side (on a web browser)
+- `Backend`: Code executed on the server-side.
+
+## MVP
+
+PHP uses **MVP** (**Model View Presenter**).
+- `model`: business logic
+- `presenter`: application logic
+- `view`: ui components
+
+It is recommended to have **1 controller** for each page.
+
+
+## What is a Framework
+
+**framework**: set of ready-made components or solutions made in order to speed up development.
+
+A framework is not a library. It is **more generic** and can be used in different context. It can has several functions. It also often enforces an architecture.
+
+Frameworks are used to **structure an application**, to **facilitate debug and maintainability**. It also **enhances **security, performance and quality**.
+
+It handles **technical logic** and let **business logic** for the developer.
+
+PHP Framework:
+- `Symfony`
+- `Zend Framework`
+- `LARAVEL`
+
+There are also **serverless frameworks**.
 
 ## Introduction
 
@@ -42,12 +75,32 @@ PHP has been invented in 1994 by Rasmus Lerdof for building his website. In 1997
 
 PHP is often used with an Apache or NGINX server but it has its own runtime environment and can be used alone.
 
+PHP is a `backend` language. (It is `server-side`).
+
 ## Structure
 
 PHP files can contain both `HTML` and `PHP` languages. It is defined with tags `<?php my-code ?>`.
 If the file **contains only PHP**, we don't need to use `<?php ... ?>`.
 
 PHP instructions always end with `;`.
+
+### Project Structure
+
+- `db.php`: in this file we can put a PDO getter to obtain the object used to access databases.
+
+Repository, DAO, Services => It all refers to the code that is responsible for accessing databases.
+
+In Web development, there are generally *2 preferred architectures*:
+- Architecture by layers:
+    - controllers/
+    - services/
+- Architecture by module/concept:
+    - pokemon/
+        - controller.php
+        - Pokemon.php (Model)
+        - pokemon-service.php
+
+Depending on the **framework** we use, we can use one or another. Keep in mind that most frameworks recommend a specific architecture.
 
 ## Variables
 
@@ -173,9 +226,37 @@ With PHP > 5.4, you can run a development server:
 php -S 127.0.0.1:8000
 ```
 
-## Select
+## SQL
 
+PHP uses a *PDO* (*PHP Data Object* to access databases). 
+
+Requests can be **executed directly** or **prepared**:
+- executed directly: great for requests with no outside parameters
+- prepared: optimized requests thanks to PDO library cache system.
+
+At each request, PHP forgets all context. It has to re-open a connection to the database for example.
+
+### Select
+
+```php
 $pdo->query($query)->fetchAll();
+```
+
+### Insert
+
+
+```php
+function addPokemonToDb($pokemon,$pdo) {
+    $query = 'INSERT INTO pokegame.pokegame (CODEPOKE, NOM, EVOL, TYPEPOK) VALUES (:id, :name, :evol, :type);';
+    $prep = $pdo->prepare($query);
+    $prep->bindValue(':id', $pokemon->getId(), PDO::PARAM_INT);
+    $prep->bindValue(':name', $pokemon->getNom(), PDO::PARAM_STR);
+    $prep->bindValue(':evol', $pokemon->isEvolution(), PDO::PARAM_BOOL);
+    $prep->bindValue(':type', serialize($pokemon->getType()), PDO::PARAM_STR);
+
+    $prep->execute();
+}
+```
 
 ## Serialize and Unserialize
 
