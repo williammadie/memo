@@ -10,6 +10,7 @@
   - [List commits not pushed](#list-commits-not-pushed)
   - [Check for differences between branches](#check-for-differences-between-branches)
   - [Oups I am in trouble](#oups-i-am-in-trouble)
+  - [Gitignore not working](#gitignore-not-working)
 - [How to merge](#how-to-merge)
 
 ## Git in Theory
@@ -100,6 +101,19 @@ Replace local branch with remote branch
 ```bash
 git checkout branch123 # Don't forget to go on the local branch to replace before reset
 git reset --hard origin/branch123
+```
+
+### Gitignore not working
+
+Sometimes, you add a file to your `.gitignore` file and... it simply won't ignore it. But why ?
+
+It is because git likes to cache files to gain speed. However, sometimes it can break the surveillance system for some files. So here are the steps to force Git to ignore your unwanted file:
+
+1. Commit your important work
+
+2. Remove all files from 
+```bash
+git r -
 ```
 
 ## How to merge
