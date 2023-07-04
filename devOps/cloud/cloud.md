@@ -5,6 +5,8 @@
 - [What is the Cloud?](#what-is-the-cloud)
 - [Type of Services](#type-of-services)
     - [IaaS](#iaas)
+    - [SaaS](#saas)
+    - [PaaS](#paas)
 - [OIV](#oiv)
 - [Everything fails all the time](#everything-fails-all-the-time)
 

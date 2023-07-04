@@ -8,7 +8,11 @@
 - [Introduction](#introduction)
 - [Structure](#structure)
 - [Variables](#variables)
+- [Types](#types)
 - [Strings](#strings)
+- [Arrays](#arrays)
+- [Loops](#loops)
+- [Conditions](#conditions)
 - [Include and Require](#include-and-require)
 - [Forms](#forms)
 - [Classes](#classes)
@@ -71,7 +75,7 @@ There are also **serverless frameworks**.
 
 ## Introduction
 
-PHP has been invented in 1994 by Rasmus Lerdof for building his website. In 1997, 2 students reworked the **PHP core** that became PHP 3 and then PHP 4. They created the `Zend` society. It is now in PHP 8.
+PHP (recusive acronym for PHP: Hypertext Preprocessor) has been invented in 1994 by Rasmus Lerdof for building his website. In 1997, 2 students reworked the **PHP core** that became PHP 3 and then PHP 4. They created the `Zend` society. It is now in PHP 8.
 
 PHP is often used with an Apache or NGINX server but it has its own runtime environment and can be used alone.
 
@@ -111,15 +115,125 @@ In PHP, all variables are prefixed by `$`. For instance:
 $myVariable = 56;
 ```
 
+## Types
+
+### Scalar Types
+
+**Scalar types** are predefined. They can hold only a single value.
+
+| **Type** |        **Domain of Definition**        |           **Example**           |
+|:--------:|:--------------------------------------:|:-------------------------------:|
+|  boolean |              [TRUE; FALSE]             |               TRUE              |
+|  integer |             [-2^31 - 2^31]             |               120               |
+|   float  |           platform-dependant           |              13.98              |
+|  string  | alphabets, numbers, special characters | 'Hello Frank', "Hey it's $name" |
+
+### Compound Types
+
+**Compound types** can hold multiple values.
+
+| **Type** |         **Example**         |         **Comments**        |
+|:--------:|:---------------------------:|:---------------------------:|
+|   array  | array("dog", "cat", "bird") |      Can hold anything      |
+|  object  |      $obj = new Plane()     | Can hold several attributes |
+
+### Special Types
+
+| **Type** | **Example** |         **Comments**        |
+|:--------:|:-----------:|:---------------------------:|
+|   NULL   |     NULL    | It has only one value: NULL |
+
 ## Strings
 
 PHP can handle indistinctively `"` and `'`.
 
 It is possible to print text with `echo "Hello World"`.
 
+Length of a string
+```php
+strlen("my string");
+```
+
+## Arrays
+
+Create an array
+```php
+$arr = array("cat", "dog", "bird");
+```
+
+Access an element of the array by index
+```php
+echo $arr[0];
+// cat
+```
+
+## Loops
+
+for loop
+```php
+for($i = 0; i < 10; i++) {
+    echo "Value n°$i";
+}
+```
+
+for each loop
+```php
+foreach($array as $el) {
+    echo "$el";
+}
+```
+
+while loop
+```php
+while ($i <= 10) {
+    echo "Hello, how are you?";
+}
+```
+
+do while loop
+```php
+do {
+    echo "Hello, how are you?";
+} while ($i <= 10);
+```
+
+## Conditions
+
+If
+```php
+if ($a > $b) {
+    echo "a is greater than b";
+} elseif ($a == $b) {
+    echo "a equals b";
+} else {
+    echo "a is smaller than b";
+}
+```
+
+Switch
+```php
+switch ($i) {
+    case 0:
+        echo "i equals 0";
+        break;
+    case 1:
+        echo "i equals 1";
+        break;
+    case 2:
+        echo "i equals 2";
+        break;
+}
+```
+
 ## Include and Require
 
-They are used to manage libraries. Require triggers an error if the file is not found.
+They are used to manage libraries.
+
+- `require`: triggers an *error* if the file is not found. This will stop the program completely.
+- `include` triggers a *warning* if the file is not found or if an error happens. This allows the program to keep running.
+
+- `require_once`: identical to require. However, if the file has already been included, it is not included once again.
+- `include_once`: identical to require. However, if the file has already been included, it is not included once again.
 
 ## Forms
 
@@ -295,3 +409,98 @@ Let's get our object back!
 - `Fire` is the actual value described by `i:0` and `s:3`
 
 With all the above information, we know exactly what is the object and can create it back with `unserialize()`
+
+## Symfony
+
+Open-source MVC Framework released in 2005. It has the same philosophy than Spring MVC (Java).
+
+- `routes`: Each route/URL is linked to a method of the controller. 
+- `controllers`: Object responsible for linking view and model.
+- `DAO`: (Data Access Object) Object responsible for holding methods used to execute CRUD operations in the Model
+- `ORM`: (Object-Relational Management) Technique used in creating a "bridge" between object-oriented programs and databases.
+- `Entity`: PHP Class representing objects in Database. (uses annotation for ORM)
+
+### Templating
+
+Symfony uses a `template engine` called **TWIG**.
+
+Template: HTML page with variables which aimed to be replaced by PHP objects.
+
+### Security
+
+It is easy to build and maintain user roles with Symfony.
+
+### New Request
+
+view -> index.php -> routing & security -> controller -> services & repositories -> entity -> database
+
+### Project Structure
+
+```bash
+.
+├── app/
+├── bin/
+├── src/
+├── tests/
+├── var/
+├── vendor/
+├── web/
+└── .gitignore
+```
+
+-> `template`: used to create pages
+-> `src/`: main code
+-> `public/`: for adding css and images
+
+### CLI Tools
+
+Generate new project (Traditional Web App)
+```bash
+symfony new --webapp my_project --version="6.3.*"
+```
+
+Generate new project for APIs
+```bash
+symfony new my_project
+```
+
+Launch Development Server
+```bash
+symfony server:start
+```
+
+Generate Entity Class
+```bash
+php bin/console make:entity
+```
+
+Create an DB migration script
+```bash
+php bin/console make:migration
+```
+
+Execute a DB migration script
+```bash
+php bin/console doctrine:migrations:migrate 
+```
+
+
+### Annotations
+
+`annotation`: a keyword which defines a behavior
+
+Annotations are represented with `@`. There is a lot of annotations in Symfony:
+`@Routes`, `@Entity`, `@Security`. In Symfony, annotations **are commented**.
+
+### Controllers
+
+We define 1 controller per entity:
+- PokemonController => Pokemon
+- TrainerController => Trainer
+
+In Symfony, the controller can call the template engine TWIG to render/generate web pages (`render()` method)
+
+### Templates
+
+There are different levels of templating in Symfony. For instance, we can have a `base.html.twig` and `my-page.html.twig` where my-page.html.twig add variables to a pre-made base (base.html.twig)
+

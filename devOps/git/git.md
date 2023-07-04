@@ -7,6 +7,7 @@
   - [Where am I?](#where-am-i)
   - [Is my branch up-to-date with the origin?](#is-my-branch-up-to-date-with-the-origin)
   - [Lookin for my branch](#lookin-for-my-branch)
+  - [Switch to a Branch That Came From a Remote Repo](#switch-to-a-branch-that-came-from-a-remote-repo)
   - [List commits not pushed](#list-commits-not-pushed)
   - [Check for differences between branches](#check-for-differences-between-branches)
   - [Oups I am in trouble](#oups-i-am-in-trouble)
@@ -77,6 +78,12 @@ git branch -av
 Change branch
 ```
 git checkout branch-name
+```
+
+### Switch to a Branch That Came From a Remote Repo
+
+```
+git checkout --track origin/my-branch-name
 ```
 
 ### List commits not pushed
