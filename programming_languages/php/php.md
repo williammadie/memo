@@ -2,27 +2,43 @@
 
 ## Table of Contents
 
-- [What is the WEB](#what-is-the-web)
-- [In the WEB classic](#in-the-web-classic)
-- [What is a framework](#what-is-a-framework)
+- [Web Prerequistes](#web-prerequisites)
+    - [What is the Web](#what-is-the-web)
+    - [Historical Web](#historical-web)
+    - [MVP](#mvp)
+    - [What is a framework](#what-is-a-framework)
 - [Introduction](#introduction)
 - [Structure](#structure)
 - [Variables](#variables)
 - [Types](#types)
+    - [Scalar Types](#scalar-types)
+    - [Compound Types](#compound-types)
+    - [Special Types](#special-types)
 - [Strings](#strings)
 - [Arrays](#arrays)
-- [Loops](#loops)
-- [Conditions](#conditions)
+- [Control Structures](#control-structures)
+    - [Loops](#loops)
+    - [Conditions](#conditions)
+    - [Exceptions](#exceptions)
 - [Include and Require](#include-and-require)
 - [Forms](#forms)
 - [Classes](#classes)
-- [Exceptions](#exceptions)
 - [Sessions](#sessions)
 - [Development Server](#development-server)
 - [Select](#select)
 - [Serialize and Unserialize](#serialize-and-unserialize)
+- [Symfony](#symfony)
+    - [Templating](#templating)
+    - [Security](#security)
+    - [Request Journey](#request-journey)
+    - [Project Structure](#project-structure)
+    - [CLI Tools](#cli-tools)
+    - [Annotations](#annotations)
+    - [Controllers](#controllers)
 
-## What is the WEB
+## Web Prerequistes
+
+### What is the Web
 
 It was invented in 1989 by the CERN (Centre de Recherche Européen) in order to exchange information.
 
@@ -37,16 +53,16 @@ It is based on the `client-server` model. The client is said to be "light" becau
 
 ![client-server-architecture](/programming_languages/php/resources/client-server-architecture.png)
 
-## In the WEB classic
+### Historical Web
 
-Each request triggers a reloading of the webpage.
+In historical Web, each request triggers a reloading of the webpage.
 
-In modern websites, requests uses AJAX (Asynchronous JavaScript And XML) systems so this reloading is not needed. 
+However, in modern websites, requests uses AJAX (Asynchronous JavaScript And XML) systems so this reloading is not needed. 
 
 - `Frontend`: Code executed on the client-side (on a web browser)
 - `Backend`: Code executed on the server-side.
 
-## MVP
+### MVP
 
 PHP uses **MVP** (**Model View Presenter**).
 - `model`: business logic
@@ -54,7 +70,6 @@ PHP uses **MVP** (**Model View Presenter**).
 - `view`: ui components
 
 It is recommended to have **1 controller** for each page.
-
 
 ## What is a Framework
 
@@ -66,7 +81,7 @@ Frameworks are used to **structure an application**, to **facilitate debug and m
 
 It handles **technical logic** and let **business logic** for the developer.
 
-PHP Framework:
+PHP Frameworks:
 - `Symfony`
 - `Zend Framework`
 - `LARAVEL`
@@ -108,7 +123,7 @@ Depending on the **framework** we use, we can use one or another. Keep in mind t
 
 ## Variables
 
-PHP is a **a dynamically and weakly typed programming language**.
+PHP is a **a dynamically and weakly typed programming language**. This is a good thing because developers does not need to care about the type of variables he manipulates. However, this can lead to delicate situations and bring bugs. 
 
 In PHP, all variables are prefixed by `$`. For instance:
 ```php
@@ -167,7 +182,9 @@ echo $arr[0];
 // cat
 ```
 
-## Loops
+## Control Structures
+
+### Loops
 
 for loop
 ```php
@@ -197,7 +214,7 @@ do {
 } while ($i <= 10);
 ```
 
-## Conditions
+### Conditions
 
 If
 ```php
@@ -225,6 +242,20 @@ switch ($i) {
 }
 ```
 
+### Exceptions
+
+```php
+throw new Exception("...");
+```
+
+```php
+catch
+```
+
+```php
+custom exception
+```
+
 ## Include and Require
 
 They are used to manage libraries.
@@ -237,14 +268,17 @@ They are used to manage libraries.
 
 ## Forms
 
+- Forms with get action send information (key/value) through the URL parameter.
+- Forms with post action send information via HTTP request.
+
 Data which is exchanged through forms can be retrieved with:
-- `$_GET`
-- `$_POST`
-- `$_REQUEST`
+- `$_GET`: retrieve data from GET method.
+- `$_POST`: retrieve data from POST method.
+- `$_REQUEST`: retrieve data from GET and POST methods. It contains data from `$_GET`, `$_POST` and `$_COOKIES`.
 
 Client-side form
 ```html
-<form method='get'>
+<form method='post'>
     <input name='foo'>
     ...
 </form>
@@ -252,7 +286,7 @@ Client-side form
 
 
 ```php
-$_GET['foo'] : access to the variable stored in the request array
+$_POST['foo'] : access to the variable stored in the request array
 ```
 
 ## Classes
@@ -285,20 +319,6 @@ Foo::$var
 $myObject = new Foo();
 $myObject -> myInstanceFunction(12)
 ?>
-```
-
-## Exceptions
-
-```php
-throw new Exception("...");
-```
-
-```php
-catch
-```
-
-```php
-custom exception
 ```
 
 ## Sessions
@@ -426,11 +446,13 @@ Symfony uses a `template engine` called **TWIG**.
 
 Template: HTML page with variables which aimed to be replaced by PHP objects.
 
+There are different levels of templating in Symfony. For instance, we can have a `base.html.twig` and `my-page.html.twig` where my-page.html.twig add variables to a pre-made base (base.html.twig)
+
 ### Security
 
 It is easy to build and maintain user roles with Symfony.
 
-### New Request
+### Request Journey
 
 view -> index.php -> routing & security -> controller -> services & repositories -> entity -> database
 
@@ -499,8 +521,3 @@ We define 1 controller per entity:
 - TrainerController => Trainer
 
 In Symfony, the controller can call the template engine TWIG to render/generate web pages (`render()` method)
-
-### Templates
-
-There are different levels of templating in Symfony. For instance, we can have a `base.html.twig` and `my-page.html.twig` where my-page.html.twig add variables to a pre-made base (base.html.twig)
-
