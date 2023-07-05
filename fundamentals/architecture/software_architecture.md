@@ -2,6 +2,18 @@
 
 ## Table of Content
 
+- [Introduction](#introduction)
+- [Application Layers](#application-layers)
+    - [Presentation Layer](#presentation-layer)
+    - [Application Layer](#application-layer)
+    - [Data Layer](#data-layer)
+- [DBMS Architecture](#dbms-architecture-database-management-system)
+    - [One-Tier Architecture](#one-tier-architecture)
+    - [Two-Tier Architecture](#two-tier-architecture)
+    - [Three-Tier Architecture](#three-tier-architecture)
+    - [N-Tier Architecture](#n-tier-architecture)
+- [Web Architecture](#web-architecture)
+
 ## Introduction
 
 Software Architecture consists of "tiers" (= layers)
@@ -51,6 +63,10 @@ This is the basic architecture for Web applications. It is made of three tiers:
 
 ![one-tier](/fundamentals/architecture/resources/three-tier.png)
 
+General confusion between MVC and 3-Tier Architecture:
+- MVC refers to code segmentation
+- 3-Tier architecture refers to element repartition on infrastructure
+
 ### N-Tier Architecture
 
 This layer is known as the **Distributed Application** architecture. It is similar to the **Three-Tier** Architecture but the number of **Application servers** is increased in order to distribute the business logic.
@@ -58,3 +74,11 @@ This layer is known as the **Distributed Application** architecture. It is simil
 It is used in order to handle massive concurrency usage:
 
 For instance, an massively used mobile application will communicate with **n** instances of a REST API in order to balance the load. 
+
+## Web Architecture
+
+### Monolith
+
+Bad for scalability because we need to **duplicate the whole application** if one part needs to be scaled.
+
+### Microservices

@@ -6,6 +6,7 @@
     - [Introduction](#introduction)
     - [Architecture](#architecture)
 - [Commands](#commands)
+    - [Nodes](#nodes)
 
 ## What is Kubernetes ?
 
@@ -17,15 +18,19 @@
 
 Kubernetes is based on a ***Master*** which is charged to schedule, manage and control the ***Worker Nodes***.
 
-![img_1](/networks/kubernetes/resources/kubernetes-general-architecture.png)
+![img_1](/devOps/kubernetes/resources/kubernetes-general-architecture.png)
 
 The ***Master*** uses an ***API Endpoint*** which is reached by users and then redirects them to the ***Worker Nodes***. These ***Worker Nodes*** designate the containerized application(s).
 
-![img_1](/networks/kubernetes/resources/kubernetes-architecture.png)
+![img_1](/devOps/kubernetes/resources/kubernetes-architecture.png)
 
 ## Commands
 
 ### Nodes
+
+A node represent a Server or a Virtual Machine. It can host several pods.
+
+![k8s](/devOps/kubernetes/resources/kubernetes.jpg)
 
 Get Node resources
 ```bash
@@ -56,7 +61,11 @@ kubectl get services -A
 
 ### Pods
 
-Pods are groups of containers. They are running together (on the same node) and are sharing resources (RAM, CPU, Network, Volumes).
+Pods are groups of containers. 
+
+Pods are running together (on the same node) and are sharing resources (RAM, CPU, Network, Volumes).
+
+Pods are the smallest unit in Kubernetes.
 
 List all pods
 ```bash
