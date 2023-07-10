@@ -122,3 +122,8 @@ Terminate a specific instance of a distro
 ```sh
 wsl --terminate DistroName
 ```
+
+Fix WSL Clock Drift (might happen sometimes)
+```sh
+sudo hwclock -s
+```
