@@ -5,6 +5,8 @@
 - [What is an API](#what-is-an-api)
 - [REST API](#rest-api)
 - [API Security](#api-security)
+	- [oAuth2](#oauth2)
+	- [JWT](#jwt)
 
 ## What is an API
 
@@ -38,8 +40,14 @@ An API can be secured by several means such as **oAuth2** or **JWT**.
 `JWT` means `JSON Web Tokens` and refers to an **open industry standard** that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.
 
 A `JWT` contains three parts:
-1. **Header**: signing algorithm used + type of token (here JWT)
-2. **Payload**: contains the JSON Object also called *the claims*
+1. **Header**: 
+	- signing algorithm used
+	- type of token (here JWT)
+2. **Payload**: contains the JSON Object also called *the claims*. For instance:
+	- user_id
+	- user_name
+	- is_admin
+	- expiration_date
 3. **Signature**: A string that is generated via a cryptographic algorithm that can be used to verify the integrity of the JSON payload
 
 It appends the previous fields like `<header>.<body>.<signature>`:
@@ -56,4 +64,8 @@ In resume, it has the following structure:
 How can I generate such a token?
 
 ![jwt-mechanism](/web/api/resources/jwt-token-mechanism.png)
+
+As we can see on this schema, JWT uses **client-side storage**.
+
+One of the downsides of JWT is that it is **dependent on one secret key**. If this key is compromised, the attacker can spoof any user's identity. We have to change the secret key from time to time in order to lower this risk.
 
