@@ -1,6 +1,6 @@
 # Python for Data Science
 
-## Table of Contents
+## Table of Contents
 
 ## Optimized operations on DataFrames
 

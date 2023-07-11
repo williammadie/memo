@@ -15,6 +15,7 @@
     - [Joint Types](#joint-types)
     - [Tables](#tables)
     - [Data](#data)
+- [Example of Requests](#example-of-requests)
 
 ## What is a Database
 
@@ -104,6 +105,8 @@ Relational Databases are the most used type of databases when it comes to Web Ap
 
 `batch`: set of SQL instructions/queries
 
+MySQL and big names of DBMS support both type of databases. It only depends on the engine `InnoDB` (relational) and `MyISAM` (operational).
+
 ## Tables
 
 `table`: logical set of columns.
@@ -155,13 +158,29 @@ In `SQL`, request structure is ordered. **Keywords order can't be changed**
 
 Order of keywords:
 ```sql
-SELECT      -- item(s), aggregates or axis of aggregation
+SELECT      -- item(s), aggregates or clauses of aggregation
 FROM        -- table on which we search items
 WHERE       -- filter on each row of the table
 JOIN        -- add information from another table
-GROUP BY    -- axis of aggregation
-HAVING      -- filter on aggregates
+GROUP BY    -- axis of aggregation (create aggregates)
+HAVING      -- filter on aggregates only
+ORDER BY    -- sort the returned data
+LIMIT/OFFSET       -- limit the number of returned rows and add an offset
 ```
+
+Example of SQL query with HAVING clause:
+```sql
+SELECT col1, SUM(col2)
+FROM tablename
+GROUP BY col1
+HAVING function(col2)
+```
+
+For a better understanding, keep in mind that the **order of the keywords inside the query** is different from the **execution order of the keywords by the DBMS**:
+
+![sql-keywords](/db/sql/resources/sql-keyword-order.jpg)
+
+Additional note: `JOIN + FROM` is firstly executed in the query. (it is not written on the above picture).
 
 > SELECT Structure (Simple)
 ```sql
@@ -229,13 +248,14 @@ Is it possible to make a joint on the same table than the one in FROM ?
 SELECT employee.firstname + ' ' + employee.lastname AS 'Full Name'
 ```
 
-### Joint Types
+### Joins Types
 
-- `INNER JOIN`
-- `NATURAL JOIN`
-- `LEFT JOIN`
+- `INNER JOIN` => most used
+- `NATURAL JOIN` => bad practice because can have unexpected behaviors
+- `LEFT JOIN` => most used
 - `RIGHT JOIN`
-- `ANTI`
+- `ANTI` => when we precise somthing like `ON A.key = B.key WHERE X.key IS NULL`
+- `CROSS` => cartesian product
 
 ![sql-joins](/db/sql/resources/SQL_Joins.png)
 
@@ -271,4 +291,67 @@ Update an already existing row
 UPDATE tablename
 SET coln = 'valn'
 WHERE col2 = 'valm';
+```
+
+## Example of Requests
+
+![example-schema](/db/sql/resources/example-schema.png)
+
+List clients which are in Switzerland, Germany and Belgium 
+```sql
+SELECT *
+FROM Client
+WHERE Pays IN ("Suisse", "Allemagne", "Belgique");
+```
+
+Clients with no known Fax
+```sql
+SELECT *
+FROM Client
+WHERE Fax IS NULL;
+```
+
+Clients with "restaurant" in their company's name
+```sql
+SELECT *
+FROM Client
+WHERE Societe LIKE "%restaurant%";
+```
+
+Client countries and cities order by country and city (alphabetical order)
+```sql
+SELECT DISTINCT Pays, Ville
+FROM Client
+ORDER BY Pays, Ville;
+```
+
+Product name in uppercase, reference and rename the whole thing to make it clear
+```sql
+SELECT UPPER(Nomprod) AS "Product Name", Refprod AS "Product Reference"
+FROM Produit
+WHERE NoFour = 8 AND PrixUnit >= 10 AND PrixUnit <= 100;
+```
+
+Concatenate the fields X,Y,Z...
+```sql
+SELECT Adresse || ", " || CodePostal || " " || Ville || ", " || Pays
+FROM Client;
+```
+
+Extract the last 2 characters of client's name
+```sql
+SELECT SUBSTR(CodeCli, -2), CodeCli
+FROM Client;
+```
+
+Replace a word by another in a given column
+```sql
+SELECT REPLACE(Fonction, "marketing", "mercatique")
+FROM Client;
+```
+
+Look for a given word in a given column
+```sql
+SELECT INSTR(Fonction, "Chef")
+FROM Client;
 ```

@@ -7,11 +7,15 @@
   - [Where am I?](#where-am-i)
   - [Is my branch up-to-date with the origin?](#is-my-branch-up-to-date-with-the-origin)
   - [Lookin for my branch](#lookin-for-my-branch)
+  - [Switch to a Branch That Came From a Remote Repo](#switch-to-a-branch-that-came-from-a-remote-repo)
   - [List commits not pushed](#list-commits-not-pushed)
   - [Check for differences between branches](#check-for-differences-between-branches)
   - [Oups I am in trouble](#oups-i-am-in-trouble)
   - [Gitignore not working](#gitignore-not-working)
 - [How to merge](#how-to-merge)
+- [GitHub Actions](#github-actions)
+  - [Best Practices](#best-practices)
+  - [Self-hosted Runners](#self-hosted-runners)
 
 ## Git in Theory
 
@@ -80,6 +84,12 @@ Change branch
 git checkout branch-name
 ```
 
+### Switch to a Branch That Came From a Remote Repo
+
+```
+git checkout --track origin/my-branch-name
+```
+
 ### List commits not pushed
 
 List commits not pushed
@@ -124,3 +134,29 @@ In this example, **main** has changes that **features** doesn't have. We need to
 2. Checkout to **features**
 3. Run `git merge main` from the **features** branch
 
+## GitHub Actions
+
+### Best Practices
+
+- Always set a timeout for your workflows.
+
+```yaml
+jobs:
+  my-first-job:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - [...]
+```
+
+- Always consider if third-party actions are really needed. They can constitue a threat to the repository and give access to h4ck3rs.
+
+- Apply the 0-trust principle to your workflows: limit scope of your workflow tokens.
+
+### Self-hosted Runners
+
+Keep in mind that GitHub Actions is limited in **time** (Runner Minutes). Your workflows run on the servers of Microsoft so if you regurlarly go over the limit of your offer, you can deploy your own runner and execute your workflows on this runner.
+
+![ga-pricing](/devOps/git/resources/ga-pricing.png)
+
+However, inform yourself before using a `self-hosted runner` and look up for potential vectors of attack. For instance, a self-hosted runner shared between a private and a public repository can be a problem because it violates security isolation principle.

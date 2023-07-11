@@ -62,8 +62,8 @@ DESCRIBE tablename;
 ## MySQL Storage Engines
 
 There are 2 possible **storage engines** for MySQL:
-1. InnoDB (default storage engine)
-2. MyISAM
+1. InnoDB (default storage engine) => relational databases
+2. MyISAM                          => operational database
 
 |       **Engine Name**      |               **MyISAM**              |                       **InnoDB**                      |
 |:--------------------------:|:-------------------------------------:|:-----------------------------------------------------:|
