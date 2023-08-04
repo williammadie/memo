@@ -26,6 +26,11 @@ List users
 \du
 ```
 
+Create a user
+```sql
+CREATE USER gilbert WITH PASSWORD 'Xylo-Future-67';
+```
+
 Change user's password (also works for postgres)
 ```sql
 \password username
@@ -55,6 +60,11 @@ SET search_path TO schema_name;
 Create a new schema and grant all privileges for a user
 ```sql
 CREATE SCHEMA schema_name AUTHORIZATION user_X;
+```
+
+Grant all permissions on schema to a user
+```sql
+GRANT SELECT, INSERT, UPDATE, DELETE, USAGE, CREATE ON ALL TABLES IN SCHEMA schema_name TO my_user;
 ```
 
 ## Manage DBs
