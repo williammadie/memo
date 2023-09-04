@@ -9,6 +9,13 @@
     - [Executing a program](#executing-a-program)
     - [Taking the bus](#taking-the-bus)
     - [The Kernel](#the-kernel)
+    - [Privileges](#privileges)
+    - [Syscalls](#syscalls)
+- [Multitasking](#multitasking)
+    - [Preemptive Multitasking](#preemptive-multitasking)
+    - [Timeslice Calculation](#timeslice-calculation)
+    - [Kernel Preemptability](#kernel-preemptability)
+    - [Cooperative Multitasking](#cooperative-multitasking)
 
 ## Inspiration
 
@@ -76,3 +83,60 @@ Most common kernels are:
 - Linux: kernel of GNU/Linux operating systems
 - XNU: kernel of macOS
 - NT Kernel: modern kernel of Windows OS's family
+
+### Privileges
+
+Modern computer architectures can support several **privileges** also called **modes**. These privileges define what a program can or cannot do. Here is what changes between different privileges:
+
+|                **Actions**                | **Kernel/Supervisor Privilege** | **User Privilege** |
+|:-----------------------------------------:|:-------------------------------:|:------------------:|
+| Full Access to all supported instructions |               YES               |         NO         |
+|            Full Access to RAM             |               YES               |         NO         |
+|      Unrestricted access to hardware      |               YES               |         NO         |
+|                   Users                   |        Kernel and Drivers       |    Applications    |
+
+Note that processors always start with **Kernel Privilege** and after initializing all necessary programs, it switches to **User Privilege**.
+
+### Syscalls
+
+A **syscall** refers to the action made by a userland program when it requests a service from the operating system on which it is executed.
+
+This is a kind of special procedure that lets a program start a transition from **user space** to **kernel space**. So when a syscall is made, the CPU switches from **User Mode** to **Kernel Mode**, executes its instructions and then mades another switch back to **User Mode**. We call this kind of procedures **software interrupts**.
+
+![system-call-explained](/fundamentals/computers/resources/system-call-explained.png)
+
+There are also different kinds of syscalls that can be made:
+
+![syscall-types](/fundamentals/computers/resources/syscall-types.png)
+
+Syscalls can be made using standard libraries which are platform dependent such as *libc* on Unix-like systems and *ntdll.dll* on Windows.
+
+## Multitasking
+
+### Preemptive Multitasking
+
+A CPU is able to handle a lot of programs at the same time. If we take the example of a single-core CPU able to run one instruction at a time, it is still possible to make it run multiple programs at once.
+
+How is it possible? By cycling through running processes and running each time a couple instructions from each one. This way, they can all be responsive and no process is blocking the CPU.
+
+In order to do so, operating systems use task schedulers based on a **timer chips**. These schedulers are able to trigger **hardware interrupts**. The **hardware interrupts** refers to the action of switching to Kernel Mode and jump to some OS code.
+
+This mechanism is called **premptive multitasking** and the interruption is called **preemption**.
+
+![preemptive-multitasking](/fundamentals/computers/resources/preemptive-multitasking.jpg)
+
+### Timeslice Calculation
+
+The duration an OS scheduler allows a process to run before **prempting it** is called a **timeslice**. The simplest way to manage timeslices is to give every process the same timeslice and cycle through tasks in order. This is called *fixed timeslice round-robin* scheduling.
+
+### Kernel Preemptability
+
+Modern kernels, including Linux, are *preemptive kernels*. This means they're programmed in a way that allows kernel code itself to be interrupted and scheduled just like userland processes.
+
+### Cooperative Multitasking
+
+Ancient operating systems, including old macOS and versions of Windows before NT, used another mechanism for achieving multitasking.
+
+Rather than the OS deciding when to preempt programs, the programs themselves would choose to yield to the OS. These explicit yields were the only way for the OS to regain control and switch to the next scheduled process.
+
+It was really easy for malicious or poorly designed programs to freeze the entire operating system. It also has some other inconvenients so the tech world switched to preemptive multitasking a long time ago.
