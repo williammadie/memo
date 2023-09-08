@@ -2,6 +2,9 @@
 
 - [Data Types](#data-types)
 - [Variables and Constants](#variables-and-constants)
+- [Const, Var, Let](#const-var-let)
+- [Asynchronous and Event Loop](#asynchronous-and-event-loop)
+- [Window, document and DOM](#window-document-and-dom)
 - [String](#string)
 - [Object and Class](#object-and-class)
 - [Operators](#operators)
@@ -14,9 +17,19 @@
 - [Exceptions](#exceptions)
 - [Functions](#functions)
 
+## What is JavaScript
+
+JavaScript is programming language that can be used in `front`, `back`, `data science`. So it is usable everywhere. It is **weakly typed**.
+
+For front-end development, it allows to **manipulate the DOM**.
+
+By default, JS uses **asynchronous behaviors** through its **event loop**.
+
+In JS, everything is an **object**.
+
 ## Data Types
 
-JavaScript is a *weakly typed* programming language. There is no need to explicitely add the type of a variable when we declare it. (See in the below section).
+JavaScript is a *weakly typed* and *monothreaded* programming language. There is no need to explicitely add the type of a variable when we declare it. (See in the below section).
 
 |  **Type** |             **Declaration**             |
 |:---------:|:---------------------------------------:|
@@ -45,6 +58,54 @@ Declare a constant
 const myConstant = "Hello!";
 ```
 
+## Const, Var, Let
+
+- `let` => **block scope** and mutable
+- `const` => **block scope** and immutable
+- `var` => **global scope** and mutable (should never be used)
+
+Reminder:
+- **block scope** is delimited by `{}`
+- **global scope** is dangerous because it defines a variable in the base object of a navigator which is **window**. In case of debugging, it would be a nightmare to find the error.
+
+## Asynchronous and Event Loop
+
+How does JS can do asynchronous operation if it is single-threaded?
+
+It uses an event-loop:
+
+```js
+let x = 1;
+const res = fetch();
+x = 2
+```
+
+In this case, JS will process `x = 1`, then put the `fetch()` in a Queue and after that `x = 2`.
+
+## Window, document and DOM
+
+- `window` is the main object in JS
+- `document` is contained inside window and allows te developer to access all **HTML nodes** (Document Object Model)
+
+![window-document](/web/js/resources/window-document.jpg)
+
+View of HTML Nodes (DOM):
+
+![dom](/web/js/resources/dom.png)
+
+In basic JS, we can acces DOM element by using `document.getElementById('myId')`
+
+```html
+<div id="myId">...</div>
+```
+
+We can then do different actions on this newly retrieved object:
+- `addEventListener('click')`
+
+## Prototypes
+
+Object are **prototypes**.
+
 ## String
 
 Observation: Both `"Hello!"` and `'Hello!'` are valid in JavaScript. The type of quotes you use is up to you. Find the one that fits best and stick to it.
@@ -55,7 +116,8 @@ let name = "John";
 name = name + " " + "Hammond";
 ```
 
-Concatenate strings (using string interpolation)
+(Most used way of concatenate string)
+Concatenate strings (using string interpolation also called `string literals`)
 ```js
 const batman = `Bruce Wayne`;
 const sentence = `My name is ${batman}, I am Batman!`;
