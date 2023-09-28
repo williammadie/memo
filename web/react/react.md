@@ -7,11 +7,17 @@
     - [Prerequisite](#prerequisite)
     - [Use a toolchain](#use-a-toolchain)
 - [React Basics](#react-basics)
-    - [JSX]
-    - [Components]
-    - [Virtual DOM and Rendering]
-    - [States and Hooks]
+    - [Project Structure](#project-structure)
+    - [Package Management](#package-management)
+    - [JSX](#jsx)
+    - [Rules about Components](#rules-about-components)
+    - [Historical Components](#historical-components)
+    - [Functional Components](#functional-components)
+    - [Virtual DOM and Rendering](#virtual-dom-and-rendering)
+    - [States and Hooks](#states-and-hooks)
     - [Modify CSS with React](#modify-css-with-react)
+- [Libraries of Components](#libraries-of-components)
+- [Storybook](#storybook)
 
 ## Introduction
 
@@ -19,7 +25,25 @@ React is one of the most famous **JavaScript library**. It was created in 2011 b
 
 In 2015, **React Native** is released. It is dedicated to Android and iOS operating systems.
 
-Please note that React **is not a framework** like Angular because it only manages the rendering layer. It does not take care of routing, queries...). It needs some other libraries to work completely.
+React has a **component-oriented architecture**. It is interesting for reusability.
+
+Please note that React **is not a framework** like Angular because it only manages the UI and rendering layer. It does not take care of routing, queries... It needs some other libraries to work completely.
+
+## Component Oriented Programming
+
+### Pros
+
+- reuse components
+- easy way of documentating (doc as code, storybook)
+- code more readable
+- modularity
+- component modification = recompilation of this component only
+
+### Cons
+
+- We must create a lot of components and anticipate our needs
+- Software conception step is longer
+- 
 
 ## Start a React Project
 
@@ -62,6 +86,31 @@ npm start
 
 ## React Basics
 
+### Project Structure
+
+```bash
+my-react-project/
+├── package.json            # Dependencies list
+├── package-lock.json       # Lock versions of packages
+├── README.md
+├── node_modules/           # Project dependencies
+├── public/                 # Generated website     
+└── src/                    # Our project source folder
+    ├── App.css
+    ├── App.js
+    ├── App.test.js
+    ├── index.css
+    ├── index.js            # Main file of React (we'll never touch it)
+    ├── logo.svg
+    ├── reportWebVitals.js
+    └── setupTests.js
+```
+
+### Package Management
+
+- `"react": "^17.02",` => This version but you can choose the latest minor version
+- `"react": "17.02",` => This version exactly
+
 ### JSX
 
 React Components return a language which is similar to HTML but IT IS NOT HTML. So what can it be ??
@@ -70,7 +119,19 @@ It is the **JSX** language (**JavaScript XML**). It is JavaScript extension desi
 
 So in order to manipulate data, we use JavaScript expressions. Theses expressions are always between brackets: `{ 6 * 7 }`
 
-### Components
+### Rules about Components
+
+- 1 file = 1 component
+- A component is not a class. It is a **function** (see next part).
+- A component has a specific role.
+- A component can be customized through its parameters.
+- A component is always named in PascalCase.
+
+### Historical Components
+
+Historically, we used *classes* for our components. So, we could use OOP features (objects, constructors...)
+
+However, now we don't use this approach anymore. We work with with functions only (*functional components*).
 
 ### Functional Components
 
@@ -95,4 +156,29 @@ Call a component
 The code below modifies the CSS of the given element. The style property takes an object in parameters so there is 2 pairs of brackets. The first one is the syntax of JSX and the second one is the declaration of an object in JS.
 ```js
 <div className="my-element" style={{backgroundColor: isHovered ? "gray" : "white"}}>...</div>
+```
+
+## Libraries of Components
+
+- `React Router` => Routing/Navigation across the website
+- `React hook form` => Handling forms (very complete but difficult to use)
+- `Material UI` => Flexible and Pretty Buttons, Navbars...
+- `Notification` => Sending notifications
+- `Google Map` => Integration of a map
+
+## Storybook
+
+It is a way of documenting our application. It allows us to:
+
+- focus on one component at a time
+- segregate components so that they don't impact each others
+
+Install Storybook
+```bash
+npx sb init
+```
+
+Launch Storybook
+```bash
+npm run storybook
 ```

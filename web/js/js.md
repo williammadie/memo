@@ -4,9 +4,15 @@
 - [Variables and Constants](#variables-and-constants)
 - [Const, Var, Let](#const-var-let)
 - [Asynchronous and Event Loop](#asynchronous-and-event-loop)
+- [Handle Asynchronous Events](#handle-asynchronous-events)
 - [Window, document and DOM](#window-document-and-dom)
 - [String](#string)
+- [Array](#array)
+    - [Array Basic Operations](#array-basic-operations)
+    - [Array Functions](#array-functions)
+- [Functions](#functions)
 - [Object and Class](#object-and-class)
+- [Object Destructuring](#object-destructuring)
 - [Operators](#operators)
     - [Arithmetic Operators](#arithmetic-operators)
     - [Logical Operators](#logical-operators)
@@ -19,17 +25,25 @@
 
 ## What is JavaScript
 
-JavaScript is programming language that can be used in `front`, `back`, `data science`. So it is usable everywhere. It is **weakly typed**.
+JavaScript is a **synchronous** programming language that can be used in `front`, `back`, `data science`. So it is usable everywhere. It is **weakly typed**.
 
 For front-end development, it allows to **manipulate the DOM**.
 
-By default, JS uses **asynchronous behaviors** through its **event loop**.
+By default, JS simulates **asynchronous behaviors** through its **event loop**.
+
+It is made of a stack and a queue. 
+- stack: the function being executed and heap of functions that need to be called
+- queue: list of waiting events. They are processed when the stack is empty. 
 
 In JS, everything is an **object**.
 
+## API Calls
+
+When we talk about API calls in JS, it is not necessarily a **network call**. It can be a call of JS to the **web browser** which is located on the user device.
+
 ## Data Types
 
-JavaScript is a *weakly typed* and *monothreaded* programming language. There is no need to explicitely add the type of a variable when we declare it. (See in the below section).
+JavaScript is a *weakly typed* and *monothreaded* (=> synchronous) programming language. There is no need to explicitely add the type of a variable when we declare it. (See in the below section).
 
 |  **Type** |             **Declaration**             |
 |:---------:|:---------------------------------------:|
@@ -68,11 +82,13 @@ Reminder:
 - **block scope** is delimited by `{}`
 - **global scope** is dangerous because it defines a variable in the base object of a navigator which is **window**. In case of debugging, it would be a nightmare to find the error.
 
+Always declare your variables as `const` if you don't think it is going to change. (Immutability = Performance)
+
 ## Asynchronous and Event Loop
 
 How does JS can do asynchronous operation if it is single-threaded?
 
-It uses an event-loop:
+It uses an event-loop that simulates asynchronous behaviors:
 
 ```js
 let x = 1;
@@ -81,6 +97,44 @@ x = 2
 ```
 
 In this case, JS will process `x = 1`, then put the `fetch()` in a Queue and after that `x = 2`.
+
+## Aysynchronous Behaviors
+
+Asynchronous operations are used to interact with **APIs** that take time to respond:
+- REST API: Network operations so it takes time before answering our call
+- Web API: Browser/Dom
+
+An API does not necessarily involve **network operations**.
+
+Asynchronous behaviors are linked to **side effects** ([FR]: Effet de bord).
+
+## Handle Asynchronous Events
+
+**promise**: ?
+
+### Fetch
+
+First method for handling asynchronous operation:
+A function that returns a promise
+```js
+const getCatFacts = async () => {
+    return 'Cat fact';
+}
+
+getCatFacts().then((data) => console.log(data));
+```
+
+### Async / Await
+
+Second method for handling asynchronous operation. It is just syntax sugar. In reality, it is rewritten as the first method internally.
+```js
+const getCatFacts = async () => {
+    const response = await fetch(HTTP_URL);
+    return response.json();
+}
+```
+
+Important note: we don't `await` response.json() because it is not the responsability of the function to do so. It is the responsability of the calling function to await the result.
 
 ## Window, document and DOM
 
@@ -100,11 +154,29 @@ In basic JS, we can acces DOM element by using `document.getElementById('myId')`
 ```
 
 We can then do different actions on this newly retrieved object:
-- `addEventListener('click')`
+- `addEventListener('click', functionToCall)`
+
+The function `functionToCall` is called a **callback** (= a function that will be executed when there will be a click)
+
+We can use a named function (like above) or an `anonymous function` (like below):
+
+Event listener wiht Anonymous function
+```js
+document.getElementById("btn").addEventListener("click", function () {
+    const square = document.getElementById("square");
+    square.style.backgroundColor = `#${getRandomColor()}`;
+});
+```
 
 ## Prototypes
 
-Object are **prototypes**.
+`prototype`: a blueprint for any object in JavaScript
+
+By default, we can find `Object` and `Array` prototypes/blueprints.
+
+For instance, all objects have the `myObject.__proto__` property. This property list all available object methods and properties.
+
+![js-prototypes](/web/js/resources/js-prototypes.png)
 
 ## String
 
@@ -122,6 +194,27 @@ Concatenate strings (using string interpolation also called `string literals`)
 const batman = `Bruce Wayne`;
 const sentence = `My name is ${batman}, I am Batman!`;
 ```
+
+## Functions
+
+Nowadays, JS developers mostly use the second way of declaring functions: 
+
+1. Declare a named function
+```js
+function f1() {
+    return ...;
+}
+```
+
+2. Declare a lambda and store it into a variable
+```js
+const f1 = () => {...};
+```
+
+It takes less space. However, it is different from a classic named function.
+
+=> A named function will be **defined for all the file**
+=> A lambda stored in a variable **can't be used before it is defined**.
 
 ## Object and Class
 
@@ -179,11 +272,30 @@ let server = Utils.connectToServer('127.0.0.1');
 
 *Observation: All static methods could be simple functions but it is useful to create a static class because all these methods can be regrouped by type or usage*
 
+## Object Destructuring
+
+We use this notation to get only keys in which we are interested
+```js
+// Returned object: {fact: "...", length: 12, isAlive: "true"}
+
+function getHero() {
+    return {
+        name: 'Batman',
+        realName: 'Bruce Wayne'
+    }
+}
+
+const { name, realName } = await getCatFact();
+console.log(`{name}, {realName}`);
+```
+
 ## Array
+
+### Array Basic Operations
 
 Declare an Array
 ```js
-let guests = ["Bruce Wayne", "Indiana Jones", "Peter Parker", "Tony Stark"];
+const guests = ["Bruce Wayne", "Indiana Jones", "Peter Parker", "Tony Stark"];
 ```
 
 Access the cell n°i of an Array
@@ -211,6 +323,84 @@ guests.unshift("Harry Potter");
 Delete the last element of the Array
 ```js
 guests.pop();
+```
+
+### Array Functions
+
+Array functions are:
+- `find()` => find and return an element according to a function
+- `filter()` => filter the array according to a function 
+- `map()` => apply an operation for each array element
+- `reduce()` => transform the array and return a single value according to a function (sum...)
+
+Let's work on the following arrays:
+```js
+const notesInf1 = [3, 13, 18, 15, 10, 3];
+
+const persons = [{firstName: "John", lastName: "Doe"}, {firstName: "Jane", lastName: "Doe"}];
+
+```
+
+Find first note equals to 10
+```js
+notesInf1.find(note => note === 10);
+```
+
+Get all notes different from 3
+```js
+const getAllNButThree = notesInf1.filter(note => note !== 3);
+```
+
+Convert the array of numbers to an array of objects that have the foloowing shape ({note: ..., coefficient: ...})
+```js
+notesInf1.map((note) => ({note: note, coefficient: note < 10 ? 1.5 : 3}));
+```
+
+Additional note on map object:
+```js
+// If we use the following notation, we MUST use the "return" keyword
+notesInf1.map(note => {
+    ...
+    return myObject;
+})
+```
+
+Another example of usage for the map function:
+Add a field in an array of JSON objects
+```js
+persons.map(person => ({"firstName": person.firstName, "lastName": person.lastName, "fullName": `${person.firstName} ${person.lastName}`}));
+```
+
+A more optimized version would be:
+```js
+persons.map(({firstName, lastName}) => (
+    firstName,
+    lastName,
+    fullName.`${person.firstName} ${person.lastName}`,
+));
+```
+
+And a third alternative (not more optimized than the previous one):
+```js
+// Here we use the spread operator to decompose
+// the fields of our object. If is equivalent
+// to the previous solution
+persons.map((person)) => (
+    ...person,
+    fullName.`${person.firstName} ${person.lastName}`,
+);
+```
+
+Calculate the average as: `{'note': meanNote, 'coeff': meanCoeff}`
+```js
+// acc: final result at each step of the loop
+// curr: current value in the loop
+notesWithCoeff.reduce((acc, curr) => {
+    acc.notes += curr.notes * curr.coeff,
+    acc.coeff += curr.coeff,
+    return acc
+});
+
 ```
 
 ## Operators
@@ -278,7 +468,11 @@ In JavaScript, there are 3 keywords to declare a variable: `let`, `const` and `v
 - `const` is a constant which needs to be initialized when declared
 - `var` is a variable which has a **function scope**
 
-**Warning: `var` is generally considered as a bad practice and most developers do not advice to use it. It was massively used before the introduction of `let` and `const` because there was no other way to declare a variable. However, a function scope variable can induce errors difficult to detect and so most languages use block scope variables. So in order to align onto these languages, please consider using `const` and `let` instead of `var`**
+**Warning**: `var` is generally considered as a bad practice and most developers do not advice to use it. 
+
+It was massively used before the introduction of `let` and `const` because there was no other way to declare a variable. However, a function scope variable can induce errors difficult to detect and so most languages use block scope variables. 
+
+So in order to align onto these languages, please consider using `const` and `let` instead of `var`
 
 ## Execute JS code
 
@@ -388,3 +582,9 @@ function mean(arr) {
     return res / arr.length;
 }
 ```
+
+## JSON
+
+**JSON**: **JavaScript Object Notation**
+
+It is simply the notation for declaring an object in JavaScript.

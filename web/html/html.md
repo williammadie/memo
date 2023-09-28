@@ -158,3 +158,13 @@ The `<figure>` tag main usage is to allow the machine to differentiate *paragrap
 ## Limits
 
 - It is not possible to modify a tag that is not linked to another tag with CSS only. If you want to do something like this, you'll have to use JavaScript.
+
+## Semantic Tags
+
+Avoid using <div> everywhere. Instead use meaningful tags such as:
+
+```html
+<section></section>
+<article></article>
+<menu></menu>
+```
