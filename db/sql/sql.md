@@ -88,6 +88,7 @@ SQL queries are divided into **2 big sub-categories** which are the following:
 - MongoDB
 - Cassandra
 - ScyllaDB
+- BigTable (Google)
 - Redis (Cache Data, Low Latency, In-Memory DB)
 - ElasticSearch (Search Engine)
 

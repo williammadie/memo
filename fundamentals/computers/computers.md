@@ -140,3 +140,21 @@ Ancient operating systems, including old macOS and versions of Windows before NT
 Rather than the OS deciding when to preempt programs, the programs themselves would choose to yield to the OS. These explicit yields were the only way for the OS to regain control and switch to the next scheduled process.
 
 It was really easy for malicious or poorly designed programs to freeze the entire operating system. It also has some other inconvenients so the tech world switched to preemptive multitasking a long time ago.
+
+## Exec
+
+### Basic Behavior of Exec Syscalls
+
+`execve` is a very important syscall: it loads a program and, if successful, replaces the current process with that program. There is some other syscalls like `execlp` or `execvpe` that exist but they all layer on top of `execve`.
+
+![behavior-exec-syscalls](/fundamentals/computers/resources/linux-program-execution-process.png)
+
+The signature of `execve`: 
+```c
+int execve(const char *filename, char *const argv[], char *const envp[])
+```
+
+In the signature above, we can find:
+- `filename`: path of the program to run
+- `argv`: list of arguments for the program
+- `envp`: list of environment variables used as context for the application
