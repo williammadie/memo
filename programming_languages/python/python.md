@@ -116,6 +116,13 @@ Installs a package
 pip3 install package-name
 ```
 
+Installs a package in development mode
+(You have to be inside the repo of the project before
+running the command)
+```bash
+pip3 install -e .
+```
+
 Upgrades a package
 ```bash
 pip3 install package-name --upgrade
