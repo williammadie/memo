@@ -3,7 +3,7 @@
 ## Table of Content
 
 - [Installation](#installation)
-    - [Prerequisites]
+    - [Prerequisites](#prerequisites)
     - [Install Angular](#install-angular)
     - [Modify Environment](#modify-environment)
 - [Create a new Project](#create-a-new-project)
@@ -21,7 +21,9 @@
 
 - **NodeJS**: open-source, cross-platform JavaScript runtime environment and library for running web applications outside the client's browser.
 
-Wait, this **NodeJS** sounds very unneeded. Do I really have to use it for my client-side web application? Well, Angular does not need NodeJS directly but it is required to use it for all the build and development tools. (**npm** comes with NodeJS by default and it allows easy dependency management. It also gives **ng cli** a very useful tool to quickly build an angular project. Finally, it allows you to spin up (= host) a local web server in order to develop your web application)
+Wait, this **NodeJS** sounds very unneeded. Do I really have to use it for my client-side web application? 
+
+Well, Angular does not need NodeJS directly but it is required to use it for all the build and development tools. (**npm** comes with NodeJS by default and it allows easy dependency management. It also gives **ng cli** a very useful tool to quickly build an angular project. Finally, it allows you to spin up (= host) a local web server in order to develop your web application)
 
 ### Install Angular
 
