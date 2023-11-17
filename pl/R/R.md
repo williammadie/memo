@@ -17,7 +17,7 @@
     - [R Data Structures](#r-data-structures)
 - [Fundamentals](#fundamentals)
     - [Write a Function](#write-a-function)
-- [Data Frames](#data-frames)
+- [DataFrames](#dataframes)
     - [Basic Operations](#basic-operations)
 - [R for Statistics](#r-for-statistics)
     - [Histogram](#histogram)
@@ -228,7 +228,7 @@ my_function <- function(p1, p2, pn) {
 }
 ```
 
-## Data Frames
+## DataFrames
 
 ### Basic Operations
 
@@ -274,6 +274,137 @@ df <- df[keeps]
 
 ### Histogram
 
+### Scatterplot
+
+`plot()`
+
 ### Boxplot
 
 `boxplot` (FR: boîte à moustaches)
+
+### Sample
+
+The sample function is used to generate a sample of random values in a range of values.
+
+The following function:
+- generates `number_of_values` inside `value_range`
+- `replace = T` means that the draw is done with discount ([FR] tirage avec remise)
+```R
+sample(value_range, number_of_values, replace = T)
+
+# The following function generates 100 numbers
+# between 1 and 6
+d2 = sample(1:6, 100, replace = T)
+```
+Output
+```bash
+  [1] 4 5 3 2 3 2 6 1 4 1 4 5 5 1 5 3 5 3 3 5 5 6 6 6 5 5 1 1 5 1 1 3 2 4 4 1 2
+ [38] 3 1 5 6 5 5 1 1 6 2 3 3 4 5 5 4 1 4 3 2 3 3 4 3 3 3 3 5 5 4 1 3 1 4 5 2 3
+ [75] 4 5 4 2 2 5 3 5 2 4 5 5 1 5 6 2 2 2 5 1 5 4 1 2 5 2
+```
+
+### Table
+
+The table function is used to obtain the number of ocurences of each element inside a vector.
+
+```R
+d2 = sample(1:6, 100, replace = T)
+d1 = sample(1:6, 100, replace = T)
+
+# This line sums d1 and d2 vectors
+s = d1 + d2;
+
+# This function creates a vector of occurences for each 
+# element present inside the s vector 
+tab.s = table(s)
+
+# Then, we can find the occurence of the ith value with:
+tab.s[i]
+```
+
+### Rbind
+
+The `rbind` function concatenates two dataframes
+
+### Sum
+
+This function counts how many times a given value appears inside a vector. 
+
+The following code simulates two dices
+```R
+d2 = sample(1:6, 100, replace = T)
+d1 = sample(1:6, 100, replace = T)
+
+# keep in mind that the values of s are between 2 and 12.
+s = d1 + d2;
+
+# This shows the how many times the sum of the two
+# dices equals 2.
+sum(s == 2);
+```
+
+### pmax
+
+This function returns the maximum values across vectors 
+
+Example
+```R
+# Create two vectors
+x <- c(2, 4, 6, 7, 9)
+y <- c(1, 3, 5, 8, 10)
+
+# Use pmax to calculate the element-wise maximum
+result <- pmax(x, y)
+
+print(result)
+```
+
+Output
+```R
+[1]  2  4  6  8 10
+```
+
+### Runif
+
+Generate uniform random numbers between 0 and 1
+```R
+r <- runif(10, -1, 1)
+r
+# [1] -0.46469398 -0.45269714  0.18161681  0.03550296  0.08549162  0.35735277
+# [7]  0.47083597 -0.84420644  0.77130939  0.87615484
+```
+
+```R
+x = runif(100)
+y = runif(100)
+plot(x, y)
+
+cov(x,y)    # Covariance
+cor(x,y)    # Correlation Coefficient (between -1 and 1)
+# The correlation describes the linearity and the direction of the timeseries
+```
+
+### The Poisson Distribution
+
+```R
+# exponential
+exp(-3);
+
+# poisson distribution with x = 0 and lambda = 3
+dpois(0, 3);
+
+# here P(X = 0) = exp(-3)*3^2/2!
+```
+
+Write a custom function that calculate the probability that
+2 persons have their birthday on the same day
+```R
+anniv = function(N) {
+    p = 1
+    for (n in 2:N) p = p*(366-n)/365
+    p = 1-p; p
+}
+
+anniv(2); 1-364/365;
+```
+

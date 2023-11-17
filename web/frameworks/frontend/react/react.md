@@ -291,6 +291,8 @@ useEffect(() => {
 
 ### Custom Hook
 
+A **custom hook** is a function that **itself uses a hook**.
+
 It can be interesting in order to create a helper function to allow reusability at other places in our code.
 
 ```js
