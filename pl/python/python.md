@@ -105,7 +105,7 @@ When people say that Python is slow, they think about the language itself which 
 
 So would you still say that Python is slow?
 
-Another important things I've learned the hard way:
+Another important thing I've learned the hard way:
 
 *Shitty code will always be slow independtly from the language you've chosen. Write efficient code before thinking to switching to another language*
 
