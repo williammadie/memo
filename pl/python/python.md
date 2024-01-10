@@ -97,7 +97,7 @@ This leads me to understand another important aspect of Python:
 
 Python is one of the few languages that programmers and non-programmers can use at a daily bases. The learning curve is extremely fast compared to other languages and the languages offers an interface towards more optimized code. Here is where the community comes on stage.
 
-In Data Science, we some have incredibly powerful libraries such as **numpy**, **pandas** and more recently **polars**. These libaries are not written in Python. They are written in Cython (Compiled Python code) or even in C, C++ and Rust which are today's most efficient languages. And here is one of the most useful strength of Python:
+In Data Science, we have some incredibly powerful libraries such as **numpy**, **pandas**, **tensorflow** and more recently **polars**. These libaries are not written in Python. They are written in Cython (Compiled Python code) or even in C, C++ and Rust which are today's most efficient languages. And here is one of the most useful strengths of Python:
 
 **An Interface towards other languages**
 
@@ -105,7 +105,8 @@ When people say that Python is slow, they think about the language itself which 
 
 So would you still say that Python is slow?
 
-Another important things:
+Another important things I've learned the hard way:
+
 *Shitty code will always be slow independtly from the language you've chosen. Write efficient code before thinking to switching to another language*
 
 ## Python Package Index (PIP)
