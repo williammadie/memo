@@ -36,24 +36,4 @@ For instance, Python is dynamically typed:
 
 ### Strong VS Weak Typing
 
-**Please note** that many professional developers **avoid these two terms** because they don't have a **universally agreed on technical meaning**.
-
-Commonly agreed:
-
-In a **strongly typed language**, type matters when performing operations on a variable. Thus, implicit conversions are not authorized.
-
-For instance, Python is strongly typed:
-```python
->>> 5 + "hello"
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-TypeError: unsupported operand type(s) for +: 'int' and 'str'
-```
-
-In a **weakly typed language**, type doesn't matter when performing operations on a variable. Thus, implicit conversions are authorized.
-
-For instance, PHP is weakly typed: (it is a very forgiving language!)
-```php
-$str = 5 + "hello";
-// This equals 5 because "hello" is implicitely casted to 0
-```
+**Please note** that many professional developers **avoid these two terms** because they don't have a **universally agreed on technical meaning**. Don't use them.

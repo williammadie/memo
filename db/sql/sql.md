@@ -15,6 +15,7 @@
     - [Joint Types](#joint-types)
     - [Tables](#tables)
     - [Data](#data)
+    - [Common Functions](#common-functions)
 - [Example of Requests](#example-of-requests)
 
 ## What is a Database
@@ -292,6 +293,14 @@ Update an already existing row
 UPDATE tablename
 SET coln = 'valn'
 WHERE col2 = 'valm';
+```
+
+### Common Functions
+
+Return the first non-null value from a list
+```sql
+COALESCE(NULL, NULL, 'val3') => return 'val3'
+COALESCE(NULL, NULL, NULL) => return NULL
 ```
 
 ## Example of Requests
