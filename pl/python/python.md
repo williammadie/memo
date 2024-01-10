@@ -2,9 +2,9 @@
 
 ## Table of Contents
 - [Python](#python)
+- [CPython PyPy and Cython](#cpython-pypy-and-cython)
+- [Python and Performance](#python-and-performance)
 - [Python Package Index PIP](#python-package-index-pip)
-    - [What is PIP ?](#what-is-pip)
-    - [PIP commands](#pip-commands)
 - [Python for Scripting](#python-for-scripting)
     - [Call the script](#call-the-script)
     - [Get rid of python](#get-rid-of-python)
@@ -24,31 +24,14 @@
     - [Manipulate files](#manipulate-files)
     - [Manipulate ZIP files](#manipulate-zip-files)
 - [Amazing Tools](#amazing-tools)
-    - [Star operator](#star-operator)
-    - [Zip](#zip)
-    - [Unzip](#unzip)
-    - [Any](#any)
-    - [All](#all)
-    - [Map Objects](#map-objects)
 - [Python OOP](#python-oop)
-	- [Class and Parent Class](#class-and-parent-class)
-	- [Dataclasses](#dataclasses)
 - [Python Nested Functions](#python-nested-functions)
 - [Scraping & Parsing](#scraping--parsing)
-    - [Libraries](#libraries)
-    - [Scraping](#scraping)
-    - [Parsing](#parsing)
 - [Python for Data Science](#python-for-data-science)
-    - [Pandas](#pandas)
-        - [DataFrames](#dataframes)
-            - [Introducing DataFrames](#introducing-dataframes)
-            - [Working with DataFrames](#working-with-dataframes)
-    - [Hashlib](#hashlib)
 - [Debugging](#debugging)
 - [Python Settings and Environment](#python-settings-and-environment)
 - [Knowledge](#knowledge)
 - [Coding Problem Solutions](#coding-problem-solutions)
-    - [String](#string)
 - [Write better code](#write-better-code)
     - [Python Enhancement Proposal (PEP)](#python-enhancement-proposal-pep)
     - [Naming Conventions](#naming-conventions)
@@ -67,6 +50,8 @@ Most of these different implementations use the same **Runtime Engine** which is
 
 Let's see in details two of these implementations.
 
+## CPython PyPy and Cython
+
 ### CPython
 
 `CPython` is the **default implementation** of the Python Programming Language. It uses an **AoT compiler** for compiling `Python Source Code` to `Python Byte Code` which is a more efficient language for the PVM.
@@ -77,7 +62,7 @@ But wait, I should be able to see this compilation step: compilation always take
 
 Yes and no, the `CPython` compiler does very little checks at compile time so it is actually very fast.
 
-![cpython-implementation](/programming_languages/python/resources/cpython-implementation.png)
+![cpython-implementation](/pl/python/resources/cpython-implementation.png)
 
 ### PyPy
 
@@ -85,11 +70,43 @@ Yes and no, the `CPython` compiler does very little checks at compile time so it
 
 It also uses **automatic compilation**, so the process is hidden from the final user. The first step is the compilation from `Python Source Code` to `Python Byte Code` and the second one is the compilation from `Byte Code` to `Machine Code` (=binary).
 
-![pypy-implementation](/programming_languages/python/resources/pypy-implementation.png)
+![pypy-implementation](/pl/python/resources/pypy-implementation.png)
 
 ### Cython
 
 `Cython` **is not a Python Implementation**. It is tool used to optimize specific parts of a Python program. It is used to compile `Python Source Code` to `C` or `C++` code and to make it a shared library then usable inside Python programs.
+
+## Python and Performance
+
+Since the dawn of time, it has always been pointed out that Python was slow. However, nowadays Python is one of the most learned and used languages in the world.
+
+It took me several years to understand how a inefficient language like Python could be so influent in Computer Science. First I thought that the answer was really simple and could be summarized in one sentence :
+
+**Productivity over Raw Performance**
+
+- Productivity would be the time to write code that executes a specific task.
+- Raw Performance would be the time taken by the code to execute.
+
+This sentence is false in general. However, in specific domains such as *Data Science* it is true. In my career, I have come accross several cases where we would use Python to write our program and then simply upgrade our hardware so that it would run properly.
+
+However, it is not always the case as for an algorithm written in C and Python time complexity will be the same and hardware would barely make no difference.
+
+This leads me to understand another important aspect of Python:
+
+**Ease of use and Community**
+
+Python is one of the few languages that programmers and non-programmers can use at a daily bases. The learning curve is extremely fast compared to other languages and the languages offers an interface towards more optimized code. Here is where the community comes on stage.
+
+In Data Science, we some have incredibly powerful libraries such as **numpy**, **pandas** and more recently **polars**. These libaries are not written in Python. They are written in Cython (Compiled Python code) or even in C, C++ and Rust which are today's most efficient languages. And here is one of the most useful strength of Python:
+
+**An Interface towards other languages**
+
+When people say that Python is slow, they think about the language itself which is slow due to its **dynamic** nature (=types are determined at runtime). However, Python is blazing fast when dealing with large datasets, doing computations and machine learning because of this interface ability.
+
+So would you still say that Python is slow?
+
+Another important things:
+*Shitty code will always be slow independtly from the language you've chosen. Write efficient code before thinking to switching to another language*
 
 ## Python Package Index (PIP)
 
@@ -97,7 +114,7 @@ It also uses **automatic compilation**, so the process is hidden from the final 
 
 PIP is a package manager written in Python. It is used to install **python packages**. It relies on a massive online hub of public packages called the **Python Package Index**. PIP comes preinstalled with Python 2.7.9 and later versions.
 
-![img_2](/programming_languages/python/resources/pip.png)
+![img_2](/pl/python/resources/pip.png)
 
 ### PIP commands
 
@@ -1168,7 +1185,7 @@ pd.concat([df_all, df_population])
 
 ### Keep in Mind when Dealing with DataFrame
 
-![time-complexity](/programming_languages/python/resources/time-complexity-operations-df.png)
+![time-complexity](/pl/python/resources/time-complexity-operations-df.png)
 
 ### Hashlib
 
