@@ -50,7 +50,12 @@ The answer is **no**. If you never return `null`, you'll never have to check for
 
 ## Other tips
 
-### Using assertions for simplifying verifications
+### Using assertions for developing and testing
+
+**Important Note**:
+- By default, assertions are disabled in the *JVM*. So it makes them
+quite dangerous as they can be skipped if the environment is not well configured.
+- Assertions should not be used as a replacement for proper input validation or error handling in production code. 
 
 The following method could be used with `if` and `.equals()`, 
 however it is far more readable for a human written with assertions
@@ -63,3 +68,5 @@ public void registerNew(DomainObject obj) {
     newObjects.add(obj);
 }
 ```
+
+A valid approach for both development, test and production would be to use a dependency like `rlang3` from Apache Commons or `guava` from Google.
