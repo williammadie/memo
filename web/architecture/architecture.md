@@ -2,12 +2,18 @@
 
 ## Table of Contents
 
-- [SOLID Principles](#solid-principles)
-- [Web Architecture](#web-architecture)
-- [Pros and Cons of Clean Architecture](#pros-and-cons-of-clean-architecture)
+- [Fundamentals](#fundamentals)
+    - [SOLID Principles](#solid-principles)
+    - [Web Architecture](#web-architecture)
+- [Clean Architecture](#clean-architecture)
 - [Event-Driven Architecture](#event-driven-architecture)
+- [ServiceLayer Architecture](#servicelayer-architecture)
+    - [DAO and Repository](#dao-and-repository)
+    - [DTO and Entity](#dto-and-entity)
 
-## Architecture
+## Fundamentals 
+
+### Architecture
 
 Concretly, architecture refers to the following principles:
 
@@ -30,7 +36,7 @@ Concretly, architecture refers to the following principles:
 - `Paradigm`
 
 
-## SOLID Principles
+### SOLID Principles
 
 - `S`: **Single Responsability Principle**: A module, a class, a function or a method should have only one unique responsability.
 
@@ -52,7 +58,7 @@ Concretly, architecture refers to the following principles:
 
 *example*: We have two classes `ScyllaDB` and `PostgresDB` and a class `DBReport`. We should not rely on a specific type of database but instead use an interface `DBInterface` that we specify in the `DBReport` constructor.
 
-## Web Architecture
+### Web Architecture
 
 *monolith architecture*: single codebase.
 
@@ -89,7 +95,7 @@ Application Business Rules: Code related to the business core of a company. The 
 
 YT: primogem
 
-## Pros and Cons of Clean Architecture
+### Pros and Cons of Clean Architecture
 
 Pros:
 - SOLID Principles compliant
@@ -112,3 +118,115 @@ Keep in mind that in reality, systems are often mixed between micro-services (MS
 
 
 Why does the 3-tier architecture respects SOLID principles?
+
+## ServiceLayer Architecture
+
+**ServiceLayer Architecture** is the name of the famous legacy architecture of applications built with SpringBoot. For people who likes diagrams, it refers to this organization between layers:
+
+![service-layer-architecture](/web/architecture/resources/service-layer-architecture.png)
+
+In a ServiceLayer Architecture, there are **3 layers**:
+1. Domain Model/Entity (Business Layer)
+2. Series of REST Endpoints (Presentation Layer)
+3. A means for storing domain objects (Persistence Layer)
+
+### DAO and Repository
+
+Both are design patterns that aims at encapsulating the logic of interactions wih DB.
+
+`DAO` stands for `Data Access Object`. It is simply a class that holds methods for accessing the DB. You typically write them as your project progresses.
+
+`Repository` is a sort of enriched DAO with predefined methods for doing basic actions like retrieving an object or a list of objects based on filters...
+
+### DTO and Entity
+
+In this kind of architecture, layers communicates with `DTO` (`Data Tranfer Object`) also called `VO` (`Value Object`). The only difference between a DTO and a VO is that VO is supposed to be **immutable**. The are commonly used interchangeably.
+
+In the same manner, there is also `Domain Model` that refers to the same concept as `Entity` and that is used interchangeably.
+
+In a nutshell:
+
+- DTO = VO
+- Entity = Domain Model
+
+I recently found the following diagram on the Web and tried to apply it in one of my application only to realize it was not a **viable option**. Why? Let's see:
+
+![dto-or-entity](/web/architecture/resources/dto-or-entity.png)
+
+The top solution recommends that our DAO returns DTOs. Like that, each layer uses DTOs to communicate. However, this work only for extremely simple applications. 
+
+Let's say I'm creating a financial application that needs to handle money transfers. My DAO contains methods to add and remove money to a bank account and a method to retrieve a specific account.
+
+DAOs should always be as simple as possible and business logic should always resides inside Services. So, I decide to put all money transfer logic (validation, account retrieving, account modifications) inside a Service. And here comes our problem. If DAOs only return DTOs, I'm forced to have an interface like the following: 
+
+```java
+public interface AccountDao {
+
+    void addMoneyToAccount(UUID accountId);
+
+    void removeMoneyFromAccount(UUID accountId);
+
+    AccountDto findAccountById(UUID accountId);
+}
+```
+
+And then we have our money transfer method inside our service. This method does a bit of validation and then executes the transfer:
+
+```java
+public class AccountServiceImpl implements AccountService {
+
+    @Inject
+    AccountDao accountDao;
+
+    @Transactional
+    void transferMoney(UUID sourceAccountId, UUID targetAccountId, double amount) {
+        AccountDto sourceAccountDto = accountDao.findAccountById(sourceAccountId);
+        AccountDto targetAccountDto = accountDao.findAccountById(targetAccountId);
+
+        AccountValidation.validate(sourceAccountDto, targetAccountDto)
+
+        accountDao.removeMoneyFromAccount(sourceAccountId);
+        accountDao.addMoneyToAccount(targetAccountId);
+    }
+}
+```
+
+*Note that I voluntarily removed Optionals to increase readibility. But always use Optional!!!*
+
+Here, we have **a grand total of 4 database requests**:
+- 2 for finding source and target accounts inside our Service
+- 2 for finding source and target accounts inside our Dao
+
+This is **complete garbage in terms of performance** as each I/O operation like a DB request is extremely expensive.
+
+So how do we fix it? We simply break the rule of the DTO and authorize our DAO to return Entities:
+
+```java
+public interface AccountDao {
+
+    void addMoneyToAccount(Account account);
+
+    void removeMoneyFromAccount(Account account);
+
+    Account findAccountById(UUID accountId);
+}
+
+public class AccountServiceImpl implements AccountService {
+
+    @Inject
+    AccountDao accountDao;
+
+    @Transactional
+    void transferMoney(UUID sourceAccountId, UUID targetAccountId, double amount) {
+        Account sourceAccount = accountDao.findAccountById(sourceAccountId);
+        Account targetAccount = accountDao.findAccountById(targetAccountId);
+
+        AccountValidation.validateTransfer(sourceAccount, targetAccount, amount);
+
+        accountDao.removeMoneyFromAccount(sourceAccount);
+        accountDao.addMoneyToAccount(targetAccount);
+    }
+}
+```
+
+Here we are! We divided our number of I/O operations by 2. **We now have 2 requests** for finding source and target accounts.
