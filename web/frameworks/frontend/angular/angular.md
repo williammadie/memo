@@ -45,7 +45,7 @@ Install n
 npm install -g n
 ```
 
-Install Node
+Install or Update Node
 ```bash
 n 16.13.0   # Install a specific version of Node
 
