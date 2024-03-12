@@ -131,6 +131,10 @@ chmod g+rwx /path/to/folder
 - `sudo apt search`: search for a specific package
 - `sudo apt show`: show information about a given package
 
+### Debian files
+
+- `sudo dpkg -i filename.deb`: install a .deb file
+
 ### Networking
 
 - `ìfconfig -a`: show information about all machine interfaces (IPv4, IPv6, MAC addresses)
