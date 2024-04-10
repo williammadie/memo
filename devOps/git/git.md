@@ -11,6 +11,7 @@
   - [List commits not pushed](#list-commits-not-pushed)
   - [Check for differences between branches](#check-for-differences-between-branches)
   - [Oups I am in trouble](#oups-i-am-in-trouble)
+  - [Undoing Last Pushed Commit](#undoing-last-pushed-commit)
   - [Gitignore not working](#gitignore-not-working)
 - [How to merge](#how-to-merge)
 - [GitHub Actions](#github-actions)
@@ -111,6 +112,14 @@ Replace local branch with remote branch
 ```bash
 git checkout branch123 # Don't forget to go on the local branch to replace before reset
 git reset --hard origin/branch123
+```
+
+### Undoing Last Pushed Commit
+
+```bash
+git reset HEAD^ --hard
+
+git push origin -f
 ```
 
 ### Gitignore not working
