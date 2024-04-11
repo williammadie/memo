@@ -10,6 +10,7 @@
     - [SSH connection](#ssh-connection)
     - [scp](#scp)
 - [FTP & SFTP](#ftp--sftp)
+- [VSCode Remote SSH](#vscode-remote-ssh)
 
 ## How does it work ?
 
@@ -126,3 +127,7 @@ Here is a quick comparison between FPT and SFTP:
 |             Anyone can access the server            |             SFTP can be accessed by only server owner as port 22 is not open in case of shared hosting             |
 | Not encrypted because FTP is anonymously accessible |                          Before sending it to another host, SFTP encrypts the information                          |
 |                     Uses Port 21                    |                                                    Uses Port 22                                                    |
+
+## VSCode Remote SSH
+
+The Remote SSH extension uses your OS SSH settings. If you are on Ubuntu, it will uses the `id_rsa` private key in `/home/userXX/.ssh` and if you are on Windows it will use `C:\Users\userXX/.ssh`. You can literally copy the content of your Ubuntu `.ssh/` to Windows and it will work. 
