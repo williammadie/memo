@@ -1,6 +1,7 @@
 # Unit Tests
 
 - [Backend Application](#backend-application)
+- [End-to-End Testing](#end-to-end-testing)
 
 ## Backend Application
 
@@ -29,3 +30,9 @@ Here is an updated process for testing our CRUD operations. This method allows u
 It has some drawbacks like the fact that it assumes that the `Read` operation should always be working before launching any other kind of tests.
 
 It is also a bit more verbose as our tests need to do 2 requests and to assert several things. However, it allows us to completely test the whole process of the resource.
+
+## End-To-End Testing
+
+**End-To-End Testing** also called **e2e** verifies that all components of a system can run under real-world scenarios.
+
+The purpose of such tests is to verify that the **behavior** of our application is correct
