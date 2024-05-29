@@ -143,6 +143,22 @@ In this example, **main** has changes that **features** doesn't have. We need to
 2. Checkout to **features**
 3. Run `git merge main` from the **features** branch
 
+### Merge in CLI
+
+Sometimes, life is hard and you will meet very restricted development environment. It is possible to you have to merge two branches and resolve conflicts in CLI. How do we proceed?
+
+A conflict (less one `<` because otherwise, your IDE will consider it as a real conflict!)
+```bash
+If you have questions, please
+<<<<<< HEAD
+open an issue
+=======
+ask your question in IRC.
+>>>>>> branch-a
+```
+
+If you've ran: `git merge my-branch` while being on master. HEAD is your `master` branch (top one) and `my-branch` is the bottom one. Branch changes are separated by the `==========`.
+
 ## GitHub Actions
 
 ### Best Practices

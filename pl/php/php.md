@@ -16,6 +16,7 @@
     - [Special Types](#special-types)
 - [Strings](#strings)
 - [Arrays](#arrays)
+- [Associative Arrays](#associative-arrays)
 - [Control Structures](#control-structures)
     - [Loops](#loops)
     - [Conditions](#conditions)
@@ -35,6 +36,7 @@
     - [CLI Tools](#cli-tools)
     - [Annotations](#annotations)
     - [Controllers](#controllers)
+- [Debug Tools](#debug-tools)
 
 ## Web Prerequistes
 
@@ -180,6 +182,20 @@ Access an element of the array by index
 ```php
 echo $arr[0];
 // cat
+```
+
+## Associative Arrays
+
+In PHP, there are 2 types of arrays:
+
+The basic array
+```php
+array("cat", "dog", "bird")
+```
+
+The associative array (also called dictionary or hashmap)
+```php
+array("id_data" => 1, "mon_attribut" => "hello world!!")
 ```
 
 ## Control Structures
@@ -521,3 +537,13 @@ We define 1 controller per entity:
 - TrainerController => Trainer
 
 In Symfony, the controller can call the template engine TWIG to render/generate web pages (`render()` method)
+
+## Debug Tools
+
+If PHP is configured to hide all errors, you can change this at runtime by placing the following instructions at the top of one of your executed files:
+
+```php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+```
