@@ -19,7 +19,7 @@ Rust was born in 2006. It has been developed by the developer **Gradyon Hoare** 
 
 As it is often said, the goal of Rust is to write code that can sit there and run reliably for decades. It is made possible thanks to Rust's major assets:
 
-![rust-assets](/programming_languages/rust/resources/rust-assets.png)
+![rust-assets](/pl/rust/resources/rust-assets.png)
 
 Obviously, Rust is a very special language and can't always be used because of its complexity. As development is more expensive in Rust, projects made/reworked in Rust need to be chosen for a very good reason.
 
@@ -27,7 +27,7 @@ For instance, it could be that Typescript is too restrictive or unstable for a s
 
 Based on the explanation of **Theo - t3.gg** on YouTube, Rust should be used when the code base doesn't need to be changed often. 
 
-![use-rust](/programming_languages/rust/resources/use-rust.png)
+![use-rust](/pl/rust/resources/use-rust.png)
 
 ## The Power of Rust
 
