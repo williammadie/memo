@@ -43,6 +43,11 @@ The compiler plays a **gatekeeper role**. The Rust experience focuses on detecti
 cargo --version
 ```
 
+update cargo toolchain
+```bash
+rustup update
+```
+
 create a new project
 ```bash
 cargo new my-project-name

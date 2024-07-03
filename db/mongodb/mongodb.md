@@ -4,12 +4,26 @@
 
 - [Basics](#basics)
 - [Query Operators](#query-operators)
+- [DB Sharding](#db-sharding)
+
+## Introduction
+
+Mongodb uses the MQL (MongoDB Query Language) for queries. MongoDB is not ACID compliant.
 
 ## Basics
 
+```mongo
+show dbs
+```
+
 Connect to a specific Database
-```js
-use('my_db');`
+```mongo
+use my_db
+```
+
+List all tables
+```mongo
+show tables
 ```
 
 Create a new collection inside the current database
@@ -142,3 +156,65 @@ db.getCollection('publis').aggregate([
     // Stage 3: Group the results and apply an aggregation function
      
 ```
+
+## Mongosh
+
+There is a CLI tool used to work with MongoDB called `mongosh`. It can be used to connect to the DBMS.
+
+```bash
+mongosh
+```
+
+## DB Sharding
+
+Create the following directories:
+- `referee`
+- `01`
+- `02`
+- `03`
+- `04`
+
+Launch the referee instance
+```bash
+mongod --replSet rs0 --port 27110 -dbpath referee --oplogSize 128 --logpath referee/referee.log --fork
+```
+
+Launch another instance
+```bash
+mongod --replSet rs0 --port 27111 -dbpath 01 --oplogSize 128 --logpath 01/01.log --fork
+```
+
+See all launched instances
+```bash
+ps -ef | grep mongo
+```
+
+Configure one instance as the `primary server`
+```bash
+mongosh --port 27111
+```
+
+```mongo
+use admin
+
+mine={_id:"rs0",members:[{_id:0,host:"127.0.0.1:27111"},{_id:1,host:"127.0.0.1:
+27112"},{_id:2,host:"127.0.0.1:27110",arbiterOnly:true}]}
+
+rs.initiate(mine)
+```
+
+Is the current server master?
+```mongo
+db.isMaster()
+```
+
+See all instances belonging to the Replica Set
+```mongo
+rs.status()
+```
+
+Add an instance to the Replica Set
+```
+rs.add("127.0.0.1:27113")
+```
+
