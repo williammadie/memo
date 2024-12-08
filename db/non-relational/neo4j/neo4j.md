@@ -61,6 +61,20 @@ We use MERGE to avoid duplication when we want to update an entity
 MERGE
 ```
 
+#### Node and Relation
+
+Create two nodes if they don't exist and create a relation between them
+```neo4j
+MERGE (k:Actor {name: "Kate Winslet"})
+ON CREATE SET k.created = timestamp()
+
+MERGE (t:Film {title: "Titanic"})
+ON CREATE SET t.created = timestamp()
+
+MERGE (k)-[:ACTED_IN]->(t)
+ON CREATE SET t.act_since = timestamp()
+```
+
 ### READ
 
 #### Nodes

@@ -12,6 +12,12 @@ Mongodb uses the MQL (MongoDB Query Language) for queries. MongoDB is not ACID c
 
 ## Basics
 
+Connect to Mongosh (CLI)
+```bash
+mongosh -u username -p password
+```
+
+
 ```mongo
 show dbs
 ```

@@ -49,7 +49,7 @@ A database supports **CRUD** operations through a DBMS:
 
 There are 3 main types of data:
 
-![forms-data](/db/sql/resources/forms-data.png)
+![forms-data](/db/relational/sql/resources/forms-data.png)
 
 
 Here, we're going to detail **Structured Data** which is typically handled by **SQL Databases**.
@@ -79,7 +79,7 @@ SQL is based on **queries**.
 
 SQL queries are divided into **2 big sub-categories** which are the following:
 
-![dml-ddl](/db/sql/resources/dml-ddl.png)
+![dml-ddl](/db/relational/sql/resources/dml-ddl.png)
 
 ### NoSQL
 
@@ -117,11 +117,11 @@ A **table** is uniquely named. It has a set of attributes (columns). Each row re
 
 Here is an overview of an **Employees** table:
 
-![sql-table](/db/sql/resources/sql-table.png)
+![sql-table](/db/relational/sql/resources/sql-table.png)
 
 SQL Tables all follow the same rules:
 
-![sql-table-structure](/db/sql/resources/sql-table-structure.png)
+![sql-table-structure](/db/relational/sql/resources/sql-table-structure.png)
 
 
 ### Primary & Foreign Key
@@ -138,7 +138,7 @@ Good news: if each and every tables have its own primary key, it is possible to 
 
 `foreign key`: column of a table that refers to the primary key of another table.
 
-![primary-foreign-key](/db/sql/resources/pk-fk.png)
+![primary-foreign-key](/db/relational/sql/resources/pk-fk.png)
 
 ## Functions
 
@@ -180,7 +180,7 @@ HAVING function(col2)
 
 For a better understanding, keep in mind that the **order of the keywords inside the query** is different from the **execution order of the keywords by the DBMS**:
 
-![sql-keywords](/db/sql/resources/sql-keyword-order.jpg)
+![sql-keywords](/db/relational/sql/resources/sql-keyword-order.jpg)
 
 Additional note: `JOIN + FROM` is firstly executed in the query. (it is not written on the above picture).
 
@@ -259,7 +259,7 @@ SELECT employee.firstname + ' ' + employee.lastname AS 'Full Name'
 - `ANTI` => when we precise somthing like `ON A.key = B.key WHERE X.key IS NULL`
 - `CROSS` => cartesian product
 
-![sql-joins](/db/sql/resources/SQL_Joins.png)
+![sql-joins](/db/relational/sql/resources/SQL_Joins.png)
 
 ### Tables
 
@@ -305,7 +305,7 @@ COALESCE(NULL, NULL, NULL) => return NULL
 
 ## Example of Requests
 
-![example-schema](/db/sql/resources/example-schema.png)
+![example-schema](/db/relational/sql/resources/example-schema.png)
 
 List clients which are in Switzerland, Germany and Belgium 
 ```sql
