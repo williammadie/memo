@@ -5,6 +5,7 @@
 - [CPython PyPy and Cython](#cpython-pypy-and-cython)
 - [Python and Performance](#python-and-performance)
 - [Python Package Index PIP](#python-package-index-pip)
+- [Packaging](#packaging)
 - [Python for Scripting](#python-for-scripting)
     - [Call the script](#call-the-script)
     - [Get rid of python](#get-rid-of-python)
@@ -165,6 +166,29 @@ Lists all versions available
 ```bash
 pip3 install package-name==
 ```
+
+## Packaging
+
+Build a Python Package
+```python
+python -m pip install --upgrade pip build
+python3 -m build
+```
+
+Install a Package from TestPyPi
+```python
+pip install -i https://test.pypi.org/pypi/ my-package-name
+
+# OR if the package has dependencies 
+
+python3 -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ your-package
+```
+
+If pip does not find any package, update it to its last version with the following command
+```py
+python3 -m pip install --upgrade pip setuptools wheel
+```
+
 ## Python for Scripting
 
 ### Call the script
